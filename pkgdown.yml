@@ -1,0 +1,10 @@
+pandoc: 2.14.2
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  psd_fit_em: psd_fit_em.html
+last_built: 2022-09-04T07:53Z
+urls:
+  reference: https://jonathonchow.github.io/AwesomePackage/reference
+  article: https://jonathonchow.github.io/AwesomePackage/articles
+
