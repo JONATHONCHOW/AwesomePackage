@@ -12,7 +12,7 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,7 +90,7 @@ be taken from {0,1,2}.</p></dd>
 <dd><p>The gene scale matrix of the populations.</p></dd>
 
 <dt><code>Loss</code></dt>
-<dd><p>A vector represents the value of the loss function at each iteration.</p></dd>
+<dd><p>A vector of length <code>Iterations + 1</code> represents the value of the loss function at each iteration.</p></dd>
 
 <dt><code>Iterations</code></dt>
 <dd><p>An integer represents the number of iterations.</p></dd>
@@ -99,25 +99,25 @@ be taken from {0,1,2}.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">2</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>, <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">psd_fit_em</span><span class="op">(</span><span class="va">G</span>, <span class="fl">2</span>, <span class="fl">1e-1</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $P</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]        [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.9916431 0.008356878</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.9889094 0.011090593</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.1088802 0.891119763</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.1242187 0.875781250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.9924491 0.007550917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.3980382 0.601961817</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]      [,2]         [,3]         [,4]         [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 8.271933e-09 0.4982859 9.756042e-08 5.389916e-09 2.607149e-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 5.509423e-01 0.5038593 5.509240e-01 5.509444e-01 5.509476e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]       [,3]         [,4]         [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.009544634 0.992687269 0.01313828 3.521855e-01 8.472985e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.318496418 0.004320086 0.66651509 1.897806e-07 3.690378e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Loss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -27.077901 -12.339448 -11.046053 -10.462775 -10.157303  -9.971365  -9.858085</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [8]  -9.791324</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -29.56637 -16.87434 -15.95061 -15.59415 -15.05905 -14.19749 -13.13806</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] -12.21823 -11.60489 -11.24347 -11.03649</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Iterations</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
