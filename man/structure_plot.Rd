@@ -21,9 +21,8 @@ structure_plot(L, topics, colors, ticks = NULL, font.size = 9)
 Plot the ancestral proportions of individuals using package ggplot2.
 }
 \examples{
-G <- matrix(c(0,0,1,0,2, 1,0,0,1,0, 0,1,0,0,1), nrow = 3)
-P <- psd_fit_em(G, 2, 10)
+P <- matrix(c(0.5,0.5, 0.3,0.7, 0.8,0.2), 3, 2)
 topics <- order(colMeans(P))
-colors <- c("red", "blue")
+colors <- c("red", "yellow")
 structure_plot(P, topics, colors)
 }

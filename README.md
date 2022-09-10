@@ -6,8 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of MyTopics is to infer ancestry with some models and fit those
-models with some algorithms.
+The goal of AwesomePackage is to infer ancestry with some models and fit
+those models with some algorithms.
 
 We use the classical PSD model for ancestor inference, which has been
 widely used, such as ADMIXTURE, FRAPPE. We illustrate the close

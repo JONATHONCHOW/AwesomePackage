@@ -12,7 +12,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // rcpp_hello_world
-String rcpp_hello_world();
+Rcpp::String rcpp_hello_world();
 RcppExport SEXP _AwesomePackage_rcpp_hello_world() {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -22,23 +22,41 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_psd_fit_em
-Eigen::MatrixXd rcpp_psd_fit_em(const Eigen::MatrixXd& P, const Eigen::MatrixXd& F, const Eigen::MatrixXd& G, const size_t& maxiter);
-RcppExport SEXP _AwesomePackage_rcpp_psd_fit_em(SEXP PSEXP, SEXP FSEXP, SEXP GSEXP, SEXP maxiterSEXP) {
+Rcpp::List rcpp_psd_fit_em(const Eigen::MatrixXd& P, const Eigen::MatrixXd& F, const Eigen::MatrixXd& G, const double& epsilon, const size_t& maxiter);
+RcppExport SEXP _AwesomePackage_rcpp_psd_fit_em(SEXP PSEXP, SEXP FSEXP, SEXP GSEXP, SEXP epsilonSEXP, SEXP maxiterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type P(PSEXP);
     Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type F(FSEXP);
     Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type G(GSEXP);
+    Rcpp::traits::input_parameter< const double& >::type epsilon(epsilonSEXP);
     Rcpp::traits::input_parameter< const size_t& >::type maxiter(maxiterSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_psd_fit_em(P, F, G, maxiter));
+    rcpp_result_gen = Rcpp::wrap(rcpp_psd_fit_em(P, F, G, epsilon, maxiter));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_psd_fit_sqp
+Rcpp::List rcpp_psd_fit_sqp(const Eigen::MatrixXd& P, const Eigen::MatrixXd& F, const Eigen::MatrixXd& G, const double& epsilon, const size_t& maxiter, const double& zero);
+RcppExport SEXP _AwesomePackage_rcpp_psd_fit_sqp(SEXP PSEXP, SEXP FSEXP, SEXP GSEXP, SEXP epsilonSEXP, SEXP maxiterSEXP, SEXP zeroSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type P(PSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type F(FSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type G(GSEXP);
+    Rcpp::traits::input_parameter< const double& >::type epsilon(epsilonSEXP);
+    Rcpp::traits::input_parameter< const size_t& >::type maxiter(maxiterSEXP);
+    Rcpp::traits::input_parameter< const double& >::type zero(zeroSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_psd_fit_sqp(P, F, G, epsilon, maxiter, zero));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_AwesomePackage_rcpp_hello_world", (DL_FUNC) &_AwesomePackage_rcpp_hello_world, 0},
-    {"_AwesomePackage_rcpp_psd_fit_em", (DL_FUNC) &_AwesomePackage_rcpp_psd_fit_em, 4},
+    {"_AwesomePackage_rcpp_psd_fit_em", (DL_FUNC) &_AwesomePackage_rcpp_psd_fit_em, 5},
+    {"_AwesomePackage_rcpp_psd_fit_sqp", (DL_FUNC) &_AwesomePackage_rcpp_psd_fit_sqp, 6},
     {NULL, NULL, 0}
 };
 

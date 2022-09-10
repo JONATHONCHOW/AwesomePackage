@@ -1,0 +1,72 @@
+---
+title: "Fit PSD model"
+author: Jonathon Chow
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+    toc_float: no
+    highlight: textmate
+    theme: readable
+vignette: >
+  %\VignetteIndexEntry{Fit PSD model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# PSD model and data
+
+We consider the first chromosome data from the 1000 Genomes Project and use a PSD model to fit these data.
+
+```{r eval=FALSE}
+library(AwesomePackage)
+data(genome_chr1)
+```
+
+# Fit PSD model by EM algorithm
+
+We fit the PSD model with EM algorithm, and use the loss function as a stopping criterion.
+
+```{r eval=FALSE}
+result_em <- psd_fit_em(genome_chr1, 3)
+```
+
+We plot the loss function against the number of iterations.
+
+```{r eval=FALSE}
+L_em <- result_em$"Loss"
+plot(L_em)
+```
+
+We plot the ancestral proportions of individuals using package ggplot2.
+
+```{r eval=FALSE}
+P_em <- result_em$"P"
+topics <- order(colMeans(P_em))
+colors <- c("red", "yellow", "blue")
+structure_plot(P_em, topics, colors)
+```
+
+# Fit PSD model by SQP algorithm
+
+We fit the PSD model with SQP algorithm, and use the loss function as a stopping criterion.
+
+```{r eval=FALSE}
+result_sqp <- psd_fit_sqp(genome_chr1, 3)
+```
+
+We plot the loss function against the number of iterations.
+
+```{r eval=FALSE}
+L_sqp <- result_sqp$"Loss"
+plot(L_sqp)
+```
+
+We plot the ancestral proportions of individuals using package ggplot2.
+
+```{r eval=FALSE}
+P_sqp <- result_sqp$"P"
+topics <- order(colMeans(P_sqp))
+colors <- c("red", "yellow", "blue")
+structure_plot(P_sqp, topics, colors)
+```

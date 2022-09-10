@@ -1,54 +1,30 @@
 // [[Rcpp::depends(RcppEigen)]]
-#include <RcppEigen.h>
-using namespace Eigen;
-
-// Function declaration.
-double sum1(size_t i, size_t j,
-            const Eigen::MatrixXd& P, const Eigen::MatrixXd& F);
-double sum2(size_t i, size_t j,
-            const Eigen::MatrixXd& P, const Eigen::MatrixXd& F);
-double fraction1(size_t i, size_t j, size_t k,
-                 const Eigen::MatrixXd& P, const Eigen::MatrixXd& F);
-double fraction2(size_t i, size_t j, size_t k,
-                 const Eigen::MatrixXd& P, const Eigen::MatrixXd& F);
-double psd_loss(const Eigen::MatrixXd& P,
-                const Eigen::MatrixXd& F,
-                const Eigen::MatrixXd& G);
+#include "psd_fit_em.h"
+using namespace Rcpp;
 
 // Use EM algorithm to fit PSD model by Rcpp.
 // [[Rcpp::export]]
-Eigen::MatrixXd rcpp_psd_fit_em(const Eigen::MatrixXd& P,
-                                const Eigen::MatrixXd& F,
-                                const Eigen::MatrixXd& G,
-                                const size_t& maxiter)
+Rcpp::List rcpp_psd_fit_em(const Eigen::MatrixXd& P,
+                           const Eigen::MatrixXd& F,
+                           const Eigen::MatrixXd& G,
+                           const double& epsilon,
+                           const size_t& maxiter)
 {
   size_t I = P.rows();
   size_t K = P.cols();
   size_t J = F.cols();
   Eigen::MatrixXd p = P, f = F, g = G;
+  std::vector<double> L_list;
+  L_list.reserve(maxiter);
   double pre_L = 0, now_L = 0;
   now_L = psd_loss(p, f, g);
-  size_t num = 0;
+  L_list.push_back(now_L);
+  size_t iter = 0;
   do
   {
-    num++;
+    iter++;
     pre_L = now_L;
     now_L = 0;
-    // Update F.
-    Eigen::MatrixXd temp_f = f;
-    for (size_t k = 0; k < K; k++)
-    {
-      for (size_t j = 0; j < J; j++)
-      {
-        double temp1 = 0, temp2 = 0;
-        for (size_t i = 0; i < I; i++)
-        {
-          temp1 += g(i, j) * fraction1(i, j, k, p, f);
-          temp2 += (2 - g(i, j)) * fraction2(i, j, k, p, f);
-        }
-        temp_f(k, j) = temp1 / (temp1 + temp2);
-      }
-    }
     // Update P.
     Eigen::MatrixXd temp_p = p;
     for (size_t i = 0; i < I; i++)
@@ -64,13 +40,32 @@ Eigen::MatrixXd rcpp_psd_fit_em(const Eigen::MatrixXd& P,
         temp_p(i, k) = (temp1 + temp2) / 2 / J;
       }
     }
-    f = temp_f;
+    // Update F.
+    Eigen::MatrixXd temp_f = f;
+    for (size_t k = 0; k < K; k++)
+    {
+      for (size_t j = 0; j < J; j++)
+      {
+        double temp1 = 0, temp2 = 0;
+        for (size_t i = 0; i < I; i++)
+        {
+          temp1 += g(i, j) * fraction1(i, j, k, p, f);
+          temp2 += (2 - g(i, j)) * fraction2(i, j, k, p, f);
+        }
+        temp_f(k, j) = temp1 / (temp1 + temp2);
+      }
+    }
     p = temp_p;
+    f = temp_f;
 
     now_L = psd_loss(p, f, g);
-  } while (fabs(pre_L - now_L) > pow(10, 1) && num <= maxiter);
+    L_list.push_back(now_L);
+  } while (fabs(pre_L - now_L) > epsilon && iter <= maxiter);
 
-  return p;
+  return Rcpp::List::create(Rcpp::Named("P") = p,
+                            Rcpp::Named("F") = f,
+                            Rcpp::Named("Loss") = L_list,
+                            Rcpp::Named("Iterations") = iter + 1);
 }
 
 // Compute the first sum.

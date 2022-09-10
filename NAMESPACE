@@ -2,6 +2,7 @@
 
 export(hello_world)
 export(psd_fit_em)
+export(psd_fit_sqp)
 export(structure_plot)
 importFrom(Rcpp,evalCpp)
 importFrom(cowplot,theme_cowplot)

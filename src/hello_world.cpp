@@ -3,8 +3,8 @@ using namespace Rcpp;
 
 // Hello world by Rcpp.
 // [[Rcpp::export]]
-String rcpp_hello_world()
+Rcpp::String rcpp_hello_world()
 {
-  String s("Data science is fantastic!");
+  Rcpp::String s("Data science is fantastic!");
   return(s);
 }
