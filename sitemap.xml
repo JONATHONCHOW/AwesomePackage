@@ -13,7 +13,7 @@
     <loc>https://jonathonchow.github.io/AwesomePackage/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/articles/psd_fit_em.html</loc>
+    <loc>https://jonathonchow.github.io/AwesomePackage/articles/psd_fit.html</loc>
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/authors.html</loc>
@@ -32,6 +32,9 @@
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/psd_fit_em.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathonchow.github.io/AwesomePackage/reference/psd_fit_sqp.html</loc>
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/structure_plot.html</loc>
