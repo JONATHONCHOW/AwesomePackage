@@ -27,8 +27,14 @@ data(genome_chr1)
 
 We fit the PSD model with EM algorithm, and use the loss function as a stopping criterion.
 
+```{r eval=FALSE}
+result_em <- psd_fit_em(genome_chr1, 3, 1e-3, 500)
+```
+
+We import the pre-trained results.
+
 ```{r}
-result_em <- psd_fit_em(genome_chr1, 3)
+data(result_em)
 ```
 
 We plot the loss function against the number of iterations.
@@ -51,8 +57,13 @@ structure_plot(P_em, topics, colors)
 
 We fit the PSD model with SQP algorithm, and use the loss function as a stopping criterion.
 
+```{r eval=FALSE}
+result_sqp <- psd_fit_sqp(genome_chr1, 3, 1e-3, 500, 100)
+```
+
+We import the pre-trained results.
 ```{r}
-result_sqp <- psd_fit_sqp(genome_chr1, 3)
+data(result_sqp)
 ```
 
 We plot the loss function against the number of iterations.
