@@ -23,7 +23,7 @@
 #' @export
 #'
 #' @examples
-#' P <- matrix(c(0.5,0.5, 0.3,0.7, 0.8,0.2), 3, 2)
+#' P <- matrix(c(0.5,0.3,0.8, 0.5,0.7,0.2), 3, 2)
 #' topics <- order(colMeans(P))
 #' colors <- c("red", "yellow")
 #' structure_plot(P, topics, colors)

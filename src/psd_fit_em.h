@@ -8,7 +8,7 @@ Rcpp::List rcpp_psd_fit_em(const Eigen::MatrixXd& P,
                            const Eigen::MatrixXd& F,
                            const Eigen::MatrixXd& G,
                            const double& epsilon,
-                           const int& maxiter);
+                           const size_t& maxiter);
 
 double sum1(size_t i, size_t j,
             const Eigen::MatrixXd& P, const Eigen::MatrixXd& F);

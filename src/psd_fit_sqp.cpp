@@ -106,12 +106,12 @@ Rcpp::List rcpp_psd_fit_sqp(const Eigen::MatrixXd& P,
 
     now_L = psd_loss(p, f, g);
     L_list.push_back(now_L);
-  } while (fabs(pre_L - now_L) > epsilon && iter <= maxiter);
+  } while (fabs(pre_L - now_L) > epsilon && iter < maxiter);
 
   return Rcpp::List::create(Rcpp::Named("P") = p,
                             Rcpp::Named("F") = f,
                             Rcpp::Named("Loss") = L_list,
-                            Rcpp::Named("Iterations") = iter + 1);
+                            Rcpp::Named("Iterations") = iter);
 }
 
 // Solve equality-constrained quadratic programs using Lagrange duel and QR decomposition.

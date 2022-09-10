@@ -16,13 +16,13 @@
 #' \describe{
 #' \item{\code{P}}{The population scale matrix of the individuals.}
 #' \item{\code{F}}{The gene scale matrix of the populations.}
-#' \item{\code{Loss}}{A vector represents the value of the loss function at each iteration.}
+#' \item{\code{Loss}}{A vector of length \code{Iterations + 1} represents the value of the loss function at each iteration.}
 #' \item{\code{Iterations}}{An integer represents the number of iterations.}}
 #'
 #' @export
 #'
 #' @examples
-#' G <- matrix(c(0,0,1,0,2, 1,0,0,1,0, 0,1,0,0,1), 3, 5)
+#' G <- matrix(c(0,0,1, 0,2,1, 1,0,1, 0,1,0, 1,0,0), 3, 5)
 #' psd_fit_sqp(G, 2, 1e-1, 10, 1)
 psd_fit_sqp <- function (G, K, epsilon = 1e-1, maxiter = 500, initem = 10)
 {

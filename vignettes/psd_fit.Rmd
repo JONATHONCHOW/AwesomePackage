@@ -18,7 +18,7 @@ vignette: >
 
 We consider the first chromosome data from the 1000 Genomes Project and use a PSD model to fit these data.
 
-```{r eval=FALSE}
+```{r}
 library(AwesomePackage)
 data(genome_chr1)
 ```
@@ -27,20 +27,20 @@ data(genome_chr1)
 
 We fit the PSD model with EM algorithm, and use the loss function as a stopping criterion.
 
-```{r eval=FALSE}
+```{r}
 result_em <- psd_fit_em(genome_chr1, 3)
 ```
 
 We plot the loss function against the number of iterations.
 
-```{r eval=FALSE}
+```{r}
 L_em <- result_em$"Loss"
 plot(L_em)
 ```
 
 We plot the ancestral proportions of individuals using package ggplot2.
 
-```{r eval=FALSE}
+```{r}
 P_em <- result_em$"P"
 topics <- order(colMeans(P_em))
 colors <- c("red", "yellow", "blue")
@@ -51,20 +51,20 @@ structure_plot(P_em, topics, colors)
 
 We fit the PSD model with SQP algorithm, and use the loss function as a stopping criterion.
 
-```{r eval=FALSE}
+```{r}
 result_sqp <- psd_fit_sqp(genome_chr1, 3)
 ```
 
 We plot the loss function against the number of iterations.
 
-```{r eval=FALSE}
+```{r}
 L_sqp <- result_sqp$"Loss"
 plot(L_sqp)
 ```
 
 We plot the ancestral proportions of individuals using package ggplot2.
 
-```{r eval=FALSE}
+```{r}
 P_sqp <- result_sqp$"P"
 topics <- order(colMeans(P_sqp))
 colors <- c("red", "yellow", "blue")
