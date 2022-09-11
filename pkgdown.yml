@@ -3,7 +3,7 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   psd_fit: psd_fit.html
-last_built: 2022-09-10T16:50Z
+last_built: 2022-09-11T19:04Z
 urls:
   reference: https://jonathonchow.github.io/AwesomePackage/reference
   article: https://jonathonchow.github.io/AwesomePackage/articles
