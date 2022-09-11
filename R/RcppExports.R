@@ -13,3 +13,15 @@ rcpp_psd_fit_sqp <- function(P, F, G, epsilon, maxiter, zero) {
     .Call('_AwesomePackage_rcpp_psd_fit_sqp', PACKAGE = 'AwesomePackage', P, F, G, epsilon, maxiter, zero)
 }
 
+rcpp_update_pp <- function(G, ZP, ZaF, ZbF, ALPHA) {
+    .Call('_AwesomePackage_rcpp_update_pp', PACKAGE = 'AwesomePackage', G, ZP, ZaF, ZbF, ALPHA)
+}
+
+rcpp_update_ff <- function(G, ZP, ZaF, ZbF, BETAa, BETAb) {
+    .Call('_AwesomePackage_rcpp_update_ff', PACKAGE = 'AwesomePackage', G, ZP, ZaF, ZbF, BETAa, BETAb)
+}
+
+rcpp_marginal_likelihood_e1 <- function(G, ZP, ZaF, ZbF) {
+    .Call('_AwesomePackage_rcpp_marginal_likelihood_e1', PACKAGE = 'AwesomePackage', G, ZP, ZaF, ZbF)
+}
+

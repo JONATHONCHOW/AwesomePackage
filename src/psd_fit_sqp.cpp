@@ -283,6 +283,7 @@ Eigen::MatrixXd ineqqp_activeset(const Eigen::MatrixXd& X,
   return x;
 }
 
+// Calculate the partial derivative of Pi.
 Eigen::MatrixXd partialP(size_t i, const Eigen::MatrixXd& P,
                          const Eigen::MatrixXd& F, const Eigen::MatrixXd& G)
 {
@@ -302,6 +303,7 @@ Eigen::MatrixXd partialP(size_t i, const Eigen::MatrixXd& P,
   return parP;
 }
 
+// Calculate the partial derivative of Fj.
 Eigen::MatrixXd partialF(size_t j, const Eigen::MatrixXd& P,
                          const Eigen::MatrixXd& F, const Eigen::MatrixXd& G)
 {
@@ -321,6 +323,7 @@ Eigen::MatrixXd partialF(size_t j, const Eigen::MatrixXd& P,
   return parF;
 }
 
+// Compute the Hessian matrix of Pi.
 Eigen::MatrixXd hessianP(size_t i, const Eigen::MatrixXd& P,
                          const Eigen::MatrixXd& F, const Eigen::MatrixXd& G)
 {
@@ -344,6 +347,7 @@ Eigen::MatrixXd hessianP(size_t i, const Eigen::MatrixXd& P,
   return hesP;
 }
 
+// Compute the Hessian matrix of Fj.
 Eigen::MatrixXd hessianF(size_t j, const Eigen::MatrixXd& P,
                          const Eigen::MatrixXd& F, const Eigen::MatrixXd& G)
 {

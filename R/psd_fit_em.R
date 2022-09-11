@@ -25,12 +25,12 @@
 #' psd_fit_em(G, 2, 1e-1, 10)
 psd_fit_em <- function (G, K, epsilon = 1e-1, maxiter = 500)
 {
-  init <- init_psd_fit(G, K)
+  init <- init_psd_fit_em(G, K)
   rcpp_psd_fit_em(init$P, init$F, G, epsilon, maxiter)
 }
 
 # Init P and F.
-init_psd_fit <- function (G, K)
+init_psd_fit_em <- function (G, K)
 {
   P <- rand(nrow(G), K)
   F <- rand(K, ncol(G))

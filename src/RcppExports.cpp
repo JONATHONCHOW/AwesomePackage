@@ -52,11 +52,59 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_update_pp
+Eigen::MatrixXd rcpp_update_pp(const Eigen::MatrixXd& G, const Eigen::MatrixXd& ZP, const Eigen::MatrixXd& ZaF, const Eigen::MatrixXd& ZbF, const Eigen::MatrixXd& ALPHA);
+RcppExport SEXP _AwesomePackage_rcpp_update_pp(SEXP GSEXP, SEXP ZPSEXP, SEXP ZaFSEXP, SEXP ZbFSEXP, SEXP ALPHASEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type G(GSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type ZP(ZPSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type ZaF(ZaFSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type ZbF(ZbFSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type ALPHA(ALPHASEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_update_pp(G, ZP, ZaF, ZbF, ALPHA));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_update_ff
+Rcpp::List rcpp_update_ff(const Eigen::MatrixXd& G, const Eigen::MatrixXd& ZP, const Eigen::MatrixXd& ZaF, const Eigen::MatrixXd& ZbF, const Eigen::MatrixXd& BETAa, const Eigen::MatrixXd& BETAb);
+RcppExport SEXP _AwesomePackage_rcpp_update_ff(SEXP GSEXP, SEXP ZPSEXP, SEXP ZaFSEXP, SEXP ZbFSEXP, SEXP BETAaSEXP, SEXP BETAbSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type G(GSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type ZP(ZPSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type ZaF(ZaFSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type ZbF(ZbFSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type BETAa(BETAaSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type BETAb(BETAbSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_update_ff(G, ZP, ZaF, ZbF, BETAa, BETAb));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_marginal_likelihood_e1
+double rcpp_marginal_likelihood_e1(const Eigen::MatrixXd& G, const Eigen::MatrixXd& ZP, const Eigen::MatrixXd& ZaF, const Eigen::MatrixXd& ZbF);
+RcppExport SEXP _AwesomePackage_rcpp_marginal_likelihood_e1(SEXP GSEXP, SEXP ZPSEXP, SEXP ZaFSEXP, SEXP ZbFSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type G(GSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type ZP(ZPSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type ZaF(ZaFSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type ZbF(ZbFSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_marginal_likelihood_e1(G, ZP, ZaF, ZbF));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_AwesomePackage_rcpp_hello_world", (DL_FUNC) &_AwesomePackage_rcpp_hello_world, 0},
     {"_AwesomePackage_rcpp_psd_fit_em", (DL_FUNC) &_AwesomePackage_rcpp_psd_fit_em, 5},
     {"_AwesomePackage_rcpp_psd_fit_sqp", (DL_FUNC) &_AwesomePackage_rcpp_psd_fit_sqp, 6},
+    {"_AwesomePackage_rcpp_update_pp", (DL_FUNC) &_AwesomePackage_rcpp_update_pp, 5},
+    {"_AwesomePackage_rcpp_update_ff", (DL_FUNC) &_AwesomePackage_rcpp_update_ff, 6},
+    {"_AwesomePackage_rcpp_marginal_likelihood_e1", (DL_FUNC) &_AwesomePackage_rcpp_marginal_likelihood_e1, 4},
     {NULL, NULL, 0}
 };
 

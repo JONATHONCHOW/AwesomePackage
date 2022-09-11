@@ -62,6 +62,7 @@ result_sqp <- psd_fit_sqp(genome_chr1, 3, 1e-3, 500, 100)
 ```
 
 We import the pre-trained results.
+
 ```{r}
 data(result_sqp)
 ```
@@ -80,4 +81,34 @@ P_sqp <- result_sqp$"P"
 topics <- order(colMeans(P_sqp))
 colors <- c("red", "yellow", "blue")
 structure_plot(P_sqp, topics, colors)
+```
+
+# Fit PSD model by VI algorithm
+
+We fit the PSD model with VI algorithm, and use the loss function as a stopping criterion. Due to the different calculation methods of the loss function, the value of `epsilon` needs to be smaller than the previous two algorithms.
+
+```{r eval=FALSE}
+result_vi <- psd_fit_vi(genome_chr1, 3, 1e-9, 500)
+```
+
+We import the pre-trained results.
+
+```{r}
+data(result_vi)
+```
+
+We plot the loss function against the number of iterations. Different from the previous two algorithms, the loss function records once for ten iterations.
+
+```{r}
+L_vi <- result_vi$Loss
+plot(L_vi)
+```
+
+We plot the ancestral proportions of individuals using package ggplot2.
+
+```{r}
+P_vi <- result_vi$P
+topics <- order(colMeans(P_vi))
+colors <- c("red", "yellow", "blue")
+structure_plot(P_vi, topics, colors)
 ```

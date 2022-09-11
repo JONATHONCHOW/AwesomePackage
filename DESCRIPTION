@@ -1,17 +1,9 @@
 Package: AwesomePackage
 Title: Infer ancestry with some models and fit those models with some algorithms
-Version: 0.4.0
+Version: 0.5.0
 Authors@R: person("Jonathon", "Chow", email = "jonathonchow23@gmail.com", 
     role = c("aut", "cre"))
-Description: We use the classical PSD model for ancestor inference, which has 
-    been widely used, such as ADMIXTURE, FRAPPE. We illustrate the close 
-    relationship between the PSD model, the Poisson NMF model and the 
-    multinomial topic model, which can optimize the algorithm. We use 
-    Expectation-Maximization algorithm (EM), co-ordinate descent algorithm 
-    (CD), sequential quadratic programming algorithm (SQP) and stochastic 
-    variational inference algorithm (SVI) to fit the model, and illustrate 
-    the differences between these algorithms through simulation experiments 
-    and real data experiments.
+Description: We use the classical PSD model for ancestor inference, which has been widely used, such as STRUCTURE (Pritchard et al. 2000, MCMC), FRAPPE (Tang et al. 2005, EM), ADMIXTURE (Alexander et al. 2009, SQP), fastSTRUCTURE (Raj et al. 2014, VI), TeraStructure (Gopalan et al. 2017, SVI). We illustrate the close relationship between the PSD model, the Poisson NMF model, the multinomial topic model and the LDA model, which can optimize the algorithm. We use Expectation-Maximization algorithm (EM), sequential quadratic programming algorithm (SQP), variational inference algorithm (VI) and stochastic variational inference algorithm (SVI) to fit the model, then illustrate the relationships and differences between these algorithms through simulation experiments and real data experiments.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
