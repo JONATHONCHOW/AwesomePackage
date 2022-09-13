@@ -4,7 +4,7 @@
 \alias{psd_fit_vi}
 \title{Use VI algorithm to fit PSD model}
 \usage{
-psd_fit_vi(G, K, epsilon = 0.1, maxiter = 500)
+psd_fit_vi(G, K, epsilon = 1e-05, maxiter = 500)
 }
 \arguments{
 \item{G}{The I x J matrix of counts; all entries of G should
@@ -21,7 +21,7 @@ A List with the following parameters:
 \describe{
 \item{\code{P}}{The population scale matrix of the individuals.}
 \item{\code{F}}{The gene scale matrix of the populations.}
-\item{\code{Loss}}{A vector represents the value of the loss function which records once for ten iterations.}
+\item{\code{Loss}}{A vector represents the value of the loss function which records once for 10 iterations.}
 \item{\code{Iterations}}{An integer represents the number of iterations.}}
 }
 \description{
@@ -30,5 +30,5 @@ function as a stopping criterion.
 }
 \examples{
 G <- matrix(c(0,0,1, 0,2,1, 1,0,1, 0,1,0, 1,0,0), 3, 5)
-psd_fit_vi(G, 2, 1e-1, 10)
+psd_fit_vi(G, 2, 1e-5, 10)
 }

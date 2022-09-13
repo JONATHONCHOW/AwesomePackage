@@ -1,4 +1,4 @@
-#' @title Plot the ancestral proportions
+#' @title Plot the population proportion
 #'
 #' @importFrom ggplot2 ggplot
 #' @importFrom ggplot2 aes_string
@@ -12,33 +12,35 @@
 #' @importFrom ggplot2 element_text
 #' @importFrom cowplot theme_cowplot
 #'
-#' @description Plot the ancestral proportions of individuals using package ggplot2.
+#' @description Plot the population proportion of individuals using package ggplot2.
 #'
-#' @param L The proportion matrix.
-#' @param topics Topic order options.
+#' @param P The proportion matrix.
+#' @param pops Population order options.
 #' @param colors Theme color options.
 #' @param ticks Grouping options.
 #' @param font.size Font size used in plot.
+#'
+#' @return A \code{ggplot} object.
 #'
 #' @export
 #'
 #' @examples
 #' P <- matrix(c(0.5,0.3,0.8, 0.5,0.7,0.2), 3, 2)
-#' topics <- order(colMeans(P))
+#' pops <- order(colMeans(P))
 #' colors <- c("red", "yellow")
-#' structure_plot(P, topics, colors)
-structure_plot <- function (L, topics, colors, ticks = NULL,
+#' plot_structure(P, pops, colors)
+plot_structure <- function (P, pops, colors, ticks = NULL,
                             font.size = 9)
 {
-  dat <- compile_structure_plot_data(L, topics)
-  ggplot(dat,aes_string(x = "sample",y = "prop",color = "topic",
-                        fill = "topic")) +
+  dat <- compile_structure_data(P, pops)
+  ggplot(dat,aes_string(x = "sample",y = "prop",color = "population",
+                        fill = "population")) +
   geom_col() +
   scale_x_continuous(limits = c(0,max(dat$sample) + 1),breaks = ticks,
                      labels = names(ticks)) +
   scale_color_manual(values = colors) +
   scale_fill_manual(values = colors) +
-  labs(x = "",y = "topic proportion") +
+  labs(x = "",y = "population proportion") +
   theme_cowplot(font.size) +
   theme(axis.line   = element_blank(),
         axis.ticks  = element_blank(),
@@ -46,13 +48,13 @@ structure_plot <- function (L, topics, colors, ticks = NULL,
 }
 
 # Create a data frame suitable for structure plot.
-compile_structure_plot_data <- function (L, topics)
+compile_structure_data <- function (P, pops)
 {
-  n <- nrow(L)
-  k <- length(topics)
+  n <- nrow(P)
+  k <- length(pops)
   dat <- data.frame(sample = rep(1:n,times = k),
-                    topic  = rep(topics,each = n),
-                    prop   = c(L[,topics]))
-  dat$topic <- factor(dat$topic,topics)
+                    population = rep(pops,each = n),
+                    prop = c(P[,pops]))
+  dat$population <- factor(dat$population,pops)
   return(dat)
 }

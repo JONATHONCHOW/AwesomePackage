@@ -3,115 +3,106 @@
 #include "psd_fit_sqp.h"
 using namespace Rcpp;
 
-// Use SQP algorithm to fit PSD model by Rcpp.
+// Update P.
 // [[Rcpp::export]]
-Rcpp::List rcpp_psd_fit_sqp(const Eigen::MatrixXd& P,
-                            const Eigen::MatrixXd& F,
-                            const Eigen::MatrixXd& G,
-                            const double& epsilon,
-                            const size_t& maxiter,
-                            const double& zero)
+Eigen::MatrixXd rcpp_update_p_sqp(const Eigen::MatrixXd& G,
+                                  const Eigen::MatrixXd& P,
+                                  const Eigen::MatrixXd& F,
+                                  const double& zero)
 {
   size_t I = P.rows();
   size_t K = P.cols();
   size_t J = F.cols();
-  Eigen::MatrixXd p = P, f = F, g = G;
-  std::vector<double> L_list;
-  L_list.reserve(maxiter);
-  double pre_L = 0, now_L = 0;
-  now_L = psd_loss(p, f, g);
-  L_list.push_back(now_L);
-  size_t iter = 0;
-  do
+  Eigen::MatrixXd p = P;
+  for (size_t i = 0; i < I; i++)
   {
-    iter++;
-    pre_L = now_L;
-    now_L = 0;
-    // Update P.
-    for (size_t i = 0; i < I; i++)
+    Eigen::MatrixXd deltaP(K, 1);
+    deltaP = Eigen::MatrixXd::Zero(K, 1);
+    Eigen::MatrixXd parP(K, 1);
+    parP = partialP(i, P, F, G);
+    Eigen::MatrixXd hesP(K, K);
+    hesP = hessianP(i, P, F, G);
+    Eigen::MatrixXd Ae(1, K);
+    Ae = Eigen::MatrixXd::Ones(1, K);
+    Eigen::MatrixXd be(1, 1);
+    be << 0;
+    Eigen::MatrixXd Ai(K, K);
+    Ai << Eigen::MatrixXd::Identity(K, K);
+    Eigen::MatrixXd bi(K, 1);
+    bi << -P.row(i).transpose();
+    double sc = hesP.norm();
+    deltaP = ineqqp_activeset(deltaP, hesP / sc, parP / sc, Ae, be, Ai, bi);
+    for (size_t k = 0; k < K; k++)
     {
-      Eigen::MatrixXd deltaP(K, 1);
-      deltaP = Eigen::MatrixXd::Zero(K, 1);
-      Eigen::MatrixXd parP(K, 1);
-      parP = partialP(i, p, f, g);
-      Eigen::MatrixXd hesP(K, K);
-      hesP = hessianP(i, p, f, g);
-      Eigen::MatrixXd Ae(1, K);
-      Ae = Eigen::MatrixXd::Ones(1, K);
-      Eigen::MatrixXd be(1, 1);
-      be << 0;
-      Eigen::MatrixXd Ai(K, K);
-      Ai << Eigen::MatrixXd::Identity(K, K);
-      Eigen::MatrixXd bi(K, 1);
-      bi << -p.row(i).transpose();
-      double sc = hesP.norm();
-      deltaP = ineqqp_activeset(deltaP, hesP / sc, parP / sc, Ae, be, Ai, bi);
-      for (size_t k = 0; k < K; k++)
+      p(i, k) += deltaP(k, 0);
+    }
+  }
+  for (size_t i = 0; i < I; i++)
+  {
+    for (size_t k = 0; k < K; k++)
+    {
+      if (p(i, k) < zero)
       {
-        p(i, k) += deltaP(k, 0);
+        p(i, k) = zero;
+      }
+      if (p(i, k) > 1 - zero)
+      {
+        p(i, k) = 1 - zero;
       }
     }
-    for (size_t i = 0; i < I; i++)
-    {
-      for (size_t k = 0; k < K; k++)
-      {
-        if (p(i, k) < zero)
-        {
-          p(i, k) = zero;
-        }
-        if (p(i, k) > 1 - zero)
-        {
-          p(i, k) = 1 - zero;
-        }
-      }
-    }
-    // Update F.
-    for (size_t j = 0; j < J; j++)
-    {
-      Eigen::MatrixXd deltaF(K, 1);
-      deltaF = Eigen::MatrixXd::Zero(K, 1);
-      Eigen::MatrixXd parF(K, 1);
-      parF = partialF(j, p, f, g);
-      Eigen::MatrixXd hesF(K, K);
-      hesF = hessianF(j, p, f, g);
-      Eigen::MatrixXd Ae(0, 0);
-      Eigen::MatrixXd be(0, 0);
-      Eigen::MatrixXd Ai(2 * K, K);
-      Ai << Eigen::MatrixXd::Identity(K, K),
-            -Eigen::MatrixXd::Identity(K, K);
-      Eigen::MatrixXd bi(2 * K, 1);
-      bi << -f.col(j),
-            f.col(j) - Eigen::MatrixXd::Ones(K, 1);
-      double sc = hesF.norm();
-      deltaF = ineqqp_activeset(deltaF, hesF / sc, parF / sc, Ae, be, Ai, bi);
-      for (size_t k = 0; k < K; k++)
-      {
-        f(k, j) += deltaF(k, 0);
-      }
-    }
-    for (size_t j = 0; j < J; j++)
-    {
-      for (size_t k = 0; k < K; k++)
-      {
-        if (f(k, j) < zero)
-        {
-          f(k, j) = zero;
-        }
-        if (f(k, j) > 1 - zero)
-        {
-          f(k, j) = 1 - zero;
-        }
-      }
-    }
+  }
+  return p;
+}
 
-    now_L = psd_loss(p, f, g);
-    L_list.push_back(now_L);
-  } while (fabs(pre_L - now_L) > epsilon && iter < maxiter);
-
-  return Rcpp::List::create(Rcpp::Named("P") = p,
-                            Rcpp::Named("F") = f,
-                            Rcpp::Named("Loss") = L_list,
-                            Rcpp::Named("Iterations") = iter);
+// Update F.
+// [[Rcpp::export]]
+Eigen::MatrixXd rcpp_update_f_sqp(const Eigen::MatrixXd& G,
+                                  const Eigen::MatrixXd& P,
+                                  const Eigen::MatrixXd& F,
+                                  const double& zero)
+{
+  size_t I = P.rows();
+  size_t K = P.cols();
+  size_t J = F.cols();
+  Eigen::MatrixXd f = F;
+  for (size_t j = 0; j < J; j++)
+  {
+    Eigen::MatrixXd deltaF(K, 1);
+    deltaF = Eigen::MatrixXd::Zero(K, 1);
+    Eigen::MatrixXd parF(K, 1);
+    parF = partialF(j, P, F, G);
+    Eigen::MatrixXd hesF(K, K);
+    hesF = hessianF(j, P, F, G);
+    Eigen::MatrixXd Ae(0, 0);
+    Eigen::MatrixXd be(0, 0);
+    Eigen::MatrixXd Ai(2 * K, K);
+    Ai << Eigen::MatrixXd::Identity(K, K),
+          -Eigen::MatrixXd::Identity(K, K);
+    Eigen::MatrixXd bi(2 * K, 1);
+    bi << -F.col(j),
+          F.col(j) - Eigen::MatrixXd::Ones(K, 1);
+    double sc = hesF.norm();
+    deltaF = ineqqp_activeset(deltaF, hesF / sc, parF / sc, Ae, be, Ai, bi);
+    for (size_t k = 0; k < K; k++)
+    {
+      f(k, j) += deltaF(k, 0);
+    }
+  }
+  for (size_t j = 0; j < J; j++)
+  {
+    for (size_t k = 0; k < K; k++)
+    {
+      if (f(k, j) < zero)
+      {
+        f(k, j) = zero;
+      }
+      if (f(k, j) > 1 - zero)
+      {
+        f(k, j) = 1 - zero;
+      }
+    }
+  }
+  return f;
 }
 
 // Solve equality-constrained quadratic programs using Lagrange duel and QR decomposition.
@@ -295,8 +286,8 @@ Eigen::MatrixXd partialP(size_t i, const Eigen::MatrixXd& P,
     double temp1 = 0, temp2 = 0;
     for (size_t j = 0; j < J; j++)
     {
-      temp1 += G(i, j) * F(k, j) / sum1(i, j, P, F);
-      temp2 += (2 - G(i, j)) * (1 - F(k, j)) / sum2(i, j, P, F);
+      temp1 += G(i, j) * F(k, j) / binomial1(i, j, P, F);
+      temp2 += (2 - G(i, j)) * (1 - F(k, j)) / binomial2(i, j, P, F);
     }
     parP(k, 0) = temp1 + temp2;
   }
@@ -315,8 +306,8 @@ Eigen::MatrixXd partialF(size_t j, const Eigen::MatrixXd& P,
     double temp1 = 0, temp2 = 0;
     for (size_t i = 0; i < I; i++)
     {
-      temp1 += G(i, j) * P(i, k) / sum1(i, j, P, F);
-      temp2 += -(2 - G(i, j)) * P(i, k) / sum2(i, j, P, F);
+      temp1 += G(i, j) * P(i, k) / binomial1(i, j, P, F);
+      temp2 += -(2 - G(i, j)) * P(i, k) / binomial2(i, j, P, F);
     }
     parF(k, 0) = temp1 + temp2;
   }
@@ -337,8 +328,8 @@ Eigen::MatrixXd hessianP(size_t i, const Eigen::MatrixXd& P,
       double temp1 = 0, temp2 = 0;
       for (size_t j = 0; j < J; j++)
       {
-        temp1 += -G(i, j) * F(k, j) * F(l, j) / sum1(i, j, P, F) / sum1(i, j, P, F);
-        temp2 += -(2 - G(i, j)) * (1 - F(k, j)) * (1 - F(l, j)) / sum2(i, j, P, F) / sum2(i, j, P, F);
+        temp1 += -G(i, j) * F(k, j) * F(l, j) / binomial1(i, j, P, F) / binomial1(i, j, P, F);
+        temp2 += -(2 - G(i, j)) * (1 - F(k, j)) * (1 - F(l, j)) / binomial2(i, j, P, F) / binomial2(i, j, P, F);
       }
       hesP(k, l) = temp1 + temp2;
       hesP(l, k) = temp1 + temp2;
@@ -361,8 +352,8 @@ Eigen::MatrixXd hessianF(size_t j, const Eigen::MatrixXd& P,
       double temp1 = 0, temp2 = 0;
       for (size_t i = 0; i < I; i++)
       {
-        temp1 += -G(i, j) * P(i, k) * P(i, l) / sum1(i, j, P, F) / sum1(i, j, P, F);
-        temp2 += -(2 - G(i, j)) * P(i, k) * P(i, l) / sum2(i, j, P, F) / sum2(i, j, P, F);
+        temp1 += -G(i, j) * P(i, k) * P(i, l) / binomial1(i, j, P, F) / binomial1(i, j, P, F);
+        temp2 += -(2 - G(i, j)) * P(i, k) * P(i, l) / binomial2(i, j, P, F) / binomial2(i, j, P, F);
       }
       hesF(k, l) = temp1 + temp2;
       hesF(l, k) = temp1 + temp2;

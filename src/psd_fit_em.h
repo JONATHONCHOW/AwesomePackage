@@ -4,26 +4,32 @@
 #include <RcppEigen.h>
 
 // Function declaration.
-Rcpp::List rcpp_psd_fit_em(const Eigen::MatrixXd& P,
-                           const Eigen::MatrixXd& F,
-                           const Eigen::MatrixXd& G,
-                           const double& epsilon,
-                           const size_t& maxiter);
+Eigen::MatrixXd rcpp_update_p_em(const Eigen::MatrixXd& G,
+                                 const Eigen::MatrixXd& P,
+                                 const Eigen::MatrixXd& F);
 
-double sum1(size_t i, size_t j,
-            const Eigen::MatrixXd& P, const Eigen::MatrixXd& F);
+Eigen::MatrixXd rcpp_update_f_em(const Eigen::MatrixXd& G,
+                                 const Eigen::MatrixXd& P,
+                                 const Eigen::MatrixXd& F);
 
-double sum2(size_t i, size_t j,
-            const Eigen::MatrixXd& P, const Eigen::MatrixXd& F);
+double rcpp_psd_loss(const Eigen::MatrixXd& G,
+                     const Eigen::MatrixXd& P,
+                     const Eigen::MatrixXd& F);
+
+double binomial1(size_t i, size_t j,
+                 const Eigen::MatrixXd& P,
+                 const Eigen::MatrixXd& F);
+
+double binomial2(size_t i, size_t j,
+                 const Eigen::MatrixXd& P,
+                 const Eigen::MatrixXd& F);
 
 double fraction1(size_t i, size_t j, size_t k,
-                 const Eigen::MatrixXd& P, const Eigen::MatrixXd& F);
+                 const Eigen::MatrixXd& P,
+                 const Eigen::MatrixXd& F);
 
 double fraction2(size_t i, size_t j, size_t k,
-                 const Eigen::MatrixXd& P, const Eigen::MatrixXd& F);
-
-double psd_loss(const Eigen::MatrixXd& P,
-                const Eigen::MatrixXd& F,
-                const Eigen::MatrixXd& G);
+                 const Eigen::MatrixXd& P,
+                 const Eigen::MatrixXd& F);
 
 #endif

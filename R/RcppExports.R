@@ -5,12 +5,24 @@ rcpp_hello_world <- function() {
     .Call('_AwesomePackage_rcpp_hello_world', PACKAGE = 'AwesomePackage')
 }
 
-rcpp_psd_fit_em <- function(P, F, G, epsilon, maxiter) {
-    .Call('_AwesomePackage_rcpp_psd_fit_em', PACKAGE = 'AwesomePackage', P, F, G, epsilon, maxiter)
+rcpp_update_p_em <- function(G, P, F) {
+    .Call('_AwesomePackage_rcpp_update_p_em', PACKAGE = 'AwesomePackage', G, P, F)
 }
 
-rcpp_psd_fit_sqp <- function(P, F, G, epsilon, maxiter, zero) {
-    .Call('_AwesomePackage_rcpp_psd_fit_sqp', PACKAGE = 'AwesomePackage', P, F, G, epsilon, maxiter, zero)
+rcpp_update_f_em <- function(G, P, F) {
+    .Call('_AwesomePackage_rcpp_update_f_em', PACKAGE = 'AwesomePackage', G, P, F)
+}
+
+rcpp_psd_loss <- function(G, P, F) {
+    .Call('_AwesomePackage_rcpp_psd_loss', PACKAGE = 'AwesomePackage', G, P, F)
+}
+
+rcpp_update_p_sqp <- function(G, P, F, zero) {
+    .Call('_AwesomePackage_rcpp_update_p_sqp', PACKAGE = 'AwesomePackage', G, P, F, zero)
+}
+
+rcpp_update_f_sqp <- function(G, P, F, zero) {
+    .Call('_AwesomePackage_rcpp_update_f_sqp', PACKAGE = 'AwesomePackage', G, P, F, zero)
 }
 
 rcpp_update_pp <- function(G, ZP, ZaF, ZbF, ALPHA) {

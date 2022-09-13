@@ -16,11 +16,11 @@ vignette: >
 
 # PSD model and data
 
-We consider the first chromosome data from the 1000 Genomes Project and use a PSD model to fit these data.
+We consider the first chromosome data from the 1000 Genomes Project (TGP) and use a PSD model to fit these data.
 
 ```{r}
 library(AwesomePackage)
-data(genome_chr1)
+data(data_TGP)
 ```
 
 # Fit PSD model by EM algorithm
@@ -28,29 +28,29 @@ data(genome_chr1)
 We fit the PSD model with EM algorithm, and use the loss function as a stopping criterion.
 
 ```{r eval=FALSE}
-result_em <- psd_fit_em(genome_chr1, 3, 1e-3, 500)
+result_TGP_em <- psd_fit_em(data_TGP, 3, 1e-5, 500)
 ```
 
-We import the pre-trained results.
+EM algorithm converges slowly. It takes about 450 EM iterations to reach the predetermined accuracy. In addition, the fitting result of EM algorithm is not very accurate. We import the pre-trained results directly.
 
 ```{r}
-data(result_em)
+data(result_TGP_em)
 ```
 
-We plot the loss function against the number of iterations.
+We plot the loss function against the number of iterations using package ggplot2, the loss function records once for 10 iterations.
 
 ```{r}
-L_em <- result_em$"Loss"
-plot(L_em)
+L <- result_TGP_em$Loss
+plot_loss(L, 10, "em")
 ```
 
 We plot the ancestral proportions of individuals using package ggplot2.
 
 ```{r}
-P_em <- result_em$"P"
-topics <- order(colMeans(P_em))
-colors <- c("red", "yellow", "blue")
-structure_plot(P_em, topics, colors)
+P <- result_TGP_em$P
+pops <- order(colMeans(P))
+colors <- c("#E69F00", "#56B4E9", "#009E73")
+plot_structure(P, pops, colors)
 ```
 
 # Fit PSD model by SQP algorithm
@@ -58,57 +58,57 @@ structure_plot(P_em, topics, colors)
 We fit the PSD model with SQP algorithm, and use the loss function as a stopping criterion.
 
 ```{r eval=FALSE}
-result_sqp <- psd_fit_sqp(genome_chr1, 3, 1e-3, 500, 100)
+result_TGP_sqp <- psd_fit_sqp(data_TGP, 3, 1e-5, 50, 100)
 ```
 
-We import the pre-trained results.
+Although SQP algorithm converges fast, it is easy to converge to the local optimal value. To prevent this bad scenario, we start with 100 EM iterations, and then only need about 30 SQP iterations to reach the accuracy requirement. Notice that the fitting result of the SQP algorithm is excellent. We import the pre-trained results directly.
 
 ```{r}
-data(result_sqp)
+data(result_TGP_sqp)
 ```
 
-We plot the loss function against the number of iterations.
+We plot the loss function against the number of iterations using package ggplot2, the loss function records once for 10 iterations.
 
 ```{r}
-L_sqp <- result_sqp$"Loss"
-plot(L_sqp)
+L <- result_TGP_sqp$Loss
+plot_loss(L, 10, "sqp")
 ```
 
 We plot the ancestral proportions of individuals using package ggplot2.
 
 ```{r}
-P_sqp <- result_sqp$"P"
-topics <- order(colMeans(P_sqp))
-colors <- c("red", "yellow", "blue")
-structure_plot(P_sqp, topics, colors)
+P <- result_TGP_sqp$P
+pops <- order(colMeans(P))
+colors <- c("#E69F00", "#56B4E9", "#009E73")
+plot_structure(P, pops, colors)
 ```
 
 # Fit PSD model by VI algorithm
 
-We fit the PSD model with VI algorithm, and use the loss function as a stopping criterion. Due to the different calculation methods of the loss function, the value of `epsilon` needs to be smaller than the previous two algorithms.
+We fit the PSD model with VI algorithm, and use the loss function as a stopping criterion.
 
 ```{r eval=FALSE}
-result_vi <- psd_fit_vi(genome_chr1, 3, 1e-9, 500)
+result_TGP_vi <- psd_fit_vi(data_TGP, 3, 1e-5, 500)
 ```
 
-We import the pre-trained results.
+Similar to EM algorithm, the convergence of VI algorithm is also relatively slow, and about 440 iterations are needed to reach the accuracy requirement. But its fitting result is much better than EM algorithm. We import the pre-trained results directly.
 
 ```{r}
-data(result_vi)
+data(result_TGP_vi)
 ```
 
-We plot the loss function against the number of iterations. Different from the previous two algorithms, the loss function records once for ten iterations.
+We plot the loss function against the number of iterations using package ggplot2, the loss function records once for 10 iterations.
 
 ```{r}
-L_vi <- result_vi$Loss
-plot(L_vi)
+L <- result_TGP_vi$Loss
+plot_loss(L, 10, "vi")
 ```
 
 We plot the ancestral proportions of individuals using package ggplot2.
 
 ```{r}
-P_vi <- result_vi$P
-topics <- order(colMeans(P_vi))
-colors <- c("red", "yellow", "blue")
-structure_plot(P_vi, topics, colors)
+P <- result_TGP_vi$P
+pops <- order(colMeans(P))
+colors <- c("#E69F00", "#56B4E9", "#009E73")
+plot_structure(P, pops, colors)
 ```

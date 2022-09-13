@@ -1,6 +1,7 @@
 #' @title Use EM algorithm to fit PSD model
 #'
 #' @importFrom Rcpp evalCpp
+#' @importFrom progress progress_bar
 #'
 #' @description Fit PSD model with EM algorithm, and use the loss
 #'     function as a stopping criterion.
@@ -15,26 +16,46 @@
 #' \describe{
 #' \item{\code{P}}{The population scale matrix of the individuals.}
 #' \item{\code{F}}{The gene scale matrix of the populations.}
-#' \item{\code{Loss}}{A vector of length \code{Iterations + 1} represents the value of the loss function at each iteration.}
+#' \item{\code{Loss}}{A vector represents the value of the loss function which records once for 10 iterations.}
 #' \item{\code{Iterations}}{An integer represents the number of iterations.}}
 #'
 #' @export
 #'
 #' @examples
 #' G <- matrix(c(0,0,1, 0,2,1, 1,0,1, 0,1,0, 1,0,0), 3, 5)
-#' psd_fit_em(G, 2, 1e-1, 10)
-psd_fit_em <- function (G, K, epsilon = 1e-1, maxiter = 500)
+#' psd_fit_em(G, 2, 1e-5, 10)
+psd_fit_em <- function (G, K, epsilon = 1e-5, maxiter = 500)
 {
-  init <- init_psd_fit_em(G, K)
-  rcpp_psd_fit_em(init$P, init$F, G, epsilon, maxiter)
-}
-
-# Init P and F.
-init_psd_fit_em <- function (G, K)
-{
-  P <- rand(nrow(G), K)
-  F <- rand(K, ncol(G))
-  return (list(P = P, F = F))
+  I <- nrow(G)
+  J <- ncol(G)
+  # Add progress bar.
+  pb <- progress_bar$new(
+    format = '[:bar] :current/:total (:elapsed)',
+    total = maxiter, clear = FALSE, width = 80
+  )
+  # Init.
+  P <- rand(I, K)
+  F <- rand(K, J)
+  pre_L <- 0
+  now_L <- rcpp_psd_loss(G, P, F)
+  L_list <- now_L
+  # Loop.
+  iter <- 0
+  repeat
+  {
+    pb$tick()
+    iter <- iter + 1
+    P <- rcpp_update_p_em(G, P, F)
+    F <- rcpp_update_f_em(G, P, F)
+    if (iter %% 10 == 0)
+    {
+      pre_L <- now_L
+      now_L <- rcpp_psd_loss(G, P, F)
+      L_list <- append(L_list, now_L)
+    }
+    if (! (abs(pre_L - now_L) > epsilon && iter < maxiter) ) {break}
+  }
+  return(list(P=P, F=F, Loss = L_list, Iterations = iter))
 }
 
 # Generate a random matrix with elements between 0 and 1.

@@ -34,4 +34,20 @@ devtools::install_github("JONATHONCHOW/AwesomePackage")
 
 ## Example
 
-You can see some examples at Vignettes.
+You can check out theories and examples at *Articles* in
+[AwesomePackage](https://jonathonchow.github.io/AwesomePackage/).
+
+## Quick start
+
+You can use the following code to see if AwesomePackage has been
+successfully installed.
+
+``` r
+library(AwesomePackage)
+hello_world()
+#> [1] "Data science is fantastic!"
+```
+
+You can refer to *Reference* in
+[AwesomePackage](https://jonathonchow.github.io/AwesomePackage/) for the
+use of functions, and then you can have fun with ancestry inference!

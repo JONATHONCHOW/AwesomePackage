@@ -4,12 +4,15 @@
 #include <RcppEigen.h>
 
 // Function declaration.
-Rcpp::List rcpp_psd_fit_sqp(const Eigen::MatrixXd& P,
-                            const Eigen::MatrixXd& F,
-                            const Eigen::MatrixXd& G,
-                            const double& epsilon,
-                            const size_t& maxiter,
-                            const double& zero = 1e-9);
+Eigen::MatrixXd rcpp_update_p_sqp(const Eigen::MatrixXd& G,
+                                  const Eigen::MatrixXd& P,
+                                  const Eigen::MatrixXd& F,
+                                  const double& zero);
+
+Eigen::MatrixXd rcpp_update_f_sqp(const Eigen::MatrixXd& G,
+                                  const Eigen::MatrixXd& P,
+                                  const Eigen::MatrixXd& F,
+                                  const double& zero);
 
 Eigen::MatrixXd eqqp_qr(const Eigen::MatrixXd& H, const Eigen::MatrixXd& f,
                         const Eigen::MatrixXd& Ae, const Eigen::MatrixXd& be);
