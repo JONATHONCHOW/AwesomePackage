@@ -22,13 +22,19 @@
     <loc>https://jonathonchow.github.io/AwesomePackage/index.html</loc>
   </url>
   <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/reference/genome_chr1.html</loc>
+    <loc>https://jonathonchow.github.io/AwesomePackage/reference/data_TGP.html</loc>
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/hello_world.html</loc>
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathonchow.github.io/AwesomePackage/reference/plot_loss.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathonchow.github.io/AwesomePackage/reference/plot_structure.html</loc>
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/psd_fit_em.html</loc>
@@ -40,15 +46,12 @@
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/psd_fit_vi.html</loc>
   </url>
   <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_em.html</loc>
+    <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_TGP_em.html</loc>
   </url>
   <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_sqp.html</loc>
+    <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_TGP_sqp.html</loc>
   </url>
   <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_vi.html</loc>
-  </url>
-  <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/reference/structure_plot.html</loc>
+    <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_TGP_vi.html</loc>
   </url>
 </urlset>
