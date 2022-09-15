@@ -25,6 +25,18 @@ rcpp_update_f_sqp <- function(G, P, F, zero) {
     .Call('_AwesomePackage_rcpp_update_f_sqp', PACKAGE = 'AwesomePackage', G, P, F, zero)
 }
 
+rcpp_update_pp_svi <- function(G, PP, ZP, ZaF, ZbF, ALPHA, J, rho) {
+    .Call('_AwesomePackage_rcpp_update_pp_svi', PACKAGE = 'AwesomePackage', G, PP, ZP, ZaF, ZbF, ALPHA, J, rho)
+}
+
+rcpp_update_zp <- function(PP) {
+    .Call('_AwesomePackage_rcpp_update_zp', PACKAGE = 'AwesomePackage', PP)
+}
+
+rcpp_update_zf <- function(FFa, FFb) {
+    .Call('_AwesomePackage_rcpp_update_zf', PACKAGE = 'AwesomePackage', FFa, FFb)
+}
+
 rcpp_update_pp <- function(G, ZP, ZaF, ZbF, ALPHA) {
     .Call('_AwesomePackage_rcpp_update_pp', PACKAGE = 'AwesomePackage', G, ZP, ZaF, ZbF, ALPHA)
 }

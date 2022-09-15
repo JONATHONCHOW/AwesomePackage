@@ -31,7 +31,6 @@ Eigen::MatrixXd rcpp_update_pp(const Eigen::MatrixXd& G, const Eigen::MatrixXd& 
     for (size_t k = 0; k < K; k++)
     {
       PP(i, k) = ALPHA(k, 0) + PP(i, k);
-      PP(i, k) = ALPHA(k, 0) + PP(i, k);
     }
   }
   return PP;

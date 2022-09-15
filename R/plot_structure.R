@@ -27,10 +27,11 @@
 #' @examples
 #' P <- matrix(c(0.5,0.3,0.8, 0.5,0.7,0.2), 3, 2)
 #' pops <- order(colMeans(P))
-#' colors <- c("red", "yellow")
-#' plot_structure(P, pops, colors)
-plot_structure <- function (P, pops, colors, ticks = NULL,
-                            font.size = 9)
+#' plot_structure(P, pops)
+plot_structure <- function (P, pops,
+                            colors = c("#e41a1c","#377eb8","#4daf4a","#984ea3","#ff7f00",
+                                       "#ffff33","#a65628","#f781bf","#999999"),
+                            ticks = NULL, font.size = 9)
 {
   dat <- compile_structure_data(P, pops)
   ggplot(dat,aes_string(x = "sample",y = "prop",color = "population",

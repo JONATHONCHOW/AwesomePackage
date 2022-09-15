@@ -31,7 +31,7 @@ We fit the PSD model with EM algorithm, and use the loss function as a stopping 
 result_TGP_em <- psd_fit_em(data_TGP, 3, 1e-5, 500)
 ```
 
-EM algorithm converges slowly. It takes about 450 EM iterations to reach the predetermined accuracy. In addition, the fitting result of EM algorithm is not very accurate. We import the pre-trained results directly.
+EM algorithm converges slowly. It takes about 450 EM iterations to reach the predetermined accuracy. We import the pre-trained results directly.
 
 ```{r}
 data(result_TGP_em)
@@ -41,16 +41,15 @@ We plot the loss function against the number of iterations using package ggplot2
 
 ```{r}
 L <- result_TGP_em$Loss
-plot_loss(L, 10, "em")
+plot_loss(L[-1], 10, "em")
 ```
 
-We plot the ancestral proportions of individuals using package ggplot2.
+We plot the ancestral proportions of individuals using package ggplot2. The fitting result of EM algorithm is not very accurate.
 
 ```{r}
 P <- result_TGP_em$P
 pops <- order(colMeans(P))
-colors <- c("#E69F00", "#56B4E9", "#009E73")
-plot_structure(P, pops, colors)
+plot_structure(P, pops)
 ```
 
 # Fit PSD model by SQP algorithm
@@ -61,7 +60,7 @@ We fit the PSD model with SQP algorithm, and use the loss function as a stopping
 result_TGP_sqp <- psd_fit_sqp(data_TGP, 3, 1e-5, 50, 100)
 ```
 
-Although SQP algorithm converges fast, it is easy to converge to the local optimal value. To prevent this bad scenario, we start with 100 EM iterations, and then only need about 30 SQP iterations to reach the accuracy requirement. Notice that the fitting result of the SQP algorithm is excellent. We import the pre-trained results directly.
+Although SQP algorithm converges fast, it is easy to converge to the local optimal value. To prevent this bad scenario, we start with 100 EM iterations, and then only need about 30 SQP iterations to reach the accuracy requirement. We import the pre-trained results directly.
 
 ```{r}
 data(result_TGP_sqp)
@@ -71,16 +70,15 @@ We plot the loss function against the number of iterations using package ggplot2
 
 ```{r}
 L <- result_TGP_sqp$Loss
-plot_loss(L, 10, "sqp")
+plot_loss(L[-1], 10, "em & sqp")
 ```
 
-We plot the ancestral proportions of individuals using package ggplot2.
+We plot the ancestral proportions of individuals using package ggplot2.  Notice that the fitting result of the SQP algorithm is excellent.
 
 ```{r}
 P <- result_TGP_sqp$P
 pops <- order(colMeans(P))
-colors <- c("#E69F00", "#56B4E9", "#009E73")
-plot_structure(P, pops, colors)
+plot_structure(P, pops)
 ```
 
 # Fit PSD model by VI algorithm
@@ -91,7 +89,7 @@ We fit the PSD model with VI algorithm, and use the loss function as a stopping 
 result_TGP_vi <- psd_fit_vi(data_TGP, 3, 1e-5, 500)
 ```
 
-Similar to EM algorithm, the convergence of VI algorithm is also relatively slow, and about 440 iterations are needed to reach the accuracy requirement. But its fitting result is much better than EM algorithm. We import the pre-trained results directly.
+Similar to EM algorithm, the convergence of VI algorithm is also relatively slow, and about 440 iterations are needed to reach the accuracy requirement. We import the pre-trained results directly.
 
 ```{r}
 data(result_TGP_vi)
@@ -101,14 +99,45 @@ We plot the loss function against the number of iterations using package ggplot2
 
 ```{r}
 L <- result_TGP_vi$Loss
-plot_loss(L, 10, "vi")
+plot_loss(L[-1], 10, "vi")
 ```
 
-We plot the ancestral proportions of individuals using package ggplot2.
+We plot the ancestral proportions of individuals using package ggplot2.  The fitting result is much better than EM algorithm.
 
 ```{r}
 P <- result_TGP_vi$P
 pops <- order(colMeans(P))
-colors <- c("#E69F00", "#56B4E9", "#009E73")
-plot_structure(P, pops, colors)
+plot_structure(P, pops)
+```
+
+# Fit PSD model by SVI algorithm
+
+We fit the PSD model with SVI algorithm, and use the loss function as a stopping criterion.
+
+```{r eval=FALSE}
+result_TGP_svi <- psd_fit_svi(data_TGP, 3,
+                              1e-5, 5e+5, 100,
+                              5e-2, 1e-1, 1e+4,
+                              1, 0.5)
+```
+
+We completed the fitting in 42min, much longer than the previous three algorithms. Although SVI algorithm is known for its fast speed, this is for the dataset with a large number of individuals (I). It can be predicted that for the complete TGP data, SVI algorithm still needs about the same time, but the time of other algorithms will be greatly increased. Perhaps the time of these algorithms is similar for data similar to TGP data size, but if the number of individuals (I) is large, the performance of SVI algorithm is much better, which is also the superiority of SVI algorithm. We import the pre-trained results directly.
+
+```{r}
+data(result_TGP_svi)
+```
+
+We plot the loss function against the number of iterations using package ggplot2, the loss function records once for 10,000 iterations. The most natural thing to do is to use the change in the loss function as a stopping criterion, but as can be seen below, this is the loss function on the validation set so is not necessarily monotonic. When the sampling interval is too large, the loss function will oscillate near the optimal value, so that the cycle cannot be finished. When the sampling interval is too small, the loss function will be almost constant, resulting in premature exit from the loop. However, proper sampling intervals are difficult to find. We simply added a maximum number of iterations (in this case, 50,000) as a stopping criterion, and the loss function was only used as a post-hoc metric.
+
+```{r}
+L <- result_TGP_svi$Loss
+plot_loss(L[-1], 1e+4, "svi")
+```
+
+We plot the ancestral proportions of individuals using package ggplot2. The convergence accuracy of SVI algorithm is also very good.
+
+```{r}
+P <- result_TGP_svi$P
+pops <- order(colMeans(P))
+plot_structure(P, pops)
 ```

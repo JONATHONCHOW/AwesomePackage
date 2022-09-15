@@ -38,10 +38,10 @@ psd_fit_vi <- function (G, K, epsilon = 1e-5, maxiter = 500)
   BETAa <- matrix(1, K, J)
   BETAb <- matrix(1, K, J)
   PP <- matrix(1, I, K) + 0.1 * rand(I, K)
-  ZP <- update_zp(PP)
+  ZP <- rcpp_update_zp(PP)
   FFa <- matrix(1, K, J) + 0.1 * rand(K, J)
   FFb <- 10 * matrix(1, K, J) + 0.1 * rand(K, J)
-  ZF <- update_zf(FFa, FFb)
+  ZF <- rcpp_update_zf(FFa, FFb)
   ZaF <- ZF$ZaF
   ZbF <- ZF$ZbF
   pre_L <- 0
@@ -57,8 +57,8 @@ psd_fit_vi <- function (G, K, epsilon = 1e-5, maxiter = 500)
     FF <- rcpp_update_ff(G, ZP, ZaF, ZbF, BETAa, BETAb)
     FFa <- FF$FFa
     FFb <- FF$FFb
-    ZP <- update_zp(PP)
-    ZF <- update_zf(FFa, FFb)
+    ZP <- rcpp_update_zp(PP)
+    ZF <- rcpp_update_zf(FFa, FFb)
     ZaF <- ZF$ZaF
     ZbF <- ZF$ZbF
     if (iter %% 10 == 0)

@@ -32,5 +32,5 @@ function as a stopping criterion.
 }
 \examples{
 G <- matrix(c(0,0,1, 0,2,1, 1,0,1, 0,1,0, 1,0,0), 3, 5)
-psd_fit_sqp(G, 2, 1e-5, 10, 1)
+psd_fit_sqp(G, 2, 1e-5, 10, 10)
 }

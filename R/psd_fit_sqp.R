@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' G <- matrix(c(0,0,1, 0,2,1, 1,0,1, 0,1,0, 1,0,0), 3, 5)
-#' psd_fit_sqp(G, 2, 1e-5, 10, 1)
+#' psd_fit_sqp(G, 2, 1e-5, 10, 10)
 psd_fit_sqp <- function (G, K, epsilon = 1e-5, maxiter = 50, initem = 100)
 {
   I <- nrow(G)
@@ -38,9 +38,17 @@ psd_fit_sqp <- function (G, K, epsilon = 1e-5, maxiter = 50, initem = 100)
   em <- psd_fit_em(G, K, epsilon, initem)
   P <- em$P
   F <- em$F
-  pre_L <- 0
-  now_L <- rcpp_psd_loss(G, P, F)
-  L_list <- now_L
+  L_list <- em$Loss
+  if (length(L_list) == 1)
+  {
+    pre_L <- 0
+    now_L <- L_list[length(L_list)]
+  }
+  else
+  {
+    pre_L <- L_list[length(L_list) - 1]
+    now_L <- L_list[length(L_list)]
+  }
   # Loop.
   iter <- 0
   repeat
@@ -57,5 +65,6 @@ psd_fit_sqp <- function (G, K, epsilon = 1e-5, maxiter = 50, initem = 100)
     }
     if (! (abs(pre_L - now_L) > epsilon && iter < maxiter) ) {break}
   }
+  iter <- iter + em$Iterations
   return(list(P=P, F=F, Loss = L_list, Iterations = iter))
 }

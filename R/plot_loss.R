@@ -25,7 +25,7 @@
 #' @param linesizes The line sizes used to draw loss curves.
 #' @param shapes The shapes used to draw points at the selected iterations.
 #' @param fills The fill colors used to draw points at the selected iterations.
-#' @param theme The \sQuote{ggplot2} \dQuote{theme}.
+#' @param theme The ggplot2 theme.
 #'
 #' @return A \code{ggplot} object.
 #'

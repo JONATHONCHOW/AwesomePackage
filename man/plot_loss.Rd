@@ -37,7 +37,7 @@ logarithmic scale does not over-emphasize very small differences.}
 
 \item{fills}{The fill colors used to draw points at the selected iterations.}
 
-\item{theme}{The \sQuote{ggplot2} \dQuote{theme}.}
+\item{theme}{The ggplot2 theme.}
 }
 \value{
 A \code{ggplot} object.
