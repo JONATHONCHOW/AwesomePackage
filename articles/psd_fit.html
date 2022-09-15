@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@
       <img src="" class="logo" alt=""><h1>Fit PSD model</h1>
                         <h4 data-toc-skip class="author">Jonathon Chow</h4>
             
-            <h4 data-toc-skip class="date">2022-09-13</h4>
+            <h4 data-toc-skip class="date">2022-09-15</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/JONATHONCHOW/AwesomePackage/blob/HEAD/vignettes/psd_fit.Rmd" class="external-link"><code>vignettes/psd_fit.Rmd</code></a></small>
       <div class="d-none name"><code>psd_fit.Rmd</code></div>
@@ -93,20 +93,19 @@
 <p>We fit the PSD model with EM algorithm, and use the loss function as a stopping criterion.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result_TGP_em</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psd_fit_em.html">psd_fit_em</a></span><span class="op">(</span><span class="va">data_TGP</span>, <span class="fl">3</span>, <span class="fl">1e-5</span>, <span class="fl">500</span><span class="op">)</span></span></code></pre></div>
-<p>EM algorithm converges slowly. It takes about 450 EM iterations to reach the predetermined accuracy. In addition, the fitting result of EM algorithm is not very accurate. We import the pre-trained results directly.</p>
+<p>EM algorithm converges slowly. It takes about 450 EM iterations to reach the predetermined accuracy. We import the pre-trained results directly.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">result_TGP_em</span><span class="op">)</span></span></code></pre></div>
 <p>We plot the loss function against the number of iterations using package ggplot2, the loss function records once for 10 iterations.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">L</span> <span class="op">&lt;-</span> <span class="va">result_TGP_em</span><span class="op">$</span><span class="va">Loss</span></span>
-<span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="va">L</span>, <span class="fl">10</span>, <span class="st">"em"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="va">L</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">10</span>, <span class="st">"em"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="psd_fit_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<p>We plot the ancestral proportions of individuals using package ggplot2.</p>
+<p>We plot the ancestral proportions of individuals using package ggplot2. The fitting result of EM algorithm is not very accurate.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">P</span> <span class="op">&lt;-</span> <span class="va">result_TGP_em</span><span class="op">$</span><span class="va">P</span></span>
 <span><span class="va">pops</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">P</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#E69F00"</span>, <span class="st">"#56B4E9"</span>, <span class="st">"#009E73"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">P</span>, <span class="va">pops</span>, <span class="va">colors</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">P</span>, <span class="va">pops</span><span class="op">)</span></span></code></pre></div>
 <p><img src="psd_fit_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div class="section level2">
@@ -115,20 +114,19 @@
 <p>We fit the PSD model with SQP algorithm, and use the loss function as a stopping criterion.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result_TGP_sqp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psd_fit_sqp.html">psd_fit_sqp</a></span><span class="op">(</span><span class="va">data_TGP</span>, <span class="fl">3</span>, <span class="fl">1e-5</span>, <span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<p>Although SQP algorithm converges fast, it is easy to converge to the local optimal value. To prevent this bad scenario, we start with 100 EM iterations, and then only need about 30 SQP iterations to reach the accuracy requirement. Notice that the fitting result of the SQP algorithm is excellent. We import the pre-trained results directly.</p>
+<p>Although SQP algorithm converges fast, it is easy to converge to the local optimal value. To prevent this bad scenario, we start with 100 EM iterations, and then only need about 30 SQP iterations to reach the accuracy requirement. We import the pre-trained results directly.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">result_TGP_sqp</span><span class="op">)</span></span></code></pre></div>
 <p>We plot the loss function against the number of iterations using package ggplot2, the loss function records once for 10 iterations.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">L</span> <span class="op">&lt;-</span> <span class="va">result_TGP_sqp</span><span class="op">$</span><span class="va">Loss</span></span>
-<span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="va">L</span>, <span class="fl">10</span>, <span class="st">"sqp"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="va">L</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">10</span>, <span class="st">"em &amp; sqp"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="psd_fit_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<p>We plot the ancestral proportions of individuals using package ggplot2.</p>
+<p>We plot the ancestral proportions of individuals using package ggplot2. Notice that the fitting result of the SQP algorithm is excellent.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">P</span> <span class="op">&lt;-</span> <span class="va">result_TGP_sqp</span><span class="op">$</span><span class="va">P</span></span>
 <span><span class="va">pops</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">P</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#E69F00"</span>, <span class="st">"#56B4E9"</span>, <span class="st">"#009E73"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">P</span>, <span class="va">pops</span>, <span class="va">colors</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">P</span>, <span class="va">pops</span><span class="op">)</span></span></code></pre></div>
 <p><img src="psd_fit_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 </div>
 <div class="section level2">
@@ -137,21 +135,44 @@
 <p>We fit the PSD model with VI algorithm, and use the loss function as a stopping criterion.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result_TGP_vi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psd_fit_vi.html">psd_fit_vi</a></span><span class="op">(</span><span class="va">data_TGP</span>, <span class="fl">3</span>, <span class="fl">1e-5</span>, <span class="fl">500</span><span class="op">)</span></span></code></pre></div>
-<p>Similar to EM algorithm, the convergence of VI algorithm is also relatively slow, and about 440 iterations are needed to reach the accuracy requirement. But its fitting result is much better than EM algorithm. We import the pre-trained results directly.</p>
+<p>Similar to EM algorithm, the convergence of VI algorithm is also relatively slow, and about 440 iterations are needed to reach the accuracy requirement. We import the pre-trained results directly.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">result_TGP_vi</span><span class="op">)</span></span></code></pre></div>
 <p>We plot the loss function against the number of iterations using package ggplot2, the loss function records once for 10 iterations.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">L</span> <span class="op">&lt;-</span> <span class="va">result_TGP_vi</span><span class="op">$</span><span class="va">Loss</span></span>
-<span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="va">L</span>, <span class="fl">10</span>, <span class="st">"vi"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="va">L</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">10</span>, <span class="st">"vi"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="psd_fit_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
-<p>We plot the ancestral proportions of individuals using package ggplot2.</p>
+<p>We plot the ancestral proportions of individuals using package ggplot2. The fitting result is much better than EM algorithm.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">P</span> <span class="op">&lt;-</span> <span class="va">result_TGP_vi</span><span class="op">$</span><span class="va">P</span></span>
 <span><span class="va">pops</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">P</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#E69F00"</span>, <span class="st">"#56B4E9"</span>, <span class="st">"#009E73"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">P</span>, <span class="va">pops</span>, <span class="va">colors</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">P</span>, <span class="va">pops</span><span class="op">)</span></span></code></pre></div>
 <p><img src="psd_fit_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+</div>
+<div class="section level2">
+<h2 id="fit-psd-model-by-svi-algorithm">Fit PSD model by SVI algorithm<a class="anchor" aria-label="anchor" href="#fit-psd-model-by-svi-algorithm"></a>
+</h2>
+<p>We fit the PSD model with SVI algorithm, and use the loss function as a stopping criterion.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">result_TGP_svi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psd_fit_svi.html">psd_fit_svi</a></span><span class="op">(</span><span class="va">data_TGP</span>, <span class="fl">3</span>,</span>
+<span>                              <span class="fl">1e-5</span>, <span class="fl">5e+5</span>, <span class="fl">100</span>,</span>
+<span>                              <span class="fl">5e-2</span>, <span class="fl">1e-1</span>, <span class="fl">1e+4</span>,</span>
+<span>                              <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
+<p>We completed the fitting in 42min, much longer than the previous three algorithms. Although SVI algorithm is known for its fast speed, this is for the dataset with a large number of individuals (I). It can be predicted that for the complete TGP data, SVI algorithm still needs about the same time, but the time of other algorithms will be greatly increased. Perhaps the time of these algorithms is similar for data similar to TGP data size, but if the number of individuals (I) is large, the performance of SVI algorithm is much better, which is also the superiority of SVI algorithm. We import the pre-trained results directly.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">result_TGP_svi</span><span class="op">)</span></span></code></pre></div>
+<p>We plot the loss function against the number of iterations using package ggplot2, the loss function records once for 10,000 iterations. The most natural thing to do is to use the change in the loss function as a stopping criterion, but as can be seen below, this is the loss function on the validation set so is not necessarily monotonic. When the sampling interval is too large, the loss function will oscillate near the optimal value, so that the cycle cannot be finished. When the sampling interval is too small, the loss function will be almost constant, resulting in premature exit from the loop. However, proper sampling intervals are difficult to find. We simply added a maximum number of iterations (in this case, 50,000) as a stopping criterion, and the loss function was only used as a post-hoc metric.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">L</span> <span class="op">&lt;-</span> <span class="va">result_TGP_svi</span><span class="op">$</span><span class="va">Loss</span></span>
+<span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="va">L</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1e+4</span>, <span class="st">"svi"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="psd_fit_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
+<p>We plot the ancestral proportions of individuals using package ggplot2. The convergence accuracy of SVI algorithm is also very good.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">P</span> <span class="op">&lt;-</span> <span class="va">result_TGP_svi</span><span class="op">$</span><span class="va">P</span></span>
+<span><span class="va">pops</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">P</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">P</span>, <span class="va">pops</span><span class="op">)</span></span></code></pre></div>
+<p><img src="psd_fit_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

@@ -43,6 +43,9 @@
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/psd_fit_sqp.html</loc>
   </url>
   <url>
+    <loc>https://jonathonchow.github.io/AwesomePackage/reference/psd_fit_svi.html</loc>
+  </url>
+  <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/psd_fit_vi.html</loc>
   </url>
   <url>
@@ -50,6 +53,9 @@
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_TGP_sqp.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_TGP_svi.html</loc>
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_TGP_vi.html</loc>
