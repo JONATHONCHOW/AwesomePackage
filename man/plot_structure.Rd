@@ -6,10 +6,13 @@
 \usage{
 plot_structure(
   P,
-  pops,
+  pops = NULL,
+  label = NULL,
+  map.indiv = NULL,
+  map.pop = NULL,
+  gap = NULL,
   colors = c("#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628",
     "#f781bf", "#999999"),
-  ticks = NULL,
   font.size = 9
 )
 }
@@ -18,9 +21,15 @@ plot_structure(
 
 \item{pops}{Population order options.}
 
-\item{colors}{Theme color options.}
+\item{label}{The original order of individuals. This option is only for data that needs to be grouped.}
 
-\item{ticks}{Grouping options.}
+\item{map.indiv}{The new order of individuals. This option is only for data that needs to be grouped.}
+
+\item{map.pop}{The order of populations. This option is only for data that needs to be grouped.}
+
+\item{gap}{Gaps between groups. This option is only for data that needs to be grouped.}
+
+\item{colors}{Theme color options.}
 
 \item{font.size}{Font size used in plot.}
 }
@@ -32,6 +41,5 @@ Plot the population proportion of individuals using package ggplot2.
 }
 \examples{
 P <- matrix(c(0.5,0.3,0.8, 0.5,0.7,0.2), 3, 2)
-pops <- order(colMeans(P))
-plot_structure(P, pops)
+plot_structure(P)
 }

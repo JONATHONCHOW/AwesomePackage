@@ -3,7 +3,7 @@
 \docType{data}
 \name{data_TGP}
 \alias{data_TGP}
-\title{First chromosome data from the 1000 Genomes Project}
+\title{Sample data from the 1000 Genomes Project}
 \format{
 \code{data_TGP} is a 1092 x 50000 matrix.
 }

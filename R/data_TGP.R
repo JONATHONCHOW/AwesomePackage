@@ -2,7 +2,7 @@
 #'
 #' @docType data
 #'
-#' @title First chromosome data from the 1000 Genomes Project
+#' @title Sample data from the 1000 Genomes Project
 #'
 #' @description The 1000 Genomes Project (TGP) created a catalogue of common
 #'     human genetic variation, using openly consented samples from people

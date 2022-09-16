@@ -48,8 +48,14 @@ We plot the ancestral proportions of individuals using package ggplot2. The fitt
 
 ```{r}
 P <- result_TGP_em$P
-pops <- order(colMeans(P))
-plot_structure(P, pops)
+plot_structure(P)
+```
+
+We measure the prediction accuracy of the dataset by the maximum likelihood function and the deviance residuals.
+
+```{r}
+L[length(L)]
+psd_error(data_TGP, result_TGP_em)
 ```
 
 # Fit PSD model by SQP algorithm
@@ -77,8 +83,14 @@ We plot the ancestral proportions of individuals using package ggplot2.  Notice 
 
 ```{r}
 P <- result_TGP_sqp$P
-pops <- order(colMeans(P))
-plot_structure(P, pops)
+plot_structure(P)
+```
+
+We measure the prediction accuracy of the dataset by the maximum likelihood function and the deviance residuals.
+
+```{r}
+L[length(L)]
+psd_error(data_TGP, result_TGP_sqp)
 ```
 
 # Fit PSD model by VI algorithm
@@ -106,8 +118,15 @@ We plot the ancestral proportions of individuals using package ggplot2.  The fit
 
 ```{r}
 P <- result_TGP_vi$P
-pops <- order(colMeans(P))
-plot_structure(P, pops)
+plot_structure(P)
+```
+
+We measure the prediction accuracy of the dataset by the evidence of lower bound (ELBO), the maximum likelihood function and the deviance residuals.
+
+```{r}
+L[length(L)]
+psd_loglikelihood(data_TGP, result_TGP_vi)
+psd_error(data_TGP, result_TGP_vi)
 ```
 
 # Fit PSD model by SVI algorithm
@@ -138,6 +157,75 @@ We plot the ancestral proportions of individuals using package ggplot2. The conv
 
 ```{r}
 P <- result_TGP_svi$P
-pops <- order(colMeans(P))
-plot_structure(P, pops)
+plot_structure(P)
 ```
+
+We measure the prediction accuracy of the dataset by the maximum likelihood function of the validation set.
+
+```{r}
+L[length(L)]
+```
+
+# Structure plot
+
+We analyze the structure diagrams of the above four algorithms for TGP and HGDP.
+
+## TGP
+
+```{r eval=FALSE}
+result_TGP_vi <- psd_fit_vi(data_TGP, 3, 1e-5, 500)
+```
+
+```{r}
+data("map_TGP")
+data("result_TGP_vi")
+P <- result_TGP_vi$P
+label <- rownames(data_TGP)
+lpop <- unlist(map_TGP[1])
+spop <- unlist(map_TGP[2])
+indiv <- unlist(map_TGP[3])
+```
+
+Large populations.
+
+```{r}
+plot_structure(P, label = label, map.indiv = indiv, map.pop = lpop, gap = 5)
+```
+
+Small populations.
+
+```{r}
+plot_structure(P, label = label, map.indiv = indiv, map.pop = spop, gap = 5)
+```
+
+## HGDP
+
+```{r eval=FALSE}
+result_HGDP_vi <- psd_fit_vi(data_HGDP, 7, 1e-5, 800)
+```
+
+```{r}
+data("map_HGDP")
+data("result_HGDP_vi")
+P <- result_HGDP_vi$P
+label <- rownames(data_HGDP)
+lpop <- unlist(map_HGDP[1])
+spop <- unlist(map_HGDP[2])
+indiv <- unlist(map_HGDP[3])
+```
+
+Large populations.
+
+```{r}
+plot_structure(P, label = label, map.indiv = indiv, map.pop = lpop, gap = 5)
+```
+
+Small populations.
+
+```{r}
+plot_structure(P, label = label, map.indiv = indiv, map.pop = spop, gap = 5)
+```
+
+# Choose hyper-parameter `K`
+
+We fit different hyperparameters K respectively, and select the K that maximizes the log-maximum likelihood function. We conduct experiments on TPG and HGDP datasets and different algorithms separately.
