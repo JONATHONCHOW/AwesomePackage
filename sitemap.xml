@@ -13,7 +13,7 @@
     <loc>https://jonathonchow.github.io/AwesomePackage/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/articles/psd_fit.html</loc>
+    <loc>https://jonathonchow.github.io/AwesomePackage/articles/quick_start.html</loc>
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/authors.html</loc>
@@ -40,6 +40,9 @@
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/map_TGP.html</loc>
   </url>
   <url>
+    <loc>https://jonathonchow.github.io/AwesomePackage/reference/plot_index_vs_K.html</loc>
+  </url>
+  <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/plot_loss.html</loc>
   </url>
   <url>
@@ -62,20 +65,5 @@
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/psd_loglikelihood.html</loc>
-  </url>
-  <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_HGDP_vi.html</loc>
-  </url>
-  <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_TGP_em.html</loc>
-  </url>
-  <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_TGP_sqp.html</loc>
-  </url>
-  <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_TGP_svi.html</loc>
-  </url>
-  <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/reference/result_TGP_vi.html</loc>
   </url>
 </urlset>

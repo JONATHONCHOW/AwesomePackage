@@ -12,7 +12,7 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,7 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/psd_fit.html">Fit PSD model</a>
+    <a class="dropdown-item" href="../articles/quick_start.html">AwesomePackage: Quick start</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -62,10 +62,12 @@ function as a stopping criterion.</p>
 <span>  <span class="va">K</span>,</span>
 <span>  epsilon <span class="op">=</span> <span class="fl">1e-05</span>,</span>
 <span>  maxiter <span class="op">=</span> <span class="fl">5e+05</span>,</span>
-<span>  subiter <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  val_iter <span class="op">=</span> <span class="fl">10000</span>,</span>
+<span>  maxdrop <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  maxiter.sample <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  maxiter.val <span class="op">=</span> <span class="fl">2000</span>,</span>
 <span>  val_J <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  val_I <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>  val_iter <span class="op">=</span> <span class="fl">10000</span>,</span>
 <span>  tau <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  kappa <span class="op">=</span> <span class="fl">0.5</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -90,8 +92,20 @@ be taken from {0,1,2}.</p></dd>
 <dd><p>The maximum number of iterations.</p></dd>
 
 
-<dt>subiter</dt>
-<dd><p>The number of iterations in the sampling section.</p></dd>
+<dt>val_iter</dt>
+<dd><p>The number of iterations between each validation set sampling.</p></dd>
+
+
+<dt>maxdrop</dt>
+<dd><p>The maximum number of consecutive decreases in the loss function. Beyond this value the loop will stop.</p></dd>
+
+
+<dt>maxiter.sample</dt>
+<dd><p>The maximum number of iterations in the sampling section.</p></dd>
+
+
+<dt>maxiter.val</dt>
+<dd><p>The maximum number of iterations in the validation section.</p></dd>
 
 
 <dt>val_J</dt>
@@ -100,10 +114,6 @@ be taken from {0,1,2}.</p></dd>
 
 <dt>val_I</dt>
 <dd><p>Sample proportion of individuals in validation set.</p></dd>
-
-
-<dt>val_iter</dt>
-<dd><p>The number of iterations between each validation set sampling.</p></dd>
 
 
 <dt>tau</dt>
@@ -123,6 +133,9 @@ be taken from {0,1,2}.</p></dd>
 
 <dt><code>Loss</code></dt>
 <dd><p>A vector represents the value of the loss function which records once for 10 iterations.</p></dd>
+
+<dt><code>MaxLoss</code></dt>
+<dd><p>Maximum loss function value. Unlike other algorithms, we observe the loss function on the validation set. Therefore, monotonicity is not guaranteed, that is, the maximum value does not necessarily occur at the end, so the maximum value needs to be recorded.</p></dd>
 
 <dt><code>Iterations</code></dt>
 <dd><p>An integer represents the number of iterations.</p></dd>
