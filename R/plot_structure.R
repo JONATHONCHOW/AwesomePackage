@@ -22,6 +22,8 @@
 #' @param gap Gaps between groups. This option is only for data that needs to be grouped.
 #' @param colors Theme color options.
 #' @param font.size Font size used in plot.
+#' @param title Title of the plot, such as "EM", "SQP", "VI", "SVI".
+#' @param subtitle Subtitle of the plot, such as "K = 2", "K = 3".
 #'
 #' @return A \code{ggplot} object.
 #'
@@ -29,12 +31,14 @@
 #'
 #' @examples
 #' P <- matrix(c(0.5,0.3,0.8, 0.5,0.7,0.2), 3, 2)
-#' plot_structure(P)
+#' plot_structure(P, title = "FUN")
 plot_structure <- function (P, pops = NULL,
                             label = NULL, map.indiv = NULL, map.pop = NULL, gap = NULL,
-                            colors = c("#e41a1c","#377eb8","#4daf4a","#984ea3","#ff7f00",
-                                       "#ffff33","#a65628","#f781bf","#999999"),
-                            font.size = 9)
+                            colors = c("#E69F00","#56B4E9","#009E73","#F0E442","#0072B2",
+                                       "#EE2C2C","#CC79A7","#8968CD","#FF83FA","#EECFA1",
+                                       "#A52A2A","#4169E1","#FFFF00","#BFEFFF","#FF1493"),
+                            font.size = 9,
+                            title = NULL, subtitle = NULL)
 {
   if (is.null(pops))
   {
@@ -56,9 +60,10 @@ plot_structure <- function (P, pops = NULL,
     geom_col() +
     scale_x_continuous(limits = c(0,max(dat$sample) + 1),breaks = ticks,
                        labels = names(ticks)) +
+    scale_y_continuous(breaks = NULL) +
     scale_color_manual(values = colors) +
     scale_fill_manual(values = colors) +
-    labs(x = "",y = "population proportion") +
+    labs(x = "",y = "",title = title,subtitle = subtitle) +
     theme_cowplot(font.size) +
     theme(axis.line   = element_blank(),
           axis.ticks  = element_blank(),

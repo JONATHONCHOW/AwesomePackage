@@ -122,7 +122,7 @@ Eigen::MatrixXd eqqp_qr(const Eigen::MatrixXd& H, const Eigen::MatrixXd& f,
        be;
 
   // Compute x.
-  result = K.colPivHouseholderQr().solve(q);
+  result = K.householderQr().solve(q);
   return result;
 }
 

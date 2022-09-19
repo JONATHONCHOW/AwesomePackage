@@ -6,23 +6,24 @@
 \usage{
 plot_loss(
   L,
+  methods,
   sample.rate,
-  method,
   epsilon = 0.01,
   colors = c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7"),
   linetypes = "solid",
   linesizes = 0.5,
   shapes = 19,
   fills = "white",
-  theme = function() theme_cowplot(12)
+  theme = function() theme_cowplot(12),
+  title = NULL
 )
 }
 \arguments{
-\item{L}{A vector represents the loss function.}
+\item{L}{A list where each element is a vector of loss functions with respect to the number of iterations.}
+
+\item{methods}{A vector of the same length as \code{L} where each element is a name of the fitting algorithm, such as "em", "sqp", "vi", "svi".}
 
 \item{sample.rate}{The sampling rate of the loss function.}
-
-\item{method}{The name of the fitting algorithm, such as "em", "sqp", "vi", "svi".}
 
 \item{epsilon}{A small, positive number added to the vertical axis so that the
 logarithmic scale does not over-emphasize very small differences.}
@@ -33,11 +34,13 @@ logarithmic scale does not over-emphasize very small differences.}
 
 \item{linesizes}{The line sizes used to draw loss curves.}
 
-\item{shapes}{The shapes used to draw points at the selected iterations.}
+\item{shapes}{The shapes used to draw points at iterations.}
 
-\item{fills}{The fill colors used to draw points at the selected iterations.}
+\item{fills}{The fill colors used to draw points at iterations.}
 
 \item{theme}{The ggplot2 theme.}
+
+\item{title}{Title of the plot, such as "K = 2", "K = 3".}
 }
 \value{
 A \code{ggplot} object.
@@ -46,6 +49,6 @@ A \code{ggplot} object.
 Plot the loss function against the number of iterations using package ggplot2.
 }
 \examples{
-L <- c(-100,-20,-10,-1,-0.5,-0.3,-0.1)
-plot_loss(L, 1, "fun")
+L <- list(c(-100,-20,-10,-1,-0.5,-0.3,-0.1), c(-30,-5,-1,-0.1,-0.05))
+plot_loss(L, c("fun","more fun"), 1)
 }

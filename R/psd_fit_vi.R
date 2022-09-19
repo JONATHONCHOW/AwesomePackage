@@ -38,14 +38,14 @@ psd_fit_vi <- function (G, K, epsilon = 1e-5, maxiter = 500)
   BETAa <- matrix(1, K, J)
   BETAb <- matrix(1, K, J)
   PP <- matrix(1, I, K) + 0.1 * rand(I, K)
-  ZP <- rcpp_update_zp(PP)
   FFa <- matrix(1, K, J) + 0.1 * rand(K, J)
   FFb <- 10 * matrix(1, K, J) + 0.1 * rand(K, J)
+  ZP <- rcpp_update_zp(PP)
   ZF <- rcpp_update_zf(FFa, FFb)
   ZaF <- ZF$ZaF
   ZbF <- ZF$ZbF
   pre_L <- 0
-  now_L <- marginal_likelihood(G, ZP, ZaF, ZbF, PP, FFa, FFb, ALPHA, BETAa, BETAb)
+  now_L <- rcpp_marginal_likelihood(G, ZP, ZaF, ZbF, PP, FFa, FFb, ALPHA, BETAa, BETAb)
   L_list <- now_L
   # Loop.
   iter <- 0
@@ -64,59 +64,14 @@ psd_fit_vi <- function (G, K, epsilon = 1e-5, maxiter = 500)
     if (iter %% 10 == 0)
     {
       pre_L <- now_L
-      now_L <- marginal_likelihood(G, ZP, ZaF, ZbF, PP, FFa, FFb, ALPHA, BETAa, BETAb)
+      now_L <- rcpp_marginal_likelihood(G, ZP, ZaF, ZbF, PP, FFa, FFb, ALPHA, BETAa, BETAb)
       L_list <- append(L_list, now_L)
+      if (! (abs(pre_L - now_L) > epsilon)) {break}
     }
-    if (! (abs(pre_L - now_L) > epsilon && iter < maxiter) ) {break}
+    if (! (iter < maxiter)) {break}
   }
   # Posterior.
-  P <- matrix(0,I,K)
-  for (i in 1:I)
-  {
-    P[i,] <- PP[i,] / sum(PP[i,])
-  }
-  F = FFa / (FFa + FFb)
-  return(list(P=P, F=F, Loss = L_list, Iterations = iter))
-}
-
-# Update ZP.
-update_zp <- function (PP)
-{
-  I <- nrow(PP)
-  K <- ncol(PP)
-  ZP <- matrix(nrow = I, ncol = K)
-  for (i in 1:I)
-  {
-    temp <- digamma(sum(PP[i,]))
-    ZP[i,] <- exp(digamma(PP[i,]) - temp)
-  }
-  return(ZP)
-}
-
-# Update ZaF and ZbF.
-update_zf <- function (FFa, FFb)
-{
-  ZaF <- exp(digamma(FFa) - digamma(FFa + FFb))
-  ZbF <- exp(digamma(FFb) - digamma(FFa + FFb))
-  return(list(ZaF=ZaF, ZbF=ZbF))
-}
-
-# Compute marginal likelihood.
-marginal_likelihood <- function (G, ZP, ZaF, ZbF,
-                                 PP, FFa, FFb,
-                                 ALPHA, BETAa, BETAb)
-{
-  I <- nrow(G)
-  J <- ncol(G)
-  E1 <- rcpp_marginal_likelihood_e1(G, ZP, ZaF, ZbF)
-  E2 <- 0
-  for (i in 1:I)
-  {
-    E2 <- E2 + sum(lgamma(PP[i,]) - lgamma(ALPHA) - (PP[i,]-ALPHA)*log(ZP[i,])) - lgamma(sum(PP[i,])) + lgamma(sum(ALPHA))
-  }
-  E3 <- sum(lgamma(FFa) - lgamma(BETAa) - (FFa-BETAa)*log(ZaF)
-            + lgamma(FFb) - lgamma(BETAb) - (FFb-BETAb)*log(ZbF)
-            - lgamma(FFa+FFb) + lgamma(BETAa+BETAb))
-  Etotal <- (E1 + E2 + E3) / (I * J)
-  return(Etotal)
+  P <- PP / rowSums(PP)
+  F <- FFa / (FFa + FFb)
+  return(list(P = P, F = F, Loss = L_list[-1], Iterations = iter))
 }

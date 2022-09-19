@@ -9,10 +9,12 @@ psd_fit_svi(
   K,
   epsilon = 1e-05,
   maxiter = 5e+05,
-  subiter = 100,
+  val_iter = 10000,
+  maxdrop = 3,
+  maxiter.sample = 100,
+  maxiter.val = 2000,
   val_J = 0.05,
   val_I = 0.1,
-  val_iter = 10000,
   tau = 1,
   kappa = 0.5
 )
@@ -27,13 +29,17 @@ be taken from \{0,1,2\}.}
 
 \item{maxiter}{The maximum number of iterations.}
 
-\item{subiter}{The number of iterations in the sampling section.}
+\item{val_iter}{The number of iterations between each validation set sampling.}
+
+\item{maxdrop}{The maximum number of consecutive decreases in the loss function. Beyond this value the loop will stop.}
+
+\item{maxiter.sample}{The maximum number of iterations in the sampling section.}
+
+\item{maxiter.val}{The maximum number of iterations in the validation section.}
 
 \item{val_J}{Sample proportion of SNPs in validation set.}
 
 \item{val_I}{Sample proportion of individuals in validation set.}
-
-\item{val_iter}{The number of iterations between each validation set sampling.}
 
 \item{tau}{A parameter of the descending direction of SVI algorithm.}
 
@@ -44,6 +50,7 @@ A List with the following parameters:
 \describe{
 \item{\code{P}}{The population scale matrix of the individuals.}
 \item{\code{Loss}}{A vector represents the value of the loss function which records once for 10 iterations.}
+\item{\code{MaxLoss}}{Maximum loss function value. Unlike other algorithms, we observe the loss function on the validation set. Therefore, monotonicity is not guaranteed, that is, the maximum value does not necessarily occur at the end, so the maximum value needs to be recorded.}
 \item{\code{Iterations}}{An integer represents the number of iterations.}}
 }
 \description{

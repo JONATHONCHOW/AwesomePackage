@@ -1,6 +1,6 @@
 Package: AwesomePackage
 Title: Infer ancestry with some models and fit those models with some algorithms
-Version: 0.8.0
+Version: 0.9.0
 Authors@R: person("Jonathon", "Chow", email = "jonathonchow23@gmail.com", 
     role = c("aut", "cre"))
 Description: We use the classical PSD model for ancestor inference, which has 
@@ -33,6 +33,9 @@ Imports:
     Rcpp
 Suggests: 
     knitr,
-    rmarkdown
-VignetteBuilder: knitr
+    rmarkdown,
+    R.rsp
+VignetteBuilder: 
+    knitr,
+    R.rsp
 LazyData: true

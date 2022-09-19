@@ -11,10 +11,12 @@
 #' @param K An integer 2 or greater giving the matrix rank.
 #' @param epsilon Convergence criterion.
 #' @param maxiter The maximum number of iterations.
-#' @param subiter The number of iterations in the sampling section.
+#' @param val_iter The number of iterations between each validation set sampling.
+#' @param maxdrop The maximum number of consecutive decreases in the loss function. Beyond this value the loop will stop.
+#' @param maxiter.sample The maximum number of iterations in the sampling section.
+#' @param maxiter.val The maximum number of iterations in the validation section.
 #' @param val_J Sample proportion of SNPs in validation set.
 #' @param val_I Sample proportion of individuals in validation set.
-#' @param val_iter The number of iterations between each validation set sampling.
 #' @param tau A parameter of the descending direction of SVI algorithm.
 #' @param kappa A parameter of the descending direction of SVI algorithm.
 #'
@@ -22,6 +24,7 @@
 #' \describe{
 #' \item{\code{P}}{The population scale matrix of the individuals.}
 #' \item{\code{Loss}}{A vector represents the value of the loss function which records once for 10 iterations.}
+#' \item{\code{MaxLoss}}{Maximum loss function value. Unlike other algorithms, we observe the loss function on the validation set. Therefore, monotonicity is not guaranteed, that is, the maximum value does not necessarily occur at the end, so the maximum value needs to be recorded.}
 #' \item{\code{Iterations}}{An integer represents the number of iterations.}}
 #'
 #' @export
@@ -29,8 +32,9 @@
 #' @examples
 #' # Refer to Articles in AwesomePackage.
 psd_fit_svi <- function (G, K,
-                         epsilon = 1e-5, maxiter = 5e+5, subiter = 100,
-                         val_J = 5e-2, val_I = 1e-1, val_iter = 1e+4,
+                         epsilon = 1e-5, maxiter = 5e+5, val_iter = 1e+4, maxdrop = 3,
+                         maxiter.sample = 100, maxiter.val = 2000,
+                         val_J = 5e-2, val_I = 1e-1,
                          tau = 1, kappa = 0.5)
 {
   ind_J <- sample(2, ncol(G), replace = TRUE, prob = c(1 - val_J, val_J))
@@ -50,112 +54,52 @@ psd_fit_svi <- function (G, K,
   ALPHA <- matrix(rep(1/K, K) ,K, 1)
   PP <- matrix(1, I, K) + 0.1 * rand(I, K)
   ZP <- rcpp_update_zp(PP)
-  P <- matrix(0,I,K)
-  for (i in 1:I)
-  {
-    P[i,] <- PP[i,] / sum(PP[i,])
-  }
-  # Validate init.
-  ALPHA_val <- matrix(rep(1/K, K) ,K, 1)
-  PP_val <- PP[ind_I == 2,]
-  ZP_val <- ZP[ind_I == 2,]
-  P_val <- ZP[ind_I == 2,]
-  BETAa_val <- matrix(1, K, J_val)
-  BETAb_val <- matrix(1, K, J_val)
-  FFa_val <- matrix(1, K, J_val) + 0.1 * rand(K, J_val)
-  FFb_val <- 10 * matrix(1, K, J_val) + 0.1 * rand(K, J_val)
-  ZF_val <- rcpp_update_zf(FFa_val, FFb_val)
-  ZaF_val <- ZF_val$ZaF
-  ZbF_val <- ZF_val$ZbF
-  F_val = FFa_val / (FFa_val + FFb_val)
   pre_L <- 0
-  now_L <- rcpp_psd_loss(G_val, P_val, F_val)
+  now_L <- -1
   L_list <- now_L
+  max_L <- now_L
+  drop.index <- 0
   # Loop.
   iter <- 0
   repeat
   {
     pb$tick()
     iter <- iter + 1
-    # Subloop.
+    # Sample.
     G_sample <- as.matrix(G_train[, sample(J, 1)])
-    ffzf <- update_ffzf_svi(G_sample, ZP, subiter)
-    FFa <- ffzf$FFa
-    FFb <- ffzf$FFb
-    ZaF <- ffzf$ZaF
-    ZbF <- ffzf$ZbF
+    ffzf_sample <- update_ffzf_svi(G_sample, ZP, maxiter.sample)
+    ZaF_sample <- ffzf_sample$ZaF
+    ZbF_sample <- ffzf_sample$ZbF
     rho <- (tau + iter)^(-kappa)
-    PP <- rcpp_update_pp_svi(G_sample, PP, ZP, ZaF, ZbF, ALPHA, J, rho)
+    PP <- rcpp_update_pp_svi(G_sample, PP, ZP, ZaF_sample, ZbF_sample, ALPHA, J, rho)
     ZP <- rcpp_update_zp(PP)
-    # for (i in 1:I)
-    # {
-    #   P[i,] <- PP[i,] / sum(PP[i,])
-    # }
+    # Validation.
     if (iter %% val_iter == 0)
     {
-      for (i in 1:I)
-      {
-        P[i,] <- PP[i,] / sum(PP[i,])
-      }
+      P <- PP / rowSums(PP)
       ZP_val <- ZP[ind_I == 2,]
       P_val <- P[ind_I == 2,]
-      ffzf_val <- update_ffzf_svi_val(G_val, ZP_val, P_val, epsilon)
-      FFa <- ffzf_val$FFa
-      FFb <- ffzf_val$FFb
-      ZaF <- ffzf_val$ZaF
-      ZbF <- ffzf_val$ZbF
-      F_val = FFa_val / (FFa_val + FFb_val)
+      ffzf_val <- update_ffzf_svi(G_val, ZP_val, maxiter.val)
+      FFa_val <- ffzf_val$FFa
+      FFb_val <- ffzf_val$FFb
+      F_val <- FFa_val / (FFa_val + FFb_val)
       pre_L <- now_L
       now_L <- rcpp_psd_loss(G_val, P_val, F_val)
       L_list <- append(L_list, now_L)
+      if (now_L > pre_L && abs(pre_L - now_L) < epsilon) {break}
+      else if (now_L < pre_L) {drop.index <- drop.index + 1}
+      else if (now_L > pre_L) {drop.index <- 0}
+      if (now_L > max_L) {max_L <- now_L}
+      if (drop.index > maxdrop) {break}
     }
-    if (! (abs(pre_L - now_L) > epsilon * 1e-5 && iter < maxiter) ) {break}
+    if (! (iter < maxiter) ) {break}
   }
-  for (i in 1:I)
-  {
-    P[i,] <- PP[i,] / sum(PP[i,])
-  }
-  return(list(P=P, Loss = L_list, Iterations = iter))
+  P <- PP / rowSums(PP)
+  return(list(P = P, Loss = L_list[-1], MaxLoss = max_L, Iterations = iter))
 }
 
-# Update FF and ZF in validation set.
-update_ffzf_svi_val <- function(G, ZP, P, epsilon)
-{
-  K <- ncol(ZP)
-  J <- ncol(G)
-  BETAa <- matrix(1, K, J)
-  BETAb <- matrix(1, K, J)
-  FFa <- matrix(1, K, J) + 0.1 * rand(K, J)
-  FFb <- 10 * matrix(1, K, J) + 0.1 * rand(K, J)
-  ZF <- rcpp_update_zf(FFa, FFb)
-  ZaF <- ZF$ZaF
-  ZbF <- ZF$ZbF
-  F = FFa / (FFa + FFb)
-  pre_L <- 0
-  now_L <- rcpp_psd_loss(G, P, F)
-  iter <- 0
-  repeat
-  {
-    iter <- iter + 1
-    FF <- rcpp_update_ff(G, ZP, ZaF, ZbF, BETAa, BETAb)
-    FFa <- FF$FFa
-    FFb <- FF$FFb
-    ZF <- rcpp_update_zf(FFa, FFb)
-    ZaF <- ZF$ZaF
-    ZbF <- ZF$ZbF
-    if (iter %% 10 == 0)
-    {
-      F = FFa / (FFa + FFb)
-      pre_L <- now_L
-      now_L <- rcpp_psd_loss(G, P, F)
-    }
-    if (! (abs(pre_L - now_L) > epsilon)) {break}
-  }
-  return(list(FFa=FFa, FFb=FFb, ZaF=ZaF, ZbF=ZbF))
-}
-
-# Update FF and ZF.
-update_ffzf_svi <- function(G, ZP, subiter)
+# Update FF and ZF in sample set or validation set.
+update_ffzf_svi <- function(G, ZP, maxiter)
 {
   K <- ncol(ZP)
   J <- ncol(G)
@@ -176,7 +120,7 @@ update_ffzf_svi <- function(G, ZP, subiter)
     ZF <- rcpp_update_zf(FFa, FFb)
     ZaF <- ZF$ZaF
     ZbF <- ZF$ZbF
-    if (! (iter < subiter)) {break}
+    if (! (iter < maxiter)) {break}
   }
   return(list(FFa=FFa, FFb=FFb, ZaF=ZaF, ZbF=ZbF))
 }

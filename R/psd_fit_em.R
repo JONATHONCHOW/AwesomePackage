@@ -52,10 +52,11 @@ psd_fit_em <- function (G, K, epsilon = 1e-5, maxiter = 500)
       pre_L <- now_L
       now_L <- rcpp_psd_loss(G, P, F)
       L_list <- append(L_list, now_L)
+      if (! (abs(pre_L - now_L) > epsilon)) {break}
     }
-    if (! (abs(pre_L - now_L) > epsilon && iter < maxiter) ) {break}
+    if (! (iter < maxiter)) {break}
   }
-  return(list(P=P, F=F, Loss = L_list, Iterations = iter))
+  return(list(P = P, F = F, Loss = L_list[-1], Iterations = iter))
 }
 
 # Generate a random matrix with elements between 0 and 1.

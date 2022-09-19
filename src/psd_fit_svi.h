@@ -10,8 +10,4 @@ Eigen::MatrixXd rcpp_update_pp_svi(const Eigen::MatrixXd& G,
                                    const Eigen::MatrixXd& ALPHA,
                                    const size_t& J, const double& rho);
 
-Eigen::MatrixXd rcpp_update_zp(const Eigen::MatrixXd& PP);
-
-Rcpp::List rcpp_update_zf(const Eigen::MatrixXd& FFa, const Eigen::MatrixXd& FFb);
-
 #endif

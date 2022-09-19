@@ -1,5 +1,5 @@
 ---
-title: "Fit PSD model"
+title: "AwesomePackage: Quick start"
 author: Jonathon Chow
 date: "`r Sys.Date()`"
 output:
@@ -9,39 +9,41 @@ output:
     highlight: textmate
     theme: readable
 vignette: >
-  %\VignetteIndexEntry{Fit PSD model}
+  %\VignetteIndexEntry{AwesomePackage: Quick start}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-# PSD model and data
-
-We consider the first chromosome data from the 1000 Genomes Project (TGP) and use a PSD model to fit these data.
+This vignette is a brief introduction to AwesomePackage. You first need to library AwesomePackage. You will use the package data: `data_TGP`, `data_HGDP`, `map_TGP`, `map_HGDP`. See *Reference* in [AwesomePackage](https://jonathonchow.github.io/AwesomePackage/) for an introduction of these data.
 
 ```{r}
 library(AwesomePackage)
-data(data_TGP)
 ```
 
-# Fit PSD model by EM algorithm
+# Fit PSD model
 
-We fit the PSD model with EM algorithm, and use the loss function as a stopping criterion.
+## PSD model and data
+
+We consider the sample data from the 1000 Genomes Project (TGP) and use a PSD model to fit these data. We import the pre-trained results directly.
+
+```{r}
+load(system.file("extdata", "result_fit_psd.RData", package = "AwesomePackage", mustWork = TRUE))
+```
+
+## Fit PSD model by EM algorithm
+
+We fit the PSD model with EM algorithm, and use the loss function as a stopping criterion. EM algorithm converges slowly. It takes about 450 EM iterations to reach the predetermined accuracy.
 
 ```{r eval=FALSE}
 result_TGP_em <- psd_fit_em(data_TGP, 3, 1e-5, 500)
-```
-
-EM algorithm converges slowly. It takes about 450 EM iterations to reach the predetermined accuracy. We import the pre-trained results directly.
-
-```{r}
-data(result_TGP_em)
+# [=========================================================>------] 450/500 ( 3m)
 ```
 
 We plot the loss function against the number of iterations using package ggplot2, the loss function records once for 10 iterations.
 
 ```{r}
 L <- result_TGP_em$Loss
-plot_loss(L[-1], 10, "em")
+plot_loss(list(L), "em", 10)
 ```
 
 We plot the ancestral proportions of individuals using package ggplot2. The fitting result of EM algorithm is not very accurate.
@@ -58,25 +60,21 @@ L[length(L)]
 psd_error(data_TGP, result_TGP_em)
 ```
 
-# Fit PSD model by SQP algorithm
+## Fit PSD model by SQP algorithm
 
-We fit the PSD model with SQP algorithm, and use the loss function as a stopping criterion.
+We fit the PSD model with SQP algorithm, and use the loss function as a stopping criterion. Although SQP algorithm converges fast, it is easy to converge to the local optimal value. To prevent this bad scenario, we start with 100 EM iterations, and then only need about 40 SQP iterations to reach the accuracy requirement.
 
 ```{r eval=FALSE}
 result_TGP_sqp <- psd_fit_sqp(data_TGP, 3, 1e-5, 50, 100)
-```
-
-Although SQP algorithm converges fast, it is easy to converge to the local optimal value. To prevent this bad scenario, we start with 100 EM iterations, and then only need about 30 SQP iterations to reach the accuracy requirement. We import the pre-trained results directly.
-
-```{r}
-data(result_TGP_sqp)
+# [================================================================] 100/100 (35s)
+# [====================================================>-------------] 40/50 ( 1m)
 ```
 
 We plot the loss function against the number of iterations using package ggplot2, the loss function records once for 10 iterations.
 
 ```{r}
 L <- result_TGP_sqp$Loss
-plot_loss(L[-1], 10, "em & sqp")
+plot_loss(list(L), "em & sqp", 10)
 ```
 
 We plot the ancestral proportions of individuals using package ggplot2.  Notice that the fitting result of the SQP algorithm is excellent.
@@ -93,25 +91,20 @@ L[length(L)]
 psd_error(data_TGP, result_TGP_sqp)
 ```
 
-# Fit PSD model by VI algorithm
+## Fit PSD model by VI algorithm
 
-We fit the PSD model with VI algorithm, and use the loss function as a stopping criterion.
+We fit the PSD model with VI algorithm, and use the loss function as a stopping criterion. Similar to EM algorithm, the convergence of VI algorithm is also relatively slow, and about 490 iterations are needed to reach the accuracy requirement.
 
 ```{r eval=FALSE}
 result_TGP_vi <- psd_fit_vi(data_TGP, 3, 1e-5, 500)
-```
-
-Similar to EM algorithm, the convergence of VI algorithm is also relatively slow, and about 440 iterations are needed to reach the accuracy requirement. We import the pre-trained results directly.
-
-```{r}
-data(result_TGP_vi)
+# [==============================================================>-] 490/500 ( 2m)
 ```
 
 We plot the loss function against the number of iterations using package ggplot2, the loss function records once for 10 iterations.
 
 ```{r}
 L <- result_TGP_vi$Loss
-plot_loss(L[-1], 10, "vi")
+plot_loss(list(L), "vi", 10)
 ```
 
 We plot the ancestral proportions of individuals using package ggplot2.  The fitting result is much better than EM algorithm.
@@ -129,28 +122,24 @@ psd_loglikelihood(data_TGP, result_TGP_vi)
 psd_error(data_TGP, result_TGP_vi)
 ```
 
-# Fit PSD model by SVI algorithm
+## Fit PSD model by SVI algorithm
 
-We fit the PSD model with SVI algorithm, and use the loss function as a stopping criterion.
+We fit the PSD model with SVI algorithm, and use the loss function as a stopping criterion. We completed the fitting in 13 min, little longer than the previous three algorithms. Although SVI algorithm is known for its fast speed, this is for the dataset with a large number of individuals (I). It can be predicted that for the complete TGP data, SVI algorithm still needs about the same time, but the time of other algorithms will be greatly increased. Perhaps the time of these algorithms is similar for data similar to TGP data size, but if the number of individuals (I) is large, the performance of SVI algorithm is much better, which is also the superiority of SVI algorithm.
 
 ```{r eval=FALSE}
 result_TGP_svi <- psd_fit_svi(data_TGP, 3,
-                              1e-5, 5e+5, 100,
-                              5e-2, 1e-1, 1e+4,
+                              1e-5, 5e+5, 1e+4, 3,
+                              100, 2000,
+                              5e-2, 1e-1,
                               1, 0.5)
-```
-
-We completed the fitting in 42min, much longer than the previous three algorithms. Although SVI algorithm is known for its fast speed, this is for the dataset with a large number of individuals (I). It can be predicted that for the complete TGP data, SVI algorithm still needs about the same time, but the time of other algorithms will be greatly increased. Perhaps the time of these algorithms is similar for data similar to TGP data size, but if the number of individuals (I) is large, the performance of SVI algorithm is much better, which is also the superiority of SVI algorithm. We import the pre-trained results directly.
-
-```{r}
-data(result_TGP_svi)
+# [============>----------------------------------------------] 110000/5e+05 (13m)
 ```
 
 We plot the loss function against the number of iterations using package ggplot2, the loss function records once for 10,000 iterations. The most natural thing to do is to use the change in the loss function as a stopping criterion, but as can be seen below, this is the loss function on the validation set so is not necessarily monotonic. When the sampling interval is too large, the loss function will oscillate near the optimal value, so that the cycle cannot be finished. When the sampling interval is too small, the loss function will be almost constant, resulting in premature exit from the loop. However, proper sampling intervals are difficult to find. We simply added a maximum number of iterations (in this case, 50,000) as a stopping criterion, and the loss function was only used as a post-hoc metric.
 
 ```{r}
 L <- result_TGP_svi$Loss
-plot_loss(L[-1], 1e+4, "svi")
+plot_loss(list(L), "svi", 1e+4)
 ```
 
 We plot the ancestral proportions of individuals using package ggplot2. The convergence accuracy of SVI algorithm is also very good.
@@ -163,23 +152,26 @@ plot_structure(P)
 We measure the prediction accuracy of the dataset by the maximum likelihood function of the validation set.
 
 ```{r}
-L[length(L)]
+result_TGP_svi$MaxLoss
 ```
 
 # Structure plot
 
-We analyze the structure diagrams of the above four algorithms for TGP and HGDP.
+We analyze the structure diagrams of the above four algorithms for TGP and HGDP. We import the pre-trained results directly.
+
+```{r}
+load(system.file("extdata", "result_structure_plot.RData", package = "AwesomePackage", mustWork = TRUE))
+```
 
 ## TGP
 
 ```{r eval=FALSE}
-result_TGP_vi <- psd_fit_vi(data_TGP, 3, 1e-5, 500)
+result_TGP <- psd_fit_vi(data_TGP, 4, 1e-5, 2000)
+# [=========================>-------------------------------------] 840/2000 ( 4m)
 ```
 
 ```{r}
-data("map_TGP")
-data("result_TGP_vi")
-P <- result_TGP_vi$P
+P <- result_TGP$P
 label <- rownames(data_TGP)
 lpop <- unlist(map_TGP[1])
 spop <- unlist(map_TGP[2])
@@ -201,13 +193,12 @@ plot_structure(P, label = label, map.indiv = indiv, map.pop = spop, gap = 5)
 ## HGDP
 
 ```{r eval=FALSE}
-result_HGDP_vi <- psd_fit_vi(data_HGDP, 7, 1e-5, 800)
+result_HGDP <- psd_fit_vi(data_HGDP, 7, 1e-5, 2000)
+# [=============================>---------------------------------] 940/2000 ( 5m)
 ```
 
 ```{r}
-data("map_HGDP")
-data("result_HGDP_vi")
-P <- result_HGDP_vi$P
+P <- result_HGDP$P
 label <- rownames(data_HGDP)
 lpop <- unlist(map_HGDP[1])
 spop <- unlist(map_HGDP[2])
@@ -223,9 +214,9 @@ plot_structure(P, label = label, map.indiv = indiv, map.pop = lpop, gap = 5)
 Small populations.
 
 ```{r}
-plot_structure(P, label = label, map.indiv = indiv, map.pop = spop, gap = 5)
+plot_structure(P, label = label, map.indiv = indiv, map.pop = spop, gap = 5, font.size = 5)
 ```
 
 # Choose hyper-parameter `K`
 
-We fit different hyperparameters K respectively, and select the K that maximizes the log-maximum likelihood function. We conduct experiments on TPG and HGDP datasets and different algorithms separately.
+We fit different hyperparameters K respectively, and select the K that makes some indices optimal. We conduct experiments on TPG and HGDP datasets and different algorithms separately. See *Articles* in [AwesomePackage](https://jonathonchow.github.io/AwesomePackage/) for details.

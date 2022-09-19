@@ -62,9 +62,10 @@ psd_fit_sqp <- function (G, K, epsilon = 1e-5, maxiter = 50, initem = 100)
       pre_L <- now_L
       now_L <- rcpp_psd_loss(G, P, F)
       L_list <- append(L_list, now_L)
+      if (! (abs(pre_L - now_L) > epsilon)) {break}
     }
-    if (! (abs(pre_L - now_L) > epsilon && iter < maxiter) ) {break}
+    if (! (iter < maxiter)) {break}
   }
   iter <- iter + em$Iterations
-  return(list(P=P, F=F, Loss = L_list, Iterations = iter))
+  return(list(P = P, F = F, Loss = L_list, Iterations = iter))
 }

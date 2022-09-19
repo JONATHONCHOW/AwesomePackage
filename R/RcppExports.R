@@ -33,14 +33,6 @@ rcpp_update_pp_svi <- function(G, PP, ZP, ZaF, ZbF, ALPHA, J, rho) {
     .Call('_AwesomePackage_rcpp_update_pp_svi', PACKAGE = 'AwesomePackage', G, PP, ZP, ZaF, ZbF, ALPHA, J, rho)
 }
 
-rcpp_update_zp <- function(PP) {
-    .Call('_AwesomePackage_rcpp_update_zp', PACKAGE = 'AwesomePackage', PP)
-}
-
-rcpp_update_zf <- function(FFa, FFb) {
-    .Call('_AwesomePackage_rcpp_update_zf', PACKAGE = 'AwesomePackage', FFa, FFb)
-}
-
 rcpp_update_pp <- function(G, ZP, ZaF, ZbF, ALPHA) {
     .Call('_AwesomePackage_rcpp_update_pp', PACKAGE = 'AwesomePackage', G, ZP, ZaF, ZbF, ALPHA)
 }
@@ -49,7 +41,15 @@ rcpp_update_ff <- function(G, ZP, ZaF, ZbF, BETAa, BETAb) {
     .Call('_AwesomePackage_rcpp_update_ff', PACKAGE = 'AwesomePackage', G, ZP, ZaF, ZbF, BETAa, BETAb)
 }
 
-rcpp_marginal_likelihood_e1 <- function(G, ZP, ZaF, ZbF) {
-    .Call('_AwesomePackage_rcpp_marginal_likelihood_e1', PACKAGE = 'AwesomePackage', G, ZP, ZaF, ZbF)
+rcpp_update_zp <- function(PP) {
+    .Call('_AwesomePackage_rcpp_update_zp', PACKAGE = 'AwesomePackage', PP)
+}
+
+rcpp_update_zf <- function(FFa, FFb) {
+    .Call('_AwesomePackage_rcpp_update_zf', PACKAGE = 'AwesomePackage', FFa, FFb)
+}
+
+rcpp_marginal_likelihood <- function(G, ZP, ZaF, ZbF, PP, FFa, FFb, ALPHA, BETAa, BETAb) {
+    .Call('_AwesomePackage_rcpp_marginal_likelihood', PACKAGE = 'AwesomePackage', G, ZP, ZaF, ZbF, PP, FFa, FFb, ALPHA, BETAa, BETAb)
 }
 
