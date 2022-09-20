@@ -12,7 +12,7 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,6 +26,7 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/psd_fit_em.html">Fit PSD model by EM algorithm</a>
     <a class="dropdown-item" href="../articles/quick_start.html">AwesomePackage: Quick start</a>
   </div>
 </li>
@@ -102,18 +103,18 @@ be taken from {0,1,2}.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">psd_fit_em</span><span class="op">(</span><span class="va">G</span>, <span class="fl">2</span>, <span class="fl">1e-5</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $P</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.005490241 0.99450976</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.984961432 0.01503857</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.517193474 0.48280653</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]        [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.1998095 0.800190535</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.9982313 0.001768695</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.3710656 0.628934398</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]         [,2]         [,3]         [,4]         [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.28544174 0.9999857789 0.0003178093 3.575260e-01 3.712482e-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.01534025 0.0001201604 0.6126606743 1.901944e-13 3.624957e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]       [,2]         [,3]         [,4]         [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1.743626e-05 0.98850783 0.0006827064 3.519872e-01 0.0004500515</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 3.373023e-01 0.01534088 0.7128715702 2.940887e-14 0.3631915663</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Loss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.7288625</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.7452079</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Iterations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>
