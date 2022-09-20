@@ -18,7 +18,7 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">AwesomePackage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -33,6 +33,9 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/psd_fit_em.html">Fit PSD model by EM algorithm</a>
+    </li>
+    <li>
       <a href="../articles/quick_start.html">AwesomePackage: Quick start</a>
     </li>
     <li>
@@ -110,18 +113,18 @@ be taken from {0,1,2}.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">psd_fit_em</span><span class="op">(</span><span class="va">G</span>, <span class="fl">2</span>, <span class="fl">1e-5</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $P</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]         [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.04709969 0.9529003144</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.99985100 0.0001489951</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.33522553 0.6647744726</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]       [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.01141537 0.98858463</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.98150805 0.01849195</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.50108239 0.49891761</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]         [,2]         [,3]        [,4]         [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.000785511 0.9999953814 7.077299e-05 3.95500e-01 4.691656e-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.289129577 0.0001686199 6.017515e-01 2.58745e-26 3.254143e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]        [,2]        [,3]         [,4]         [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.24961715 0.999970417 0.007447577 3.614097e-01 3.363255e-12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.07066394 0.000143287 0.609162593 7.211202e-10 3.590164e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Loss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.7149629</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.7297566</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Iterations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>

@@ -2,7 +2,8 @@ pandoc: '2.18'
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
+  psd_fit_em: psd_fit_em.html
   quick_start: quick_start.html
   user_manual: user_manual.html
-last_built: 2022-09-19T16:28Z
+last_built: 2022-09-20T03:19Z
 
