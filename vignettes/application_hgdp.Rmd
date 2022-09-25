@@ -2,7 +2,12 @@
 title: "Applications III: HGDP Data Set"
 author: "Jonathon Chow"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  html_document:
+    toc: yes
+    toc_float: no
+    highlight: textmate
+    theme: readable
 vignette: >
   %\VignetteIndexEntry{Applications III: HGDP Data Set}
   %\VignetteEngine{knitr::rmarkdown}
@@ -12,7 +17,7 @@ bibliography: ref.bib
 
 # Introduction
 
-A group of scientists at Stanford University have collaborated on a large study to understand genetic diversity in human populations. They analyzed genomic DNA from 1,043 individuals from around the world, determining their genotypes at more than 650,000 SNP loci, with the Illumina BeadStation technology. Genomic DNA samples from these fully-consenting individuals were collected by the Human Genome Diversity Project (HGDP), in a collaboration with the Centre Etude Polymorphism Humain (CEPH) in Paris. The collection they tested is referred to as the "HGDP-CEPH Human Genome Diversity Cell Line Panel" [@cann2002human]. They represent 51 different populations from Africa, Europe, the Middle East, South and Central Asia, East Asia, Oceania and the Americas. The HGDP includes the 51 populations from around the world [@li2008worldwide]. A description of the populations that were studied can be found in a 2005 review paper by Cavalli-Sforza [@cavalli2005human]. See [here](https://cephb.fr/en/hgdp_panel.php) for more information.
+&emsp;&emsp;A group of scientists at Stanford University have collaborated on a large study to understand genetic diversity in human populations. They analyzed genomic DNA from 1,043 individuals from around the world, determining their genotypes at more than 650,000 SNP loci, with the Illumina BeadStation technology. Genomic DNA samples from these fully-consenting individuals were collected by the Human Genome Diversity Project (HGDP), in a collaboration with the Centre Etude Polymorphism Humain (CEPH) in Paris. The collection they tested is referred to as the "HGDP-CEPH Human Genome Diversity Cell Line Panel" [@cann2002human]. They represent 51 different populations from Africa, Europe, the Middle East, South and Central Asia, East Asia, Oceania and the Americas. The HGDP includes the 51 populations from around the world [@li2008worldwide]. A description of the populations that were studied can be found in a 2005 review paper by Cavalli-Sforza [@cavalli2005human]. See [here](https://cephb.fr/en/hgdp_panel.php) for more information.
 
 # Data Sources and Preprocessing
 
@@ -460,7 +465,7 @@ spop <- unlist(map_HGDP[2])
 indiv <- unlist(map_HGDP[3])
 ```
 
-```{r}
+```{r fig.height=3, fig.width=9, fig.show='hold'}
 plot_structure(result_HGDP_svi_K7_full$P, 
                label = label, map.indiv = indiv, map.pop = lpop, gap = 5, 
                title = "Data Set: HGDP (full) | Method: SVI | K: 7")
@@ -480,8 +485,10 @@ plot_structure(result_HGDP_svi_K11_full$P,
 
 In addition, we iterated for a million times for the case of `K` equals 7 to get `result_HGDP_svi_K7_full_million`, and made a structure diagram similar to the way in the article [@raj2014faststructure], and the results were almost the same.
 
-```{r}
-plot_structure(result_HGDP_svi_K7_full_million$P, pops = c(7,4,5,3,6,1,2), label = label, map.indiv = indiv, map.pop = spop, gap = 3, font.size = 5, title = "Data Set: HGDP (full) | Method: SVI (1e+6 interations) | K: 7")
+```{r fig.height=3, fig.width=9, fig.show='hold'}
+plot_structure(result_HGDP_svi_K7_full_million$P, pops = c(7,4,5,3,6,1,2), 
+               label = label, map.indiv = indiv, map.pop = spop, gap = 3, font.size = 5, 
+               title = "Data Set: HGDP (full) | Method: SVI (1e+6 interations) | K: 7")
 ```
 
 # Literature Cited {-}
@@ -492,7 +499,7 @@ plot_structure(result_HGDP_svi_K7_full_million$P, pops = c(7,4,5,3,6,1,2), label
 
 # Appendix A {-}
 
-```{r}
+```{r out.width='25%', fig.show='hold'}
 load(system.file("extdata", "result_HGDP_em.RData", package = "AwesomePackage", mustWork = TRUE))
 load(system.file("extdata", "result_HGDP_sqp.RData", package = "AwesomePackage", mustWork = TRUE))
 load(system.file("extdata", "result_HGDP_vi.RData", package = "AwesomePackage", mustWork = TRUE))
@@ -574,7 +581,9 @@ plot_loss(list(result_HGDP_svi_K15_sample$Loss), "svi", 1e+4,
 
 # Appendix B {-}
 
-```{r}
+## EM algorithm {-}
+
+```{r fig.height=3, fig.width=9, fig.show='hold'}
 plot_structure(result_HGDP_em_K2$P, 
                label = label, map.indiv = indiv, map.pop = lpop, gap = 5, 
                title = "Data Set: HGDP | Method: EM | K: 2")
@@ -619,7 +628,9 @@ plot_structure(result_HGDP_em_K15$P,
                title = "Data Set: HGDP | Method: EM | K: 15")
 ```
 
-```{r}
+## SQP algorithm {-}
+
+```{r fig.height=3, fig.width=9, fig.show='hold'}
 plot_structure(result_HGDP_sqp_K2$P, 
                label = label, map.indiv = indiv, map.pop = lpop, gap = 5, 
                title = "Data Set: HGDP | Method: SQP | K: 2")
@@ -664,7 +675,9 @@ plot_structure(result_HGDP_sqp_K15$P,
                title = "Data Set: HGDP | Method: SQP | K: 15")
 ```
 
-```{r}
+## VI algorithm {-}
+
+```{r fig.height=3, fig.width=9, fig.show='hold'}
 plot_structure(result_HGDP_vi_K2$P, 
                label = label, map.indiv = indiv, map.pop = lpop, gap = 5, 
                title = "Data Set: HGDP | Method: VI | K: 2")
@@ -709,7 +722,9 @@ plot_structure(result_HGDP_vi_K15$P,
                title = "Data Set: HGDP | Method: VI | K: 15")
 ```
 
-```{r}
+## SVI algorithm {-}
+
+```{r fig.height=3, fig.width=9, fig.show='hold'}
 plot_structure(result_HGDP_svi_K2_sample$P, 
                label = label, map.indiv = indiv, map.pop = lpop, gap = 5, 
                title = "Data Set: HGDP | Method: SVI | K: 2")

@@ -2,7 +2,12 @@
 title: "Models and Methods I: Fit PSD Model by EM Algorithm"
 author: "Jonathon Chow"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  html_document:
+    toc: yes
+    toc_float: no
+    highlight: textmate
+    theme: readable
 vignette: >
   %\VignetteIndexEntry{Models and Methods I: Fit PSD Model by EM Algorithm}
   %\VignetteEngine{knitr::rmarkdown}

@@ -2,7 +2,12 @@
 title: "Applications II: TGP Data Set"
 author: "Jonathon Chow"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  html_document:
+    toc: yes
+    toc_float: no
+    highlight: textmate
+    theme: readable
 vignette: >
   %\VignetteIndexEntry{Applications II: TGP Data Set}
   %\VignetteEngine{knitr::rmarkdown}
@@ -458,7 +463,7 @@ spop <- unlist(map_TGP[2])
 indiv <- unlist(map_TGP[3])
 ```
 
-```{r}
+```{r fig.height=3, fig.width=9, fig.show='hold'}
 plot_structure(result_TGP_svi_K7_full$P, 
                label = label, map.indiv = indiv, map.pop = lpop, gap = 5, 
                title = "Data Set: TGP (full) | Method: SVI | K: 7")
@@ -484,7 +489,7 @@ plot_structure(result_TGP_svi_K11_full$P,
 
 # Appendix A {-}
 
-```{r}
+```{r out.width='25%', fig.show='hold'}
 load(system.file("extdata", "result_TGP_em.RData", package = "AwesomePackage", mustWork = TRUE))
 load(system.file("extdata", "result_TGP_sqp.RData", package = "AwesomePackage", mustWork = TRUE))
 load(system.file("extdata", "result_TGP_vi.RData", package = "AwesomePackage", mustWork = TRUE))
@@ -566,7 +571,9 @@ plot_loss(list(result_TGP_svi_K15_sample$Loss), "svi", 1e+4,
 
 # Appendix B {-}
 
-```{r}
+## EM algorithm {-}
+
+```{r fig.height=3, fig.width=9, fig.show='hold'}
 plot_structure(result_TGP_em_K2$P, 
                label = label, map.indiv = indiv, map.pop = lpop, gap = 5, 
                title = "Data Set: TGP | Method: EM | K: 2")
@@ -611,7 +618,9 @@ plot_structure(result_TGP_em_K15$P,
                title = "Data Set: TGP | Method: EM | K: 15")
 ```
 
-```{r}
+## SQP algorithm {-}
+
+```{r fig.height=3, fig.width=9, fig.show='hold'}
 plot_structure(result_TGP_sqp_K2$P, 
                label = label, map.indiv = indiv, map.pop = lpop, gap = 5, 
                title = "Data Set: TGP | Method: SQP | K: 2")
@@ -656,7 +665,9 @@ plot_structure(result_TGP_sqp_K15$P,
                title = "Data Set: TGP | Method: SQP | K: 15")
 ```
 
-```{r}
+## VI algorithm {-}
+
+```{r fig.height=3, fig.width=9, fig.show='hold'}
 plot_structure(result_TGP_vi_K2$P, 
                label = label, map.indiv = indiv, map.pop = lpop, gap = 5, 
                title = "Data Set: TGP | Method: VI | K: 2")
@@ -701,7 +712,9 @@ plot_structure(result_TGP_vi_K15$P,
                title = "Data Set: TGP | Method: VI | K: 15")
 ```
 
-```{r}
+## SVI algorithm {-}
+
+```{r fig.height=3, fig.width=9, fig.show='hold'}
 plot_structure(result_TGP_svi_K2_sample$P, 
                label = label, map.indiv = indiv, map.pop = lpop, gap = 5, 
                title = "Data Set: TGP | Method: SVI | K: 2")

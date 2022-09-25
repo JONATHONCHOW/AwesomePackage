@@ -2,7 +2,7 @@
 % Please edit documentation in R/psd_evaluate.R
 \name{psd_loglikelihood_svi}
 \alias{psd_loglikelihood_svi}
-\title{Compute the loglikelihood of svi method in validation set.}
+\title{Compute the loglikelihood of svi method in validation set}
 \usage{
 psd_loglikelihood_svi(G, K, P, maxiter = 2000)
 }

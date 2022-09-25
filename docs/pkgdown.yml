@@ -4,8 +4,8 @@ pkgdown_sha: ~
 articles:
   application_hgdp: application_hgdp.html
   application_tgp: application_tgp.html
-  quick_start: quick_start.html
+  AwesomePackage: AwesomePackage.html
   theory_em: theory_em.html
   user_manual: user_manual.html
-last_built: 2022-09-25T06:21Z
+last_built: 2022-09-25T11:04Z
 

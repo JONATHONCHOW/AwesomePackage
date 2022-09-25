@@ -2,7 +2,12 @@
 title: "AwesomePackage: Quick start"
 author: "Jonathon Chow"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  html_document:
+    toc: yes
+    toc_float: no
+    highlight: textmate
+    theme: readable
 vignette: >
   %\VignetteIndexEntry{AwesomePackage: Quick start}
   %\VignetteEngine{knitr::rmarkdown}
@@ -209,7 +214,7 @@ plot_structure(P, label = label, map.indiv = indiv, map.pop = lpop, gap = 5)
 Small populations.
 
 ```{r}
-plot_structure(P, label = label, map.indiv = indiv, map.pop = spop, gap = 5, font.size = 5)
+plot_structure(P, label = label, map.indiv = indiv, map.pop = spop, gap = 3, font.size = 5)
 ```
 
 # Choose hyper-parameter `K`

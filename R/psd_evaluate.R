@@ -45,7 +45,7 @@ psd_loglikelihood <- function (G, result)
   rcpp_psd_loss(G, result$P, result$F)
 }
 
-#' @title Compute the loglikelihood of svi method in validation set.
+#' @title Compute the loglikelihood of svi method in validation set
 #'
 #' @importFrom Rcpp evalCpp
 #'
