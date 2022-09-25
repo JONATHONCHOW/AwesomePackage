@@ -10,6 +10,9 @@
     <loc>https://jonathonchow.github.io/AwesomePackage/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://jonathonchow.github.io/AwesomePackage/articles/AwesomePackage.html</loc>
+  </url>
+  <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/articles/application_hgdp.html</loc>
   </url>
   <url>
@@ -19,9 +22,6 @@
     <loc>https://jonathonchow.github.io/AwesomePackage/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/articles/quick_start.html</loc>
-  </url>
-  <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/articles/theory_em.html</loc>
   </url>
   <url>
@@ -29,6 +29,9 @@
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/index.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathonchow.github.io/AwesomePackage/news/index.html</loc>
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/data_HGDP.html</loc>

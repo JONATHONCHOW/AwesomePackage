@@ -12,7 +12,7 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,7 +20,10 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/AwesomePackage.html">Get started</a>
+</li>
+<li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item dropdown">
@@ -28,9 +31,11 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/application_hgdp.html">Applications III: HGDP Data Set</a>
     <a class="dropdown-item" href="../articles/application_tgp.html">Applications II: TGP Data Set</a>
-    <a class="dropdown-item" href="../articles/quick_start.html">AwesomePackage: Quick start</a>
     <a class="dropdown-item" href="../articles/theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -110,17 +115,17 @@ be taken from {0,1,2}.</p></dd>
 <span class="r-in"><span><span class="fu">psd_fit_sqp</span><span class="op">(</span><span class="va">G</span>, <span class="fl">2</span>, <span class="fl">1e-5</span>, <span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $P</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.000000001 0.999999999</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.999999999 0.000000001</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.310825610 0.689174390</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.999999999 0.000000001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.000000001 0.999999999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.689183475 0.310816525</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $F</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]  [,2]        [,3]        [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.000000001 1e+00 0.000000001 0.413476359 0.000000001</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.276557389 1e-09 0.573759696 0.000000001 0.311713874</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.276542041 1e-09 0.573745123 0.000000001 0.311697969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.000000001 1e+00 0.000000001 0.413496445 0.000000001</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Loss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.7224827 -0.7074246</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.7152244 -0.7074246</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Iterations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 20</span>

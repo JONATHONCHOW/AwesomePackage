@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,9 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
+  <a class="nav-link" href="../articles/AwesomePackage.html">Get started</a>
+</li>
+<li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="active nav-item dropdown">
@@ -43,9 +46,11 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/application_hgdp.html">Applications III: HGDP Data Set</a>
     <a class="dropdown-item" href="../articles/application_tgp.html">Applications II: TGP Data Set</a>
-    <a class="dropdown-item" href="../articles/quick_start.html">AwesomePackage: Quick start</a>
     <a class="dropdown-item" href="../articles/theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -488,28 +493,20 @@
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K7_full</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP (full) | Method: SVI | K: 7"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K8_full</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP (full) | Method: SVI | K: 7"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K8_full</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP (full) | Method: SVI | K: 8"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-22-2.png" width="700"></p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K9_full</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP (full) | Method: SVI | K: 8"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K9_full</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP (full) | Method: SVI | K: 9"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-22-3.png" width="700"></p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K10_full</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP (full) | Method: SVI | K: 9"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K10_full</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP (full) | Method: SVI | K: 10"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-22-4.png" width="700"></p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K11_full</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP (full) | Method: SVI | K: 10"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K11_full</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
 <span>               title <span class="op">=</span> <span class="st">"Data Set: TGP (full) | Method: SVI | K: 11"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-22-5.png" width="700"></p>
+<p><img src="application_tgp_files/figure-html/unnamed-chunk-22-1.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-22-2.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-22-3.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-22-4.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-22-5.png" width="864"></p>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="literature-cited">Literature Cited<a class="anchor" aria-label="anchor" href="#literature-cited"></a>
@@ -524,134 +521,134 @@ Abecasis, Goncalo R, Adam Auton, Lisa D Brooks, Mark A DePristo, Richard M Durbi
 <div class="section level2">
 <h2 class="unnumbered" id="appendix-a">Appendix A<a class="anchor" aria-label="anchor" href="#appendix-a"></a>
 </h2>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"result_TGP_em.RData"</span>, package <span class="op">=</span> <span class="st">"AwesomePackage"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"result_TGP_sqp.RData"</span>, package <span class="op">=</span> <span class="st">"AwesomePackage"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"result_TGP_vi.RData"</span>, package <span class="op">=</span> <span class="st">"AwesomePackage"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"result_TGP_svi.RData"</span>, package <span class="op">=</span> <span class="st">"AwesomePackage"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K2</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K2</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K2</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 2"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K2_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 2"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-2.png" width="700"></p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K3</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K3</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K3</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 3"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-3.png" width="700"></p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K3_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 3"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-4.png" width="700"></p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K4</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K4</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K4</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 4"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-5.png" width="700"></p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K4_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 4"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-6.png" width="700"></p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K5</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K5</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K5</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 5"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-7.png" width="700"></p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K5_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 5"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-8.png" width="700"></p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K6</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K6</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K6</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 6"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-9.png" width="700"></p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K6_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 6"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-10.png" width="700"></p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K7</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K7</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K7</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 7"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-11.png" width="700"></p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K7_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 7"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-12.png" width="700"></p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K8</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K8</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K8</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 8"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-13.png" width="700"></p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K8_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 8"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-14.png" width="700"></p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K9</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K9</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K9</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 9"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-15.png" width="700"></p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K9_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 9"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-16.png" width="700"></p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K10</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K10</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K10</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 10"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-17.png" width="700"></p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K10_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 10"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-18.png" width="700"></p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K11</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K11</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K11</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 11"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-19.png" width="700"></p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K11_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 11"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-20.png" width="700"></p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K12</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K12</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K12</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 12"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-21.png" width="700"></p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K12_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 12"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-22.png" width="700"></p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K13</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K13</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K13</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 13"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-23.png" width="700"></p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K13_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 13"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-24.png" width="700"></p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K14</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K14</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K14</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 14"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-25.png" width="700"></p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K14_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 14"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-26.png" width="700"></p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_em_K15</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">result_TGP_sqp_K15</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>               <span class="va">result_TGP_vi_K15</span><span class="op">$</span><span class="va">Loss</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"em &amp; sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, <span class="fl">10</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 15"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-27.png" width="700"></p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">result_TGP_svi_K15_sample</span><span class="op">$</span><span class="va">Loss</span><span class="op">)</span>, <span class="st">"svi"</span>, <span class="fl">1e+4</span>, </span>
 <span>          title <span class="op">=</span> <span class="st">"Data Set: TGP | K: 15"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="application_tgp_files/figure-html/unnamed-chunk-24-28.png" width="700"></p>
@@ -659,286 +656,198 @@ Abecasis, Goncalo R, Adam Auton, Lisa D Brooks, Mark A DePristo, Richard M Durbi
 <div class="section level2">
 <h2 class="unnumbered" id="appendix-b">Appendix B<a class="anchor" aria-label="anchor" href="#appendix-b"></a>
 </h2>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="section level3">
+<h3 class="unnumbered" id="em-algorithm-1">EM algorithm<a class="anchor" aria-label="anchor" href="#em-algorithm-1"></a>
+</h3>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K2</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 2"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K3</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 2"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K3</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 3"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-2.png" width="700"></p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K4</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 3"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K4</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 4"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-3.png" width="700"></p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K5</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 4"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K5</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 5"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-4.png" width="700"></p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K6</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 5"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K6</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 6"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-5.png" width="700"></p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K7</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 6"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K7</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 7"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-6.png" width="700"></p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K8</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 7"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K8</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 8"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-7.png" width="700"></p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K9</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 8"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K9</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 9"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-8.png" width="700"></p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K10</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 9"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K10</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 10"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-9.png" width="700"></p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K11</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 10"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K11</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 11"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-10.png" width="700"></p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K12</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 11"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K12</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 12"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-11.png" width="700"></p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K13</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 12"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K13</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 13"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-12.png" width="700"></p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K14</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 13"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K14</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 14"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-13.png" width="700"></p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K15</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 14"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_em_K15</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
 <span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: EM | K: 15"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-14.png" width="700"></p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<p><img src="application_tgp_files/figure-html/unnamed-chunk-25-1.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-25-2.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-25-3.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-25-4.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-25-5.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-25-6.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-25-7.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-25-8.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-25-9.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-25-10.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-25-11.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-25-12.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-25-13.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-25-14.png" width="864"></p>
+</div>
+<div class="section level3">
+<h3 class="unnumbered" id="sqp-algorithm-1">SQP algorithm<a class="anchor" aria-label="anchor" href="#sqp-algorithm-1"></a>
+</h3>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K2</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 2"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-1.png" width="700"></p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K3</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 2"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K3</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 3"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-2.png" width="700"></p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K4</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 3"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K4</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 4"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-3.png" width="700"></p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K5</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 4"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K5</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 5"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-4.png" width="700"></p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K6</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 5"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K6</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 6"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-5.png" width="700"></p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K7</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 6"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K7</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 7"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-6.png" width="700"></p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K8</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 7"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K8</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 8"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-7.png" width="700"></p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K9</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 8"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K9</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 9"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-8.png" width="700"></p>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K10</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 9"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K10</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 10"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-9.png" width="700"></p>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K11</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 10"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K11</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 11"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-10.png" width="700"></p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K12</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 11"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K12</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 12"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-11.png" width="700"></p>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K13</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 12"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K13</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 13"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-12.png" width="700"></p>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K14</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 13"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K14</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 14"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-13.png" width="700"></p>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K15</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 14"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_sqp_K15</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
 <span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SQP | K: 15"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-14.png" width="700"></p>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<p><img src="application_tgp_files/figure-html/unnamed-chunk-26-1.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-26-2.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-26-3.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-26-4.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-26-5.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-26-6.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-26-7.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-26-8.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-26-9.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-26-10.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-26-11.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-26-12.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-26-13.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-26-14.png" width="864"></p>
+</div>
+<div class="section level3">
+<h3 class="unnumbered" id="vi-algorithm-1">VI algorithm<a class="anchor" aria-label="anchor" href="#vi-algorithm-1"></a>
+</h3>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K2</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 2"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-1.png" width="700"></p>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K3</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 2"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K3</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 3"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-2.png" width="700"></p>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K4</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 3"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K4</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 4"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-3.png" width="700"></p>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K5</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 4"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K5</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 5"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-4.png" width="700"></p>
-<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K6</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 5"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K6</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 6"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-5.png" width="700"></p>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K7</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 6"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K7</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 7"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-6.png" width="700"></p>
-<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K8</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 7"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K8</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 8"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-7.png" width="700"></p>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K9</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 8"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K9</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 9"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-8.png" width="700"></p>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K10</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 9"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K10</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 10"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-9.png" width="700"></p>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K11</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 10"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K11</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 11"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-10.png" width="700"></p>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K12</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 11"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K12</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 12"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-11.png" width="700"></p>
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K13</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 12"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K13</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 13"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-12.png" width="700"></p>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K14</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 13"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K14</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 14"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-13.png" width="700"></p>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K15</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 14"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_vi_K15</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
 <span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: VI | K: 15"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-14.png" width="700"></p>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<p><img src="application_tgp_files/figure-html/unnamed-chunk-27-1.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-27-2.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-27-3.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-27-4.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-27-5.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-27-6.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-27-7.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-27-8.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-27-9.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-27-10.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-27-11.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-27-12.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-27-13.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-27-14.png" width="864"></p>
+</div>
+<div class="section level3">
+<h3 class="unnumbered" id="svi-algorithm-1">SVI algorithm<a class="anchor" aria-label="anchor" href="#svi-algorithm-1"></a>
+</h3>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K2_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 2"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-1.png" width="700"></p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K3_sample</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 2"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K3_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 3"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-2.png" width="700"></p>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K4_sample</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 3"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K4_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 4"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-3.png" width="700"></p>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K5_sample</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 4"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K5_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 5"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-4.png" width="700"></p>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K6_sample</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 5"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K6_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 6"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-5.png" width="700"></p>
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K7_sample</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 6"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K7_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 7"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-6.png" width="700"></p>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K8_sample</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 7"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K8_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 8"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-7.png" width="700"></p>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K9_sample</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 8"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K9_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 9"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-8.png" width="700"></p>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K10_sample</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 9"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K10_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 10"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-9.png" width="700"></p>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K11_sample</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 10"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K11_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 11"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-10.png" width="700"></p>
-<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K12_sample</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 11"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K12_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 12"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-11.png" width="700"></p>
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K13_sample</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 12"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K13_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 13"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-12.png" width="700"></p>
-<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K14_sample</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 13"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K14_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
-<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 14"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-13.png" width="700"></p>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K15_sample</span><span class="op">$</span><span class="va">P</span>, </span>
+<span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 14"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">result_TGP_svi_K15_sample</span><span class="op">$</span><span class="va">P</span>, </span>
 <span>               label <span class="op">=</span> <span class="va">label</span>, map.indiv <span class="op">=</span> <span class="va">indiv</span>, map.pop <span class="op">=</span> <span class="va">lpop</span>, gap <span class="op">=</span> <span class="fl">5</span>, </span>
 <span>               title <span class="op">=</span> <span class="st">"Data Set: TGP | Method: SVI | K: 15"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-14.png" width="700"></p>
+<p><img src="application_tgp_files/figure-html/unnamed-chunk-28-1.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-28-2.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-28-3.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-28-4.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-28-5.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-28-6.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-28-7.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-28-8.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-28-9.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-28-10.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-28-11.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-28-12.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-28-13.png" width="864"><img src="application_tgp_files/figure-html/unnamed-chunk-28-14.png" width="864"></p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
