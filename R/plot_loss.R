@@ -111,34 +111,34 @@ compile_loss_data <- function (L, methods, sample.rate, epsilon)
 #' @param methods A vector of the same length as `L` where each element is a name of the fitting algorithm, such as "em", "sqp", "vi", "svi".
 #' @param index.id Choose index. Should be one of \code{"loglik"}, \code{"error"}, \code{"elbo"}, \code{"time"}.
 #' @param start.point The initial point of K.
-#' @param epsilon A small, positive number added to the vertical axis so that the
-#'     logarithmic scale does not over-emphasize very small differences.
 #' @param colors The colors used to draw curves.
 #' @param linetypes The line types used to draw curves.
 #' @param linesizes The line sizes used to draw curves.
 #' @param shapes The shapes used to draw points.
 #' @param fills The fill colors used to draw points.
 #' @param theme The ggplot2 theme.
+#' @param title Title of the plot.
 #'
 #' @return A \code{ggplot} object.
 #'
 #' @export
 #'
 #' @examples
-#' L <- list(c(-100,-20,-10,-1,-0.5,-0.3,-0.1), c(-30,-5,-1,-0.1,-0.05))
+#' L <- list(c(-50,-20,-10,-1,-0.5), c(-30,-5,-1,-0.1))
 #' plot_index_vs_K(L, c("fun","more fun"), index.id = "loglik")
-#' L <- list(c(0.1,0.5,0.8,1.2), c(1.6,0.2,0.8,2.5,3.7))
+#' L <- list(c(0.1,0.5,0.7,1.2), c(1.6,0.2,0.8,1.5,2.4))
 #' plot_index_vs_K(L, c("fun","more fun"), index.id = "error")
-#' L <- list(c(-100,-10,-1,-0.5,-0.1), c(-5,-1,-0.1,-0.05))
+#' L <- list(c(-10,-2,-0.5,-0.1), c(-5,-1,-0.1))
 #' plot_index_vs_K(L, c("fun","more fun"), index.id = "elbo")
 #' L <- list(c(10,15,20), c(12,18,30,32))
 #' plot_index_vs_K(L, c("fun","more fun"), index.id = "time")
 plot_index_vs_K <- function (L, methods, index.id = c("loglik","error","elbo","time"),
-                             start.point = 2, epsilon = 0.01,
+                             start.point = 2,
                              colors = c("#E69F00","#56B4E9","#009E73","#F0E442","#0072B2",
                                         "#D55E00","#CC79A7"),
                              linetypes = "solid", linesizes = 0.5, shapes = 19, fills = "white",
-                             theme = function() theme_cowplot(12))
+                             theme = function() theme_cowplot(12),
+                             title = NULL)
 {
   n <- length(L)
   if (length(colors) < n)
@@ -151,7 +151,7 @@ plot_index_vs_K <- function (L, methods, index.id = c("loglik","error","elbo","t
     shapes <- rep(shapes,length.out = n)
   if (length(fills) < n)
     fills <- rep(fills,length.out = n)
-  data <- compile_index_vs_K_data(L, methods, index.id, start.point, epsilon)
+  data <- compile_index_vs_K_data(L, methods, index.id, start.point)
   dat <- data$dat
   ylab <- data$ylab
   xlab <- "K"
@@ -162,67 +162,42 @@ plot_index_vs_K <- function (L, methods, index.id = c("loglik","error","elbo","t
                mapping = aes_string(x = "K",y = "index",color = "method",
                                     fill = "method",shape = "method"),
                inherit.aes = FALSE,na.rm = TRUE) +
-    scale_y_continuous(trans = "log10") +
     scale_color_manual(values = colors) +
     scale_linetype_manual(values = linetypes) +
     scale_size_manual(values = linesizes) +
     scale_shape_manual(values = shapes) +
     scale_fill_manual(values = fills) +
-    labs(x = xlab,y = ylab) +
+    labs(x = xlab,y = ylab,title = title) +
     theme()
 }
 
 # Create a data frame suitable for index vs K plot.
-compile_index_vs_K_data <- function (L, methods, index.id, start.point, epsilon)
+compile_index_vs_K_data <- function (L, methods, index.id, start.point)
 {
   n <- length(L)
   dat <- list()
   if (index.id == "loglik")
   {
-    ylab <- "distance from best loglikelihood"
-    for (i in 1:n)
-    {
-      dat[[i]] <- data.frame(K = rep(start.point:(length(L[[i]]) + start.point - 1)),
-                             index = L[[i]],
-                             method = methods[i])
-    }
-    dat <- do.call(rbind,dat)
-    dat$index <- max(dat$index) - dat$index + epsilon
+    ylab <- "loglikelihood"
   }
   if (index.id == "error")
   {
-    ylab <- "distance from best error"
-    for (i in 1:n)
-    {
-      dat[[i]] <- data.frame(K = rep(start.point:(length(L[[i]]) + start.point - 1)),
-                             index = L[[i]],
-                             method = methods[i])
-    }
-    dat <- do.call(rbind,dat)
-    dat$index <- dat$index - min(dat$index) + epsilon
+    ylab <- "error"
   }
   if (index.id == "elbo")
   {
-    ylab <- "distance from best ELBO"
-    for (i in 1:n)
-    {
-      dat[[i]] <- data.frame(K = rep(start.point:(length(L[[i]]) + start.point - 1)),
-                             index = L[[i]],
-                             method = methods[i])
-    }
-    dat <- do.call(rbind,dat)
-    dat$index <- max(dat$index) - dat$index + epsilon
+    ylab <- "ELBO"
   }
   if (index.id == "time")
   {
     ylab <- "time to reach convergence"
-    for (i in 1:n)
-    {
-      dat[[i]] <- data.frame(K = rep(start.point:(length(L[[i]]) + start.point - 1)),
-                             index = L[[i]],
-                             method = methods[i])
-    }
-    dat <- do.call(rbind,dat)
   }
+  for (i in 1:n)
+  {
+    dat[[i]] <- data.frame(K = rep(start.point:(length(L[[i]]) + start.point - 1)),
+                           index = L[[i]],
+                           method = methods[i])
+  }
+  dat <- do.call(rbind,dat)
   return(list(dat = dat, ylab = ylab))
 }

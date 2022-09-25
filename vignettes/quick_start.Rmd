@@ -1,13 +1,8 @@
 ---
 title: "AwesomePackage: Quick start"
-author: Jonathon Chow
+author: "Jonathon Chow"
 date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: yes
-    toc_float: no
-    highlight: textmate
-    theme: readable
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{AwesomePackage: Quick start}
   %\VignetteEngine{knitr::rmarkdown}

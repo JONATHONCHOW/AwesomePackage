@@ -4,13 +4,19 @@
     <loc>/404.html</loc>
   </url>
   <url>
+    <loc>/articles/application_hgdp.html</loc>
+  </url>
+  <url>
+    <loc>/articles/application_tgp.html</loc>
+  </url>
+  <url>
     <loc>/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/psd_fit_em.html</loc>
+    <loc>/articles/quick_start.html</loc>
   </url>
   <url>
-    <loc>/articles/quick_start.html</loc>
+    <loc>/articles/theory_em.html</loc>
   </url>
   <url>
     <loc>/articles/user_manual.html</loc>
@@ -71,5 +77,8 @@
   </url>
   <url>
     <loc>/reference/psd_loglikelihood.html</loc>
+  </url>
+  <url>
+    <loc>/reference/psd_loglikelihood_svi.html</loc>
   </url>
 </urlset>

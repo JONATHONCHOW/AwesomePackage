@@ -9,13 +9,13 @@ plot_index_vs_K(
   methods,
   index.id = c("loglik", "error", "elbo", "time"),
   start.point = 2,
-  epsilon = 0.01,
   colors = c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7"),
   linetypes = "solid",
   linesizes = 0.5,
   shapes = 19,
   fills = "white",
-  theme = function() theme_cowplot(12)
+  theme = function() theme_cowplot(12),
+  title = NULL
 )
 }
 \arguments{
@@ -26,9 +26,6 @@ plot_index_vs_K(
 \item{index.id}{Choose index. Should be one of \code{"loglik"}, \code{"error"}, \code{"elbo"}, \code{"time"}.}
 
 \item{start.point}{The initial point of K.}
-
-\item{epsilon}{A small, positive number added to the vertical axis so that the
-logarithmic scale does not over-emphasize very small differences.}
 
 \item{colors}{The colors used to draw curves.}
 
@@ -41,6 +38,8 @@ logarithmic scale does not over-emphasize very small differences.}
 \item{fills}{The fill colors used to draw points.}
 
 \item{theme}{The ggplot2 theme.}
+
+\item{title}{Title of the plot.}
 }
 \value{
 A \code{ggplot} object.
@@ -49,11 +48,11 @@ A \code{ggplot} object.
 Draw a diagram of the relationship between the index and K using package ggplot2. The index can be loglikelihood, error, ELBO, and time.
 }
 \examples{
-L <- list(c(-100,-20,-10,-1,-0.5,-0.3,-0.1), c(-30,-5,-1,-0.1,-0.05))
+L <- list(c(-50,-20,-10,-1,-0.5), c(-30,-5,-1,-0.1))
 plot_index_vs_K(L, c("fun","more fun"), index.id = "loglik")
-L <- list(c(0.1,0.5,0.8,1.2), c(1.6,0.2,0.8,2.5,3.7))
+L <- list(c(0.1,0.5,0.7,1.2), c(1.6,0.2,0.8,1.5,2.4))
 plot_index_vs_K(L, c("fun","more fun"), index.id = "error")
-L <- list(c(-100,-10,-1,-0.5,-0.1), c(-5,-1,-0.1,-0.05))
+L <- list(c(-10,-2,-0.5,-0.1), c(-5,-1,-0.1))
 plot_index_vs_K(L, c("fun","more fun"), index.id = "elbo")
 L <- list(c(10,15,20), c(12,18,30,32))
 plot_index_vs_K(L, c("fun","more fun"), index.id = "time")

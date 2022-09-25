@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Jonathon Chow" />
+
+<meta name="date" content="2022-09-25" />
+
+<title>Models and Methods I: Fit PSD Model by EM Algorithm</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Models and Methods I: Fit PSD Model by EM
+Algorithm</h1>
+<h4 class="author">Jonathon Chow</h4>
+<h4 class="date">2022-09-25</h4>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>  We use the Expectation-Maximization algorithm (EM) to fit the PSD
+model <span class="citation">(Tang et al. 2005)</span>.</p>
+</div>
+<div id="psd-model" class="section level1">
+<h1>PSD Model</h1>
+<p>  The typical data set consists of genotypes at a large number <span class="math inline">\(J\)</span> of single nucleotide polymorphisms
+(SNPs) from a large number <span class="math inline">\(I\)</span> of
+unrelated individuals. These individuals are drawn from an admixed
+population with contributions from <span class="math inline">\(K\)</span> postulated ancestral populations.
+Population <span class="math inline">\(k\)</span> contributes a fraction
+<span class="math inline">\(p_{ik}\)</span> of individual <span class="math inline">\(i\)</span>’s genome. Note that <span class="math inline">\(\sum_{k=1}^Kp_{ik}=1\)</span>, and <span class="math inline">\(p_{ik}\geq 0\)</span>. Allele 1 at SNP <span class="math inline">\(j\)</span> has frequency <span class="math inline">\(f_{kj}\)</span> in population <span class="math inline">\(k\)</span>. Note that <span class="math inline">\(0\leq f_{kj}\leq 1\)</span>. As a matter of
+convention, one can choose allele 1 to be the minor allele and the
+alternative allele 2 to be the major allele. In our model, both the
+<span class="math inline">\(p_{ik}\)</span> and the <span class="math inline">\(f_{kj}\)</span> are unknown. We are primarily
+interested in estimating the <span class="math inline">\(p_{ik}\)</span>
+to control for ancestry in an association study, but our approach also
+yields estimates of the <span class="math inline">\(f_{kj}\)</span>.</p>
+<p>  Let <span class="math inline">\((g_{ij}^1,g_{ij}^2)\)</span>
+represents the genotype at marker <span class="math inline">\(j\)</span>
+of person <span class="math inline">\(i\)</span>, where <span class="math inline">\(g_{ij}^a\)</span> represent the observed number of
+copies of allele 1 at seat <span class="math inline">\(a\)</span>. Thus,
+<span class="math inline">\((g_{ij}^1,g_{ij}^2)\)</span> equals <span class="math inline">\((1,1)\)</span>, <span class="math inline">\((1,0)\)</span>, <span class="math inline">\((0,1)\)</span>, or <span class="math inline">\((0,0)\)</span> accordingly, as <span class="math inline">\(i\)</span> has genotype 1/1, 1/2, 2/1, or 2/2 at
+marker <span class="math inline">\(j\)</span>.</p>
+<p>  Note that individuals are formed by the random union of gametes.
+This produces the binomial proportions <span class="math display">\[P(g_{ij}^a=1)=\sum_{k=1}^Kp_{ik}f_{kj},\quad
+P(g_{ij}^a=0)=\sum_{k=1}^Kp_{ik}(1-f_{kj}),\quad a=1,2.\]</span> Since
+individuals <span class="math inline">\(i\)</span>, SNPs <span class="math inline">\(j\)</span>, and seats <span class="math inline">\(a\)</span> are considered independent, the
+log-likelihood of the entire sample is <span class="math display">\[\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^j\sum_{a=1}^2\bigg\{g_{ij}^alog\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(1-g_{ij}^a)log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}\]</span>
+up to an additive constant that does not enter into the maximization
+problem. Let <span class="math inline">\(g_{ij}=g_{ij}^1+g_{ij}^2\)</span>. So the
+log-likelihood can also be expressed as <span class="math display">\[\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^j\bigg\{g_{ij}log\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(2-g_{ij})log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}.\]</span>
+The parameter matrices <span class="math inline">\(P=\{p_{ik}\}\)</span>
+and <span class="math inline">\(F=\{f_{kj}\}\)</span> have dimensions
+<span class="math inline">\(I\times K\)</span> and <span class="math inline">\(K\times J\)</span>, for a total of <span class="math inline">\(K(I+J)\)</span> parameters.</p>
+<p>  Note that the log-likelihood is invariant under permutations of the
+labels of the ancestral populations. Thus, the log-likelihood has at
+least <span class="math inline">\(K!\)</span> equivalent global maxima.
+In practice, this is a minor nuisance and does not affect the
+convergence of well-behaved algorithms. The constraints <span class="math inline">\(0\leq f_{kj}\leq 1\)</span>, <span class="math inline">\(p_{ik}\geq 0\)</span>, and <span class="math inline">\(\sum_{k=1}^Kp_{ik}=1\)</span> are more significant
+hindrances to contriving a good optimization algorithm.</p>
+</div>
+<div id="expectation-maximization-algorithm" class="section level1">
+<h1>Expectation-Maximization Algorithm</h1>
+<p>  Our goal is to solve the MLE problem for the observed variable
+<span class="math inline">\(x\)</span> <span class="math display">\[\theta_{MLE}=\mathop{argmax}\limits_{\theta}log
+P(x|\theta).\]</span> However, when the probabilistic model contains
+both the observed variable <span class="math inline">\(x\)</span> and
+the latent variable <span class="math inline">\(z\)</span>, MLE often
+cannot find the analytical solution directly. EM algorithm provides a
+way to solve MLE iteratively.</p>
+<p>  The first thing we notice is that <span class="math display">\[log
+P(x|\theta) = log P(x,z|\theta)-log P(z|x,\theta) = log
+\frac{P(x,z|\theta)}{Q(z)} - log \frac{P(x|z,\theta)}{Q(z)},\]</span>
+Where <span class="math inline">\(Q(z)\)</span> is the undetermined
+distribution.</p>
+<p>  We take the expectation of both sides of this equation, then <span class="math display">\[\mathbb{E}_{Q(z)} \Big[LHS\Big] = \int_{z}log
+P(x|\theta)Q(z)dz = log P(x|\theta)\int_{z}Q(z)dz = log
+P(x|\theta),\]</span> <span class="math display">\[\mathbb{E}_{Q(z)}
+\Big[RHS\Big] = \int_{z}log \frac{P(x,z|\theta)}{Q(z)}Q(z)dz -
+\int_{z}log \frac{P(x|z,\theta)}{Q(z)}Q(z)dz := \mathcal{L}(Q(z),\theta)
+- KL(Q(z)\|P(z|x,\theta)).\]</span> Hence, we have <span class="math display">\[log P(x|\theta)=\mathcal{L}(Q(z),\theta) -
+KL(Q(z)\|P(z|x,\theta)).\]</span></p>
+<p>  We use the property of KL divergence <span class="math inline">\(KL(Q\|P)\geq 0\)</span>, The equality holds if and
+only if <span class="math inline">\(Q=P\)</span>. Thus, we have <span class="math display">\[log P(x|\theta)\geq
+\mathcal{L}(Q(z),\theta),\]</span> Therefore, we also refer to <span class="math inline">\(\mathcal{L}(Q(z),\theta)\)</span> as the evidence
+lower bound (ELBO).</p>
+<p>  Under the condition of the <span class="math inline">\(i\)</span>th
+iteration, we first fix parameter <span class="math inline">\(\theta^{(i)}\)</span>, then we take <span class="math inline">\(Q(z)=P(z|x,\theta)\)</span>, and have <span class="math inline">\(log
+P(x|\theta^{(i)})=\mathcal{L}(Q(z),\theta)\)</span>, that is the E-step.
+Next, we change the parameter <span class="math inline">\(\theta\)</span>, than maximize the ELBO, and get
+the parameter <span class="math inline">\(\theta^{(i+1)}\)</span> of the
+<span class="math inline">\((i+1)\)</span>th iteration, that is the
+M-step. Finally, some simplification can be carried out to obtain the EM
+algorithm.</p>
+<p>  More precisely, <span class="math display">\[\begin{split}
+&amp;\theta^{(i+1)}\\
+=&amp; \mathop{argmax}\limits_{\theta}\mathcal{L}(Q(z),\theta) \\
+=&amp; \mathop{argmax}\limits_{\theta}\int_{z}log
+\frac{P(x,z|\theta)}{Q(z)}Q(z)dz \\
+=&amp; \mathop{argmax}\limits_{\theta}\int_{z}log
+\frac{P(x,z|\theta)}{P(z|x,\theta^{(i)})}P(z|x,\theta^{(i)})dz \\
+=&amp; \mathop{argmax}\limits_{\theta}\int_{z}log
+P(x,z|\theta)P(z|x,\theta^{(i)})dz - \int_{z}log
+P(z|x,\theta^{(i)})P(z|x,\theta^{(i)})dz \\
+=&amp; \mathop{argmax}\limits_{\theta}\int_{z}log
+P(x,z|\theta)P(z|x,\theta^{(i)})dz \\
+=&amp; \mathbb{E}_{P(z|x,\theta^{(i)})}\Big[log P(x,z|\theta)\Big].
+\end{split}\]</span></p>
+<p>  In conclusion, at E-step, we compute the expectation <span class="math display">\[\mathbb{E}_{P(z|x,\theta^{(i)})}\Big[log
+P(x,z|\theta)\Big]=\int_{z}log
+P(x,z|\theta)P(z|x,\theta^{(i)})dz,\]</span> and at M-step, we compute
+the maximization and update the parameters <span class="math display">\[\theta^{(i+1)}=\mathop{argmax}\limits_{\theta}\mathbb{E}_{P(z|x,\theta^{(i)})}\Big[log
+P(x,z|\theta)\Big],\]</span> until the log-likelihood of incomplete data
+converges. This is the EM algorithm.</p>
+</div>
+<div id="fit-psd-model-by-em-algorithm" class="section level1">
+<h1>Fit PSD Model by EM Algorithm</h1>
+<p>  We derive the EM algorithm under the PSD model. The observed
+variable is <span class="math inline">\(G=\{(g_{ij}^1,g_{ij}^2)\}_{I\times J}\)</span>.
+The model parameters are <span class="math inline">\(P=\{p_{ik}\}_{I\times K}\)</span> and <span class="math inline">\(F=\{f_{kj}\}_{K\times J}\)</span>. The latent
+variable is <span class="math inline">\(Z=\{z_{ij}^1,z_{ij}^2\}_{I\times
+J}\)</span>, <span class="math inline">\(z_{ij}^a\)</span> is an element
+of the set <span class="math inline">\(\{1,\ldots,K\}\)</span>, denotes
+the population from which the genes of individual <span class="math inline">\(i\)</span> of marker <span class="math inline">\(j\)</span> at position <span class="math inline">\(a\)</span> really come.</p>
+<p>  Consider the log-likelihood of complete data <span class="math display">\[\begin{split}
+&amp;log P(G,Z|P,F)\\
+=&amp;log P(G|Z,P,F) + log P(Z|P,F) \\
+=&amp;\sum_{i=1}^I\sum_{j=1}^J\sum_{k=1}^K\sum_{a=1}^2\bigg\{1(z_{ij}^a=k)\Big[g_{ij}^alogf_{kj}+(2-g_{ij}^a)log(1-f_{kj})\Big]+1(z_{ij}^a=k)logp_{ik}\bigg\}.
+\end{split}\]</span></p>
+<p>  E-step. Using the linear property of expectations, the expectation
+after the <span class="math inline">\(t\)</span>th iteration is <span class="math display">\[\begin{split}
+&amp;\mathbb{E}_{P(Z|G,P^{(t)},F^{(t)})}\Big[log
+P(G,Z|P,F)\Big]\\=&amp;\sum_{i=1}^I\sum_{j=1}^J\sum_{k=1}^K\sum_{a=1}^2\bigg\{P(z_{ij}^a=k|G,P^{(t)},F^{(t)})\Big[g_{ij}^alogf_{kj}+(2-g_{ij}^a)log(1-f_{kj})+logp_{ik}\Big]\bigg\}.
+\end{split}\]</span> Using the Bayesian formula, then <span class="math display">\[\begin{split}
+&amp;P(z_{ij}^a=k|G,P^{(t)},F^{(t)})\\
+=&amp; P(z_{ij}^a=k|g_{ij}^a,p_{ik}^{(t)},f_{kj}^{(t)})\\
+=&amp;
+\frac{P(g_{ij}^a|z_{ij}^a=k,p_{ik}^{(t)},f_{kj}^{(t)})P(z_{ij}^a=k|p_{ik}^{(t)},f_{kj}^{(t)})}{\sum_{k=1}^KP(g_{ij}^a|z_{ij}^a=k,p_{ik}^{(t)},f_{kj}^{(t)})P(z_{ij}^a=k|p_{ik}^{(t)},f_{kj}^{(t)})}\\
+=&amp;
+\frac{p_{ik}^{(t)}(f_{kj}^{(t)})^{g_{ij}^a}(1-f_{kj}^{(t)})^{(1-g_{ij}^a)}}{\sum_{k=1}^Kp_{ik}^{(t)}(f_{kj}^{(t)})^{g_{ij}^a}(1-f_{kj}^{(t)})^{(1-g_{ij}^a)}}.\end{split}\]</span></p>
+<p>  Next, note that <span class="math display">\[p_{ik}^{(t)}(f_{kj}^{(t)})^{g_{ij}^a}(1-f_{kj}^{(t)})^{(1-g_{ij}^a)}=
+\left\{
+\begin{aligned}
+&amp;p_{ik}^{(t)}f_{kj}^{(t)},&amp;\quad &amp;g_{ij}^a=1\\
+&amp;p_{ik}^{(t)}(1-f_{kj}^{(t)}),&amp;\quad &amp;g_{ij}^a=0.
+\end{aligned}
+\right.
+\]</span> Thus, we have <span class="math display">\[
+P(z_{ij}^a=k|G,P^{(t)},F^{(t)})=
+\left\{
+\begin{aligned}
+&amp;\frac{p_{ik}^{(t)}f_{kj}^{(t)}}{\sum_{k=1}^Kp_{ik}^{(t)}f_{kj}^{(t)}}:=a_{ijk}^{(t)},&amp;\quad
+&amp;g_{ij}^a=1\\
+&amp;\frac{p_{ik}^{(t)}(1-f_{kj}^{(t)})}{\sum_{k=1}^Kp_{ik}^{(t)}(1-f_{kj}^{(t)})}:=b_{ijk}^{(t)},&amp;\quad
+&amp;g_{ij}^a=0.
+\end{aligned}
+\right.
+\]</span></p>
+<p>  M-step. Calculate the parameters for the <span class="math inline">\((t+1)\)</span>th iteration. The problem is
+transformed into solving an optimization problem <span class="math display">\[\begin{split}
+\mathop{max}\limits_{P,F} &amp; \quad
+\mathbb{E}_{P(Z|G,P^{(t)},F^{(t)})}\Big[log P(G,Z|P,F)\Big]\\
+s.t. &amp; \quad \sum_{k=1}^Kp_{ik}=1,\quad i=1,\ldots,I.
+\end{split}\]</span> Using the Lagrange multiplier method, we define the
+<span class="math inline">\(\mathcal{L}\)</span> as <span class="math display">\[\mathcal{L} =
+\mathbb{E}_{P(Z|G,P^{(t)},F^{(t)})}\Big[log P(G,Z|P,F)\Big] +
+\sum_{i=1}^I\tau_i\Big(1-\sum_{k=1}^Kp_{ik}\Big).\]</span> Take the
+partial derivatives of <span class="math inline">\(p_{ik}\)</span> and
+<span class="math inline">\(f_{kj}\)</span> and set them equal to zero
+<span class="math display">\[\frac{1}{p_{ik}}\sum_{j=1}^J\sum_{a=1}^2P(z_{ij}^a=k|G,P^{(t)},F^{(t)})-\tau_i=0,\quad
+i=1,\ldots,I,\quad k=1,\ldots,K,\]</span> <span class="math display">\[\sum_{i=1}^I\sum_{a=1}^2P(z^a_{ij}=k|G,P^{(t)},F^{(t)})\Big[g_{ij}^a\frac{1}{f_{kj}}+(1-g_{ij}^a)\frac{1}{1-f_{kj}}\Big]=0,\quad
+j=1,\ldots,J,\quad k=1,\ldots,K.\]</span></p>
+<p>  We sum the first equality over k, then <span class="math display">\[\frac{1}{\tau_i}\sum_{k=1}^K\sum_{j=1}^J\sum_{a=1}^2P(z_{ij}^a=k|G,P^{(t)},F^{(t)})=\sum_{k=1}^Kp_{ik}=1,\quad
+i=1,\ldots,I.\]</span> Thus, the Lagrange multiplier is <span class="math display">\[\tau_i=\sum_{j=1}^J\sum_{a=1}^2\sum_{k=1}^KP(z_{ij}^a=k|G,P^{(t)},F^{(t)})=\sum_{j=1}^J\sum_{a=1}^21=2J,\quad
+i=1,\ldots,I.\]</span></p>
+<p>  Thus, we obtain the parameter update formula for <span class="math inline">\((t+1)\)</span>th iteration <span class="math display">\[\begin{split}
+&amp;p_{ik}^{(t+1)}\\
+=&amp;\frac{\sum_{j=1}^J\sum_{a=1}^2g_{ij}^aP(z_{ij}^a=k|G,P^{(t)},F^{(t)})+\sum_{j=1}^J\sum_{a=1}^2(1-g_{ij}^a)P(z_{ij}^a=k|G,P^{(t)},F^{(t)})}{2J}\\
+=&amp;\frac{\sum_{j=1}^J\sum_{a=1}^2P(z_{ij}^a=k|G,P^{(t)},F^{(t)})}{2J},\quad
+i=1,\ldots,I,\quad k=1,\ldots,K,
+\end{split}\]</span> <span class="math display">\[\begin{split}
+&amp;f_{kj}^{(t+1)}\\
+=&amp;
+\frac{\sum_{i=1}^I\sum_{a=1}^2g_{ij}^aP(z_{ij}^a=k|G,P^{(t)},F^{(t)})}{\sum_{i=1}^I\sum_{a=1}^2g_{ij}^aP(z_{ij}^a=k|G,P^{(t)},F^{(t)})+\sum_{i=1}^I\sum_{a=1}^2(1-g_{ij}^a)P(z_{ij}^a=k|G,P^{(t)},F^{(t)})}\\
+=&amp;\frac{\sum_{i=1}^I\sum_{a=1}^2g_{ij}^aP(z_{ij}^a=k|G,P^{(t)},F^{(t)})}{\sum_{i=1}^I\sum_{a=1}^2P(z_{ij}^a=k|G,P^{(t)},F^{(t)})},\quad
+j=1,\ldots,J,\quad k=1,\ldots,K.
+\end{split}\]</span></p>
+<p>  Finally, Using the expression for <span class="math inline">\(P(z_{ij}^a=k|G,P^{(t)},F^{(t)})\)</span>, we can
+get <span class="math display">\[\sum_{a=1}^2g_{ij}^aP(z_{ij}^a=k|G,P^{(t)},F^{(t)})=
+\left\{
+\begin{aligned}
+&amp;2a_{ijk}^{(t)},&amp;(g_{ij}^1,g_{ij}^2)=(1,1)\\
+&amp;a_{ijk}^{(t)},&amp;(g_{ij}^1,g_{ij}^2)=(1,0)\\
+&amp;a_{ijk}^{(t)},&amp;(g_{ij}^1,g_{ij}^2)=(0,1)\\
+&amp;0,&amp;(g_{ij}^1,g_{ij}^2)=(0,0)
+\end{aligned}
+\right.
+=\Big(\sum_{a=1}^2g_{ij}^a\Big)a_{ijk}^{(t)}=g_{ij}a_{ijk}^{(t)},\]</span>
+<span class="math display">\[\sum_{a=1}^2(1-g_{ij}^a)P(z_{ij}^a=k|G,P^{(t)},F^{(t)})=
+\left\{
+\begin{aligned}
+&amp;0,&amp;(g_{ij}^1,g_{ij}^2)=(1,1)\\
+&amp;b_{ijk}^{(t)},&amp;(g_{ij}^1,g_{ij}^2)=(1,0)\\
+&amp;b_{ijk}^{(t)},&amp;(g_{ij}^1,g_{ij}^2)=(0,1)\\
+&amp;2b_{ijk}^{(t)},&amp;(g_{ij}^1,g_{ij}^2)=(0,0)
+\end{aligned}
+\right.
+=\Big[\sum_{a=1}^2(1-g_{ij}^a)\Big]b_{ijk}^{(t)}=(2-g_{ij})b_{ijk}^{(t)}.\]</span>
+Then the parameter update formula can be written as <span class="math display">\[p_{ik}^{(t+1)}=\frac{\sum_{j=1}^Jg_{ij}a_{ijk}^{(t)}+\sum_{j=1}^J(2-g_{ij})b_{ijk}^{(t)}}{2J},\quad
+i=1,\ldots,I,\quad k=1,\ldots,K,\]</span> <span class="math display">\[f_{kj}^{(t+1)}\frac{\sum_{i=1}^Ig_{ij}a_{ijk}^{(t)}}{\sum_{i=1}^Ig_{ij}a_{ijk}^{(t)}+\sum_{i=1}^I(2-g_{ij})b_{ijk}^{(t)}},\quad
+j=1,\ldots,J,\quad k=1,\ldots,K.\]</span></p>
+<p>  In conclusion, at E-step, we compute the expectation <span class="math inline">\(a_{ijk}\)</span> and <span class="math inline">\(b_{ijk}\)</span>, and at M-step, we compute the
+maximization and update the parameters <span class="math inline">\(p_{ik}\)</span> and <span class="math inline">\(f_{kj}\)</span>, until the log-likelihood of
+incomplete data <span class="math inline">\(\mathcal{L}(G|P,F)\)</span>
+converges. This is the EM algorithm for PSD model.</p>
+</div>
+<div id="acceleration" class="section level1">
+<h1>Acceleration</h1>
+<p>  We can speed up the EM algorithm in two ways. The first is the code
+level. We write the core parameter update part in C++. The second is the
+algorithm level, we can use SQUAREM to accelerate the algorithm.</p>
+</div>
+<div id="algorithm-implementation" class="section level1">
+<h1>Algorithm Implementation</h1>
+<p>  We present the implementation of EM algorithm in R package
+AwesomePackage. You can fit the PSD model using the EM algorithm using
+the function <code>psd_fit_em</code>. At the same time, you can use
+<code>plot_loss</code> to see changes in log-likelihood and
+<code>plot_structure</code> to plot structure.</p>
+<p>  Here is an example.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AwesomePackage)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">1</span>, <span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>, <span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="dv">3</span>, <span class="dv">5</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">psd_fit_em</span>(G, <span class="dv">2</span>, <span class="fl">1e-5</span>, <span class="dv">50</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div>
+<pre><code>## $P
+##              [,1]         [,2]
+## [1,] 1.710250e-08 1.000000e+00
+## [2,] 1.000000e+00 1.609634e-11
+## [3,] 3.093225e-01 6.906775e-01
+## 
+## $F
+##              [,1]         [,2]         [,3]          [,4]          [,5]
+## [1,] 1.391468e-28 1.0000000000 2.531373e-43  4.139567e-01 1.149056e-223
+## [2,] 2.764186e-01 0.0006673097 5.734104e-01 1.667805e-256  3.113360e-01
+## 
+## $Loss
+## [1] -0.7350963 -0.7209747 -0.7134341 -0.7081175 -0.7074601
+## 
+## $Iterations
+## [1] 50</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> result<span class="sc">$</span>Loss</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_loss</span>(<span class="fu">list</span>(L), <span class="st">&quot;em&quot;</span>, <span class="dv">10</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> result<span class="sc">$</span>P</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_structure</span>(P)</span></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAAb1BMVEUAAAAAADoAAGYAOmYAOpAAZrY6AAA6ADo6AGY6OpA6kJA6kNtWtOlmAABmADpmAGZmOgBmZjpmtv+QOgCQOjqQOmaQZgCQkDqQkLaQ2/+2ZgC225C2///bkDrb///mnwD/tmb/25D//7b//9v////zY/AZAAAACXBIWXMAAA7DAAAOwwHHb6hkAAADgElEQVR4nO3abVMaZxiA0W2apGlTtdW+YTUV4f//xrAKgTi211L7kmHP9YV9lgeFMzfLMMOw1l82/N9P4EsPUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJA0d8D+n5im61/TO2Ivf+oQAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQo+qKAjviz/1mAIkARoAhQBCgCFAGKAEWAIkARoAhQBCgCFAGKAEWAIkARoAhQBCgCFAGKAEWAolkDLd/d7I/2i88C9OToaScPdH/x6/DVYnN7Nry62a1Gj+3QLN8Ow+V45++bxeOm5be/bM7NBujs9Ye7zau+fr++e/1hu9oD3Z8vtkfjucdNy7cPN7MBulyvflrcX2zm43yxXR1M0LjlYgu03bS9dy5AmxFZX1+OL3h02q92QNfD8OpmP0R7vhkBHUzQ4+rgLbYZqU8685ygszcPF5TdNehhNTrd7uZmvfxm8fk1aF5A5z8efoptV7fD8N3DlWc8+vqHy9XV4afYzIAWf7qaEqDo5IFeGqAIUAQoAhSdPNDT/3FsgCJA0TyBxm+lE5sl0N34jWticwRa/bb6GdCu5yZoDWgfoAhQBCh6FuiIAEUnD/TSTh7opbKAIkARoGiOQKurYdj9eCObI9Ddm/EHDBMfP0egsVtAzz3VT2fHIZrWPIGuJ/vMEmh1NfX9tZ4n0PWw6f3Ex88R6KhOHuilAYoARYAiQBGgCFAEKAIUAYoARYAiQBGgCFAEKAIUAYoARYAiQBGgCFAEKAIUAYoARYAiQBGgCFAEKAIUAYoARYAiQBGgCFAEKAIUAYoARYAiQBGgCFAEKAIUAYoARYAiQBGgCFAEKAIUAYoARYAiQBGgCFAEKAIUAYoARYAiQBGgCFAEKAIUAYoARYAiQBGgCFAEKAIUAYoARYAiQBGgCFAEKAIUAYoARYAiQBGgCFAEKAIU/etAU7eeFtCMAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUAQoAhQBigBFgCJAEaAIUPQRRqSAyvbkDMgAAAAASUVORK5CYII=" /><!-- --></p>
+<p>  See <a href="https://jonathonchow.github.io/AwesomePackage/">AwesomePackage</a>
+for details.</p>
+</div>
+<div id="literature-cited" class="section level1 unnumbered">
+<h1 class="unnumbered">Literature Cited</h1>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-tang2005estimation" class="csl-entry">
+Tang, Hua, Jie Peng, Pei Wang, and Neil J Risch. 2005. <span>“Estimation
+of Individual Admixture: Analytical and Study Design
+Considerations.”</span> <em>Genetic Epidemiology: The Official
+Publication of the International Genetic Epidemiology Society</em> 28
+(4): 289–301.
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

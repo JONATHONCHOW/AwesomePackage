@@ -9,6 +9,10 @@ rcpp_psd_error <- function(G, P, F) {
     .Call('_AwesomePackage_rcpp_psd_error', PACKAGE = 'AwesomePackage', G, P, F)
 }
 
+rcpp_update_f_val <- function(G, P, F, zero) {
+    .Call('_AwesomePackage_rcpp_update_f_val', PACKAGE = 'AwesomePackage', G, P, F, zero)
+}
+
 rcpp_update_p_em <- function(G, P, F) {
     .Call('_AwesomePackage_rcpp_update_p_em', PACKAGE = 'AwesomePackage', G, P, F)
 }

@@ -34,6 +34,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_update_f_val
+Eigen::MatrixXd rcpp_update_f_val(const Eigen::MatrixXd& G, const Eigen::MatrixXd& P, const Eigen::MatrixXd& F, const double& zero);
+RcppExport SEXP _AwesomePackage_rcpp_update_f_val(SEXP GSEXP, SEXP PSEXP, SEXP FSEXP, SEXP zeroSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type G(GSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type P(PSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type F(FSEXP);
+    Rcpp::traits::input_parameter< const double& >::type zero(zeroSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_update_f_val(G, P, F, zero));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_update_p_em
 Eigen::MatrixXd rcpp_update_p_em(const Eigen::MatrixXd& G, const Eigen::MatrixXd& P, const Eigen::MatrixXd& F);
 RcppExport SEXP _AwesomePackage_rcpp_update_p_em(SEXP GSEXP, SEXP PSEXP, SEXP FSEXP) {
@@ -197,6 +211,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_AwesomePackage_rcpp_hello_world", (DL_FUNC) &_AwesomePackage_rcpp_hello_world, 0},
     {"_AwesomePackage_rcpp_psd_error", (DL_FUNC) &_AwesomePackage_rcpp_psd_error, 3},
+    {"_AwesomePackage_rcpp_update_f_val", (DL_FUNC) &_AwesomePackage_rcpp_update_f_val, 4},
     {"_AwesomePackage_rcpp_update_p_em", (DL_FUNC) &_AwesomePackage_rcpp_update_p_em, 3},
     {"_AwesomePackage_rcpp_update_f_em", (DL_FUNC) &_AwesomePackage_rcpp_update_f_em, 3},
     {"_AwesomePackage_rcpp_psd_loss", (DL_FUNC) &_AwesomePackage_rcpp_psd_loss, 3},
