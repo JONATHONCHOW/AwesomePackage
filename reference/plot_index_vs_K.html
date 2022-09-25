@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,8 +24,10 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/psd_fit_em.html">Fit PSD model by EM algorithm</a>
+    <a class="dropdown-item" href="../articles/application_hgdp.html">Applications III: HGDP Data Set</a>
+    <a class="dropdown-item" href="../articles/application_tgp.html">Applications II: TGP Data Set</a>
     <a class="dropdown-item" href="../articles/quick_start.html">AwesomePackage: Quick start</a>
+    <a class="dropdown-item" href="../articles/theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -60,13 +62,13 @@
 <span>  <span class="va">methods</span>,</span>
 <span>  index.id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"loglik"</span>, <span class="st">"error"</span>, <span class="st">"elbo"</span>, <span class="st">"time"</span><span class="op">)</span>,</span>
 <span>  start.point <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  epsilon <span class="op">=</span> <span class="fl">0.01</span>,</span>
 <span>  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#E69F00"</span>, <span class="st">"#56B4E9"</span>, <span class="st">"#009E73"</span>, <span class="st">"#F0E442"</span>, <span class="st">"#0072B2"</span>, <span class="st">"#D55E00"</span>, <span class="st">"#CC79A7"</span><span class="op">)</span>,</span>
 <span>  linetypes <span class="op">=</span> <span class="st">"solid"</span>,</span>
 <span>  linesizes <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  shapes <span class="op">=</span> <span class="fl">19</span>,</span>
 <span>  fills <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>  theme <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu">theme_cowplot</span><span class="op">(</span><span class="fl">12</span><span class="op">)</span></span>
+<span>  theme <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu">theme_cowplot</span><span class="op">(</span><span class="fl">12</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -86,11 +88,6 @@
 
 <dt>start.point</dt>
 <dd><p>The initial point of K.</p></dd>
-
-
-<dt>epsilon</dt>
-<dd><p>A small, positive number added to the vertical axis so that the
-logarithmic scale does not over-emphasize very small differences.</p></dd>
 
 
 <dt>colors</dt>
@@ -116,6 +113,10 @@ logarithmic scale does not over-emphasize very small differences.</p></dd>
 <dt>theme</dt>
 <dd><p>The ggplot2 theme.</p></dd>
 
+
+<dt>title</dt>
+<dd><p>Title of the plot.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -126,13 +127,13 @@ logarithmic scale does not over-emphasize very small differences.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>,<span class="op">-</span><span class="fl">20</span>,<span class="op">-</span><span class="fl">10</span>,<span class="op">-</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">0.5</span>,<span class="op">-</span><span class="fl">0.3</span>,<span class="op">-</span><span class="fl">0.1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">30</span>,<span class="op">-</span><span class="fl">5</span>,<span class="op">-</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">0.1</span>,<span class="op">-</span><span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">50</span>,<span class="op">-</span><span class="fl">20</span>,<span class="op">-</span><span class="fl">10</span>,<span class="op">-</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">30</span>,<span class="op">-</span><span class="fl">5</span>,<span class="op">-</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">plot_index_vs_K</span><span class="op">(</span><span class="va">L</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fun"</span>,<span class="st">"more fun"</span><span class="op">)</span>, index.id <span class="op">=</span> <span class="st">"loglik"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_index_vs_K-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.5</span>,<span class="fl">0.8</span>,<span class="fl">1.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.6</span>,<span class="fl">0.2</span>,<span class="fl">0.8</span>,<span class="fl">2.5</span>,<span class="fl">3.7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.5</span>,<span class="fl">0.7</span>,<span class="fl">1.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.6</span>,<span class="fl">0.2</span>,<span class="fl">0.8</span>,<span class="fl">1.5</span>,<span class="fl">2.4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">plot_index_vs_K</span><span class="op">(</span><span class="va">L</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fun"</span>,<span class="st">"more fun"</span><span class="op">)</span>, index.id <span class="op">=</span> <span class="st">"error"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_index_vs_K-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>,<span class="op">-</span><span class="fl">10</span>,<span class="op">-</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">0.5</span>,<span class="op">-</span><span class="fl">0.1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="op">-</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">0.1</span>,<span class="op">-</span><span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>,<span class="op">-</span><span class="fl">2</span>,<span class="op">-</span><span class="fl">0.5</span>,<span class="op">-</span><span class="fl">0.1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="op">-</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">plot_index_vs_K</span><span class="op">(</span><span class="va">L</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fun"</span>,<span class="st">"more fun"</span><span class="op">)</span>, index.id <span class="op">=</span> <span class="st">"elbo"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_index_vs_K-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">15</span>,<span class="fl">20</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>,<span class="fl">18</span>,<span class="fl">30</span>,<span class="fl">32</span><span class="op">)</span><span class="op">)</span></span></span>

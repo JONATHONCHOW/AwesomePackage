@@ -10,13 +10,19 @@
     <loc>https://jonathonchow.github.io/AwesomePackage/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://jonathonchow.github.io/AwesomePackage/articles/application_hgdp.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathonchow.github.io/AwesomePackage/articles/application_tgp.html</loc>
+  </url>
+  <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/articles/psd_fit_em.html</loc>
+    <loc>https://jonathonchow.github.io/AwesomePackage/articles/quick_start.html</loc>
   </url>
   <url>
-    <loc>https://jonathonchow.github.io/AwesomePackage/articles/quick_start.html</loc>
+    <loc>https://jonathonchow.github.io/AwesomePackage/articles/theory_em.html</loc>
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/authors.html</loc>
@@ -68,5 +74,8 @@
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/psd_loglikelihood.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathonchow.github.io/AwesomePackage/reference/psd_loglikelihood_svi.html</loc>
   </url>
 </urlset>
