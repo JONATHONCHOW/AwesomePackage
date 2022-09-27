@@ -16,6 +16,9 @@
     <loc>https://jonathonchow.github.io/AwesomePackage/articles/application_hgdp.html</loc>
   </url>
   <url>
+    <loc>https://jonathonchow.github.io/AwesomePackage/articles/application_simu.html</loc>
+  </url>
+  <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/articles/application_tgp.html</loc>
   </url>
   <url>
@@ -80,5 +83,8 @@
   </url>
   <url>
     <loc>https://jonathonchow.github.io/AwesomePackage/reference/psd_loglikelihood_svi.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathonchow.github.io/AwesomePackage/reference/psd_simulation.html</loc>
   </url>
 </urlset>
