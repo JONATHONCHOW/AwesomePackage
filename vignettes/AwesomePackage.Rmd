@@ -1,5 +1,5 @@
 ---
-title: "AwesomePackage: Quick start"
+title: "AwesomePackage: Quick Start"
 author: "Jonathon Chow"
 date: "`r Sys.Date()`"
 output:
@@ -9,7 +9,7 @@ output:
     highlight: textmate
     theme: readable
 vignette: >
-  %\VignetteIndexEntry{AwesomePackage: Quick start}
+  %\VignetteIndexEntry{AwesomePackage: Quick Start}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -219,4 +219,4 @@ plot_structure(P, label = label, map.indiv = indiv, map.pop = spop, gap = 3, fon
 
 # Choose hyper-parameter `K`
 
-We fit different hyperparameters K respectively, and select the K that makes some indices optimal. We conduct experiments on TPG and HGDP datasets and different algorithms separately. See *Articles* in [AwesomePackage](https://jonathonchow.github.io/AwesomePackage/) for details.
+We fit different hyperparameters `K` respectively, and select the `K` that makes some indices optimal. We conduct experiments on TPG and HGDP datasets and different algorithms separately. See *Articles* in [AwesomePackage](https://jonathonchow.github.io/AwesomePackage/) for details.

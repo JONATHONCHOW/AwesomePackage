@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">AwesomePackage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -38,13 +38,16 @@
       <a href="../articles/application_hgdp.html">Applications III: HGDP Data Set</a>
     </li>
     <li>
+      <a href="../articles/application_simu.html">Applications I: Simulated Data Sets</a>
+    </li>
+    <li>
       <a href="../articles/application_tgp.html">Applications II: TGP Data Set</a>
     </li>
     <li>
       <a href="../articles/theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
     </li>
     <li>
-      <a href="../articles/user_manual.html">AwesomePackage: User manual 1.3.0</a>
+      <a href="../articles/user_manual.html">AwesomePackage: User Manual 1.4.0</a>
     </li>
   </ul></li>
 <li>
@@ -101,7 +104,7 @@ be taken from {0,1,2}.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="psd_fit_em.html">psd_fit_em</a></span><span class="op">(</span><span class="va">G</span>, <span class="fl">2</span>, <span class="fl">1e-5</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">psd_loglikelihood</span><span class="op">(</span><span class="va">G</span>, <span class="va">result</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.745472</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.7991931</span>
 </code></pre></div>
     </div>
   </div>

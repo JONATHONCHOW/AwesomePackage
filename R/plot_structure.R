@@ -55,15 +55,15 @@ plot_structure <- function (P, pops = NULL,
     dat <- group$dat
     ticks <- group$ticks
   }
-  ggplot(dat,aes_string(x = "sample",y = "prop",color = "population",
-                        fill = "population")) +
+  ggplot(dat,aes_string(x = "sample",y = "prop",color = "pop",
+                        fill = "pop")) +
     geom_col() +
     scale_x_continuous(limits = c(0,max(dat$sample) + 1),breaks = ticks,
                        labels = names(ticks)) +
     scale_y_continuous(breaks = NULL) +
     scale_color_manual(values = colors) +
     scale_fill_manual(values = colors) +
-    labs(x = "",y = "",title = title,subtitle = subtitle) +
+    labs(x = NULL,y = NULL,title = title,subtitle = subtitle) +
     theme_cowplot(font.size) +
     theme(axis.line   = element_blank(),
           axis.ticks  = element_blank(),
@@ -76,9 +76,9 @@ compile_structure_data <- function (P, pops)
   n <- nrow(P)
   k <- length(pops)
   dat <- data.frame(sample = rep(1:n, times = k),
-                    population = rep(pops, each = n),
+                    pop = rep(pops, each = n),
                     prop = c(P[, pops]))
-  dat$population <- factor(dat$population, pops)
+  dat$pop <- factor(dat$pop, pops)
   return(dat)
 }
 
