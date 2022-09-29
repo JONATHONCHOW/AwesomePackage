@@ -1,3 +1,9 @@
+# AwesomePackage 1.5.0
+
+* Added some vignettes.
+
+* Updated the code to draw the structure diagram.
+
 # AwesomePackage 1.4.0
 
 * Added the code to generate the simulated data.

@@ -42,7 +42,7 @@ plot_structure <- function (P, pops = NULL,
 {
   if (is.null(pops))
   {
-    pops <- order(colMeans(P))
+    pops <- order(colMeans(P), decreasing = T)
   }
   if (is.null(label))
   {

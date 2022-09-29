@@ -11,9 +11,9 @@
 
 <meta name="author" content="Jonathon Chow" />
 
-<meta name="date" content="2022-09-27" />
+<meta name="date" content="2022-09-29" />
 
-<title>Models and Methods I: Fit PSD Model by EM Algorithm</title>
+<title>Models and Methods IV: Fit PSD Model by SVI Algorithm</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -395,10 +395,10 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">Models and Methods I: Fit PSD Model by EM
+<h1 class="title toc-ignore">Models and Methods IV: Fit PSD Model by SVI
 Algorithm</h1>
 <h4 class="author">Jonathon Chow</h4>
-<h4 class="date">2022-09-27</h4>
+<h4 class="date">2022-09-29</h4>
 
 </div>
 
@@ -406,9 +406,9 @@ Algorithm</h1>
 <ul>
 <li><a href="#introduction" id="toc-introduction">Introduction</a></li>
 <li><a href="#psd-model" id="toc-psd-model">PSD Model</a></li>
-<li><a href="#expectation-maximization-algorithm" id="toc-expectation-maximization-algorithm">Expectation-Maximization
-Algorithm</a></li>
-<li><a href="#fit-psd-model-by-em-algorithm" id="toc-fit-psd-model-by-em-algorithm">Fit PSD Model by EM
+<li><a href="#stochastic-variational-inference-algorithm" id="toc-stochastic-variational-inference-algorithm">Stochastic
+Variational Inference Algorithm</a></li>
+<li><a href="#fit-psd-model-by-vi-algorithm" id="toc-fit-psd-model-by-vi-algorithm">Fit PSD Model by VI
 Algorithm</a></li>
 <li><a href="#acceleration" id="toc-acceleration">Acceleration</a></li>
 <li><a href="#algorithm-implementation" id="toc-algorithm-implementation">Algorithm Implementation</a></li>
@@ -419,257 +419,94 @@ Cited</a></li>
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>  We use the Expectation-Maximization algorithm (EM) to fit the PSD
-model <span class="citation">(Tang et al. 2005)</span>.</p>
+<p>  We use the stochastic variational inference algorithm (SVI) to fit
+the PSD model <span class="citation">(Gopalan et al. 2016)</span>.</p>
 </div>
 <div id="psd-model" class="section level1">
 <h1>PSD Model</h1>
-<p>  The typical data set consists of genotypes at a large number <span class="math inline">\(J\)</span> of single nucleotide polymorphisms
-(SNPs) from a large number <span class="math inline">\(I\)</span> of
-unrelated individuals. These individuals are drawn from an admixed
-population with contributions from <span class="math inline">\(K\)</span> postulated ancestral populations.
-Population <span class="math inline">\(k\)</span> contributes a fraction
-<span class="math inline">\(p_{ik}\)</span> of individual <span class="math inline">\(i\)</span>’s genome. Note that <span class="math inline">\(\sum_{k=1}^Kp_{ik}=1\)</span>, and <span class="math inline">\(p_{ik}\geq 0\)</span>. Allele 1 at SNP <span class="math inline">\(j\)</span> has frequency <span class="math inline">\(f_{kj}\)</span> in population <span class="math inline">\(k\)</span>. Note that <span class="math inline">\(0\leq f_{kj}\leq 1\)</span>. As a matter of
-convention, one can choose allele 1 to be the minor allele and the
-alternative allele 2 to be the major allele. In our model, both the
-<span class="math inline">\(p_{ik}\)</span> and the <span class="math inline">\(f_{kj}\)</span> are unknown. We are primarily
-interested in estimating the <span class="math inline">\(p_{ik}\)</span>
-to control for ancestry in an association study, but our approach also
-yields estimates of the <span class="math inline">\(f_{kj}\)</span>.</p>
-<p>  Let <span class="math inline">\((g_{ij}^1,g_{ij}^2)\)</span>
-represents the genotype at marker <span class="math inline">\(j\)</span>
-of person <span class="math inline">\(i\)</span>, where <span class="math inline">\(g_{ij}^a\)</span> represent the observed number of
+<p>  Suppose we have <span class="math inline">\(I\)</span> diploid
+individuals genotyped at <span class="math inline">\(J\)</span>
+biallelic loci. Let <span class="math inline">\((g_{ij}^1,g_{ij}^2)\)</span> represents the
+genotype at marker <span class="math inline">\(j\)</span> of person
+<span class="math inline">\(i\)</span>, where <span class="math inline">\(g_{ij}^a\)</span> represent the observed number of
 copies of allele 1 at seat <span class="math inline">\(a\)</span>. Thus,
 <span class="math inline">\((g_{ij}^1,g_{ij}^2)\)</span> equals <span class="math inline">\((1,1)\)</span>, <span class="math inline">\((1,0)\)</span>, <span class="math inline">\((0,1)\)</span>, or <span class="math inline">\((0,0)\)</span> accordingly, as <span class="math inline">\(i\)</span> has genotype 1/1, 1/2, 2/1, or 2/2 at
-marker <span class="math inline">\(j\)</span>.</p>
-<p>  Note that individuals are formed by the random union of gametes.
-This produces the binomial proportions <span class="math display">\[P(g_{ij}^a=1)=\sum_{k=1}^Kp_{ik}f_{kj},\quad
-P(g_{ij}^a=0)=\sum_{k=1}^Kp_{ik}(1-f_{kj}),\quad a=1,2.\]</span> Since
-individuals <span class="math inline">\(i\)</span>, SNPs <span class="math inline">\(j\)</span>, and seats <span class="math inline">\(a\)</span> are considered independent, the
-log-likelihood of the entire sample is <span class="math display">\[\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^j\sum_{a=1}^2\bigg\{g_{ij}^alog\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(1-g_{ij}^a)log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}\]</span>
-up to an additive constant that does not enter into the maximization
-problem. Let <span class="math inline">\(g_{ij}=g_{ij}^1+g_{ij}^2\)</span>. So the
-log-likelihood can also be expressed as <span class="math display">\[\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^j\bigg\{g_{ij}log\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(2-g_{ij})log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}.\]</span>
-The parameter matrices <span class="math inline">\(P=\{p_{ik}\}\)</span>
-and <span class="math inline">\(F=\{f_{kj}\}\)</span> have dimensions
-<span class="math inline">\(I\times K\)</span> and <span class="math inline">\(K\times J\)</span>, for a total of <span class="math inline">\(K(I+J)\)</span> parameters.</p>
-<p>  Note that the log-likelihood is invariant under permutations of the
-labels of the ancestral populations. Thus, the log-likelihood has at
-least <span class="math inline">\(K!\)</span> equivalent global maxima.
-In practice, this is a minor nuisance and does not affect the
-convergence of well-behaved algorithms. The constraints <span class="math inline">\(0\leq f_{kj}\leq 1\)</span>, <span class="math inline">\(p_{ik}\geq 0\)</span>, and <span class="math inline">\(\sum_{k=1}^Kp_{ik}=1\)</span> are more significant
-hindrances to contriving a good optimization algorithm.</p>
+marker <span class="math inline">\(j\)</span>. Let <span class="math inline">\(g_{ij}=g_{ij}^1+g_{ij}^2\)</span>. These
+individuals are drawn from an admixed population with contributions from
+<span class="math inline">\(K\)</span> postulated ancestral populations.
+Population <span class="math inline">\(k\)</span> contributes a fraction
+<span class="math inline">\(p_{ik}\)</span> of individual <span class="math inline">\(i\)</span>’s genome. Note that <span class="math inline">\(\sum_{k=1}^Kp_{ik}=1\)</span>, and <span class="math inline">\(p_{ik}\geq 0\)</span>. Allele 1 at SNP <span class="math inline">\(j\)</span> has frequency <span class="math inline">\(f_{kj}\)</span> in population <span class="math inline">\(k\)</span>. Note that <span class="math inline">\(0\leq f_{kj}\leq 1\)</span>. Similar to the EM
+algorithm, we consider <span class="math inline">\((z_{ij}^1,z_{ij}^2)\)</span>, where <span class="math inline">\(z_{ij}^a\)</span> is an element of the set <span class="math inline">\(\{1,\ldots,K\}\)</span>, denotes the population
+from which the genes of individual <span class="math inline">\(i\)</span> of marker <span class="math inline">\(j\)</span> at position <span class="math inline">\(a\)</span> really come. Let <span class="math inline">\(z_{ijk}^a=\textbf{1}(z_{ij}^a=k)\)</span>,
+obviously, <span class="math inline">\(z_{ijk}^a\in\{0,1\}\)</span>, and
+<span class="math inline">\(\sum_{k=1}^Kz_{ijk}^a=1\)</span>.</p>
+<p>  Different from EM and SQP algorithms, variational inference does
+not optimize the maximum likelihood <span class="math inline">\(\mathcal{L}(G|P,F)\)</span>, but the posterior
+<span class="math inline">\(P(Z,P,F|G)\)</span>, which also reflects the
+difference between the frequency school and the Bayesian school. To be
+specific, under the previous assumptions, the observed variable is <span class="math inline">\(G\)</span>, the unobserved variables include
+latent variable <span class="math inline">\(Z\)</span> and parameters
+<span class="math inline">\(P\)</span>, <span class="math inline">\(F\)</span>. We take all unobserved variables
+together as variational objects, which are all involved in the
+estimation. At the same time, we take the model parameter <span class="math inline">\(K\)</span>, which is not involved in the
+estimation, as the hyperparameter.</p>
 </div>
-<div id="expectation-maximization-algorithm" class="section level1">
-<h1>Expectation-Maximization Algorithm</h1>
-<p>  Our goal is to solve the MLE problem for the observed variable
-<span class="math inline">\(x\)</span> <span class="math display">\[\theta_{MLE}=\mathop{argmax}\limits_{\theta}log
-P(x|\theta).\]</span> However, when the probabilistic model contains
-both the observed variable <span class="math inline">\(x\)</span> and
-the latent variable <span class="math inline">\(z\)</span>, MLE often
-cannot find the analytical solution directly. EM algorithm provides a
-way to solve MLE iteratively.</p>
-<p>  The first thing we notice is that <span class="math display">\[log
-P(x|\theta) = log P(x,z|\theta)-log P(z|x,\theta) = log
-\frac{P(x,z|\theta)}{Q(z)} - log \frac{P(x|z,\theta)}{Q(z)},\]</span>
-Where <span class="math inline">\(Q(z)\)</span> is the undetermined
-distribution.</p>
-<p>  We take the expectation of both sides of this equation, then <span class="math display">\[\mathbb{E}_{Q(z)} \Big[LHS\Big] = \int_{z}log
-P(x|\theta)Q(z)dz = log P(x|\theta)\int_{z}Q(z)dz = log
-P(x|\theta),\]</span> <span class="math display">\[\mathbb{E}_{Q(z)}
-\Big[RHS\Big] = \int_{z}log \frac{P(x,z|\theta)}{Q(z)}Q(z)dz -
-\int_{z}log \frac{P(x|z,\theta)}{Q(z)}Q(z)dz := \mathcal{L}(Q(z),\theta)
-- KL(Q(z)\|P(z|x,\theta)).\]</span> Hence, we have <span class="math display">\[log P(x|\theta)=\mathcal{L}(Q(z),\theta) -
-KL(Q(z)\|P(z|x,\theta)).\]</span></p>
-<p>  We use the property of KL divergence <span class="math inline">\(KL(Q\|P)\geq 0\)</span>, The equality holds if and
-only if <span class="math inline">\(Q=P\)</span>. Thus, we have <span class="math display">\[log P(x|\theta)\geq
-\mathcal{L}(Q(z),\theta),\]</span> Therefore, we also refer to <span class="math inline">\(\mathcal{L}(Q(z),\theta)\)</span> as the evidence
-lower bound (ELBO).</p>
-<p>  Under the condition of the <span class="math inline">\(i\)</span>th
-iteration, we first fix parameter <span class="math inline">\(\theta^{(i)}\)</span>, then we take <span class="math inline">\(Q(z)=P(z|x,\theta)\)</span>, and have <span class="math inline">\(log
-P(x|\theta^{(i)})=\mathcal{L}(Q(z),\theta)\)</span>, that is the E-step.
-Next, we change the parameter <span class="math inline">\(\theta\)</span>, than maximize the ELBO, and get
-the parameter <span class="math inline">\(\theta^{(i+1)}\)</span> of the
-<span class="math inline">\((i+1)\)</span>th iteration, that is the
-M-step. Finally, some simplification can be carried out to obtain the EM
-algorithm.</p>
-<p>  More precisely, <span class="math display">\[\begin{split}
-&amp;\theta^{(i+1)}\\
-=&amp; \mathop{argmax}\limits_{\theta}\mathcal{L}(Q(z),\theta) \\
-=&amp; \mathop{argmax}\limits_{\theta}\int_{z}log
-\frac{P(x,z|\theta)}{Q(z)}Q(z)dz \\
-=&amp; \mathop{argmax}\limits_{\theta}\int_{z}log
-\frac{P(x,z|\theta)}{P(z|x,\theta^{(i)})}P(z|x,\theta^{(i)})dz \\
-=&amp; \mathop{argmax}\limits_{\theta}\int_{z}log
-P(x,z|\theta)P(z|x,\theta^{(i)})dz - \int_{z}log
-P(z|x,\theta^{(i)})P(z|x,\theta^{(i)})dz \\
-=&amp; \mathop{argmax}\limits_{\theta}\int_{z}log
-P(x,z|\theta)P(z|x,\theta^{(i)})dz \\
-=&amp; \mathbb{E}_{P(z|x,\theta^{(i)})}\Big[log P(x,z|\theta)\Big].
-\end{split}\]</span></p>
-<p>  In conclusion, at E-step, we compute the expectation <span class="math display">\[\mathbb{E}_{P(z|x,\theta^{(i)})}\Big[log
-P(x,z|\theta)\Big]=\int_{z}log
-P(x,z|\theta)P(z|x,\theta^{(i)})dz,\]</span> and at M-step, we compute
-the maximization and update the parameters <span class="math display">\[\theta^{(i+1)}=\mathop{argmax}\limits_{\theta}\mathbb{E}_{P(z|x,\theta^{(i)})}\Big[log
-P(x,z|\theta)\Big],\]</span> until the log-likelihood of incomplete data
-converges. This is the EM algorithm.</p>
+<div id="stochastic-variational-inference-algorithm" class="section level1">
+<h1>Stochastic Variational Inference Algorithm</h1>
+<p>  Modern applications of probability models often require analyzing
+massive data. However, most posterior inference algorithms do not easily
+scale. CAVI is no exception. The reason is that the coordinate ascent
+structure of the algorithm requires iterating through the entire data
+set at each iteration. As the data set size grows, each iteration
+becomes more computationally expensive <span class="citation">(Blei,
+Kucukelbir, and McAuliffe 2017)</span>.</p>
+<p>  An alternative to coordinate ascent is gradient-based optimization,
+which climbs the ELBO by computing and following its gradient at each
+iteration. This perspective is the key to scaling up variational
+inference using stochastic variational inference (SVI) <span class="citation">(Hoffman et al. 2013)</span>, a method that combines
+natural gradients <span class="citation">(Amari 1998)</span> and
+stochastic optimization <span class="citation">(Amari 1998)</span>. It
+repeatedly (a) subsamples a data point from the full data set; (b) uses
+the current global parameters to compute the optimal local parameters
+for the subsampled data point; and (c) adjusts the current global
+parameters in an appropriate way.</p>
+<p>  </p>
 </div>
-<div id="fit-psd-model-by-em-algorithm" class="section level1">
-<h1>Fit PSD Model by EM Algorithm</h1>
-<p>  We derive the EM algorithm under the PSD model. The observed
-variable is <span class="math inline">\(G=\{(g_{ij}^1,g_{ij}^2)\}_{I\times J}\)</span>.
-The model parameters are <span class="math inline">\(P=\{p_{ik}\}_{I\times K}\)</span> and <span class="math inline">\(F=\{f_{kj}\}_{K\times J}\)</span>. The latent
-variable is <span class="math inline">\(Z=\{z_{ij}^1,z_{ij}^2\}_{I\times
-J}\)</span>, <span class="math inline">\(z_{ij}^a\)</span> is an element
-of the set <span class="math inline">\(\{1,\ldots,K\}\)</span>, denotes
-the population from which the genes of individual <span class="math inline">\(i\)</span> of marker <span class="math inline">\(j\)</span> at position <span class="math inline">\(a\)</span> really come.</p>
-<p>  Consider the log-likelihood of complete data <span class="math display">\[\begin{split}
-&amp;log P(G,Z|P,F)\\
-=&amp;log P(G|Z,P,F) + log P(Z|P,F) \\
-=&amp;\sum_{i=1}^I\sum_{j=1}^J\sum_{k=1}^K\sum_{a=1}^2\bigg\{1(z_{ij}^a=k)\Big[g_{ij}^alogf_{kj}+(2-g_{ij}^a)log(1-f_{kj})\Big]+1(z_{ij}^a=k)logp_{ik}\bigg\}.
-\end{split}\]</span></p>
-<p>  E-step. Using the linear property of expectations, the expectation
-after the <span class="math inline">\(t\)</span>th iteration is <span class="math display">\[\begin{split}
-&amp;\mathbb{E}_{P(Z|G,P^{(t)},F^{(t)})}\Big[log
-P(G,Z|P,F)\Big]\\=&amp;\sum_{i=1}^I\sum_{j=1}^J\sum_{k=1}^K\sum_{a=1}^2\bigg\{P(z_{ij}^a=k|G,P^{(t)},F^{(t)})\Big[g_{ij}^alogf_{kj}+(2-g_{ij}^a)log(1-f_{kj})+logp_{ik}\Big]\bigg\}.
-\end{split}\]</span> Using the Bayesian formula, then <span class="math display">\[\begin{split}
-&amp;P(z_{ij}^a=k|G,P^{(t)},F^{(t)})\\
-=&amp; P(z_{ij}^a=k|g_{ij}^a,p_{ik}^{(t)},f_{kj}^{(t)})\\
-=&amp;
-\frac{P(g_{ij}^a|z_{ij}^a=k,p_{ik}^{(t)},f_{kj}^{(t)})P(z_{ij}^a=k|p_{ik}^{(t)},f_{kj}^{(t)})}{\sum_{k=1}^KP(g_{ij}^a|z_{ij}^a=k,p_{ik}^{(t)},f_{kj}^{(t)})P(z_{ij}^a=k|p_{ik}^{(t)},f_{kj}^{(t)})}\\
-=&amp;
-\frac{p_{ik}^{(t)}(f_{kj}^{(t)})^{g_{ij}^a}(1-f_{kj}^{(t)})^{(1-g_{ij}^a)}}{\sum_{k=1}^Kp_{ik}^{(t)}(f_{kj}^{(t)})^{g_{ij}^a}(1-f_{kj}^{(t)})^{(1-g_{ij}^a)}}.\end{split}\]</span></p>
-<p>  Next, note that <span class="math display">\[p_{ik}^{(t)}(f_{kj}^{(t)})^{g_{ij}^a}(1-f_{kj}^{(t)})^{(1-g_{ij}^a)}=
-\left\{
-\begin{aligned}
-&amp;p_{ik}^{(t)}f_{kj}^{(t)},&amp;\quad &amp;g_{ij}^a=1\\
-&amp;p_{ik}^{(t)}(1-f_{kj}^{(t)}),&amp;\quad &amp;g_{ij}^a=0.
-\end{aligned}
-\right.
-\]</span> Thus, we have <span class="math display">\[
-P(z_{ij}^a=k|G,P^{(t)},F^{(t)})=
-\left\{
-\begin{aligned}
-&amp;\frac{p_{ik}^{(t)}f_{kj}^{(t)}}{\sum_{k=1}^Kp_{ik}^{(t)}f_{kj}^{(t)}}:=a_{ijk}^{(t)},&amp;\quad
-&amp;g_{ij}^a=1\\
-&amp;\frac{p_{ik}^{(t)}(1-f_{kj}^{(t)})}{\sum_{k=1}^Kp_{ik}^{(t)}(1-f_{kj}^{(t)})}:=b_{ijk}^{(t)},&amp;\quad
-&amp;g_{ij}^a=0.
-\end{aligned}
-\right.
-\]</span></p>
-<p>  M-step. Calculate the parameters for the <span class="math inline">\((t+1)\)</span>th iteration. The problem is
-transformed into solving an optimization problem <span class="math display">\[\begin{split}
-\mathop{max}\limits_{P,F} &amp; \quad
-\mathbb{E}_{P(Z|G,P^{(t)},F^{(t)})}\Big[log P(G,Z|P,F)\Big]\\
-s.t. &amp; \quad \sum_{k=1}^Kp_{ik}=1,\quad i=1,\ldots,I.
-\end{split}\]</span> Using the Lagrange multiplier method, we define the
-<span class="math inline">\(\mathcal{L}\)</span> as <span class="math display">\[\mathcal{L} =
-\mathbb{E}_{P(Z|G,P^{(t)},F^{(t)})}\Big[log P(G,Z|P,F)\Big] +
-\sum_{i=1}^I\tau_i\Big(1-\sum_{k=1}^Kp_{ik}\Big).\]</span> Take the
-partial derivatives of <span class="math inline">\(p_{ik}\)</span> and
-<span class="math inline">\(f_{kj}\)</span> and set them equal to zero
-<span class="math display">\[\frac{1}{p_{ik}}\sum_{j=1}^J\sum_{a=1}^2P(z_{ij}^a=k|G,P^{(t)},F^{(t)})-\tau_i=0,\quad
-i=1,\ldots,I,\quad k=1,\ldots,K,\]</span> <span class="math display">\[\sum_{i=1}^I\sum_{a=1}^2P(z^a_{ij}=k|G,P^{(t)},F^{(t)})\Big[g_{ij}^a\frac{1}{f_{kj}}+(1-g_{ij}^a)\frac{1}{1-f_{kj}}\Big]=0,\quad
-j=1,\ldots,J,\quad k=1,\ldots,K.\]</span></p>
-<p>  We sum the first equality over k, then <span class="math display">\[\frac{1}{\tau_i}\sum_{k=1}^K\sum_{j=1}^J\sum_{a=1}^2P(z_{ij}^a=k|G,P^{(t)},F^{(t)})=\sum_{k=1}^Kp_{ik}=1,\quad
-i=1,\ldots,I.\]</span> Thus, the Lagrange multiplier is <span class="math display">\[\tau_i=\sum_{j=1}^J\sum_{a=1}^2\sum_{k=1}^KP(z_{ij}^a=k|G,P^{(t)},F^{(t)})=\sum_{j=1}^J\sum_{a=1}^21=2J,\quad
-i=1,\ldots,I.\]</span></p>
-<p>  Thus, we obtain the parameter update formula for <span class="math inline">\((t+1)\)</span>th iteration <span class="math display">\[\begin{split}
-&amp;p_{ik}^{(t+1)}\\
-=&amp;\frac{\sum_{j=1}^J\sum_{a=1}^2g_{ij}^aP(z_{ij}^a=k|G,P^{(t)},F^{(t)})+\sum_{j=1}^J\sum_{a=1}^2(1-g_{ij}^a)P(z_{ij}^a=k|G,P^{(t)},F^{(t)})}{2J}\\
-=&amp;\frac{\sum_{j=1}^J\sum_{a=1}^2P(z_{ij}^a=k|G,P^{(t)},F^{(t)})}{2J},\quad
-i=1,\ldots,I,\quad k=1,\ldots,K,
-\end{split}\]</span> <span class="math display">\[\begin{split}
-&amp;f_{kj}^{(t+1)}\\
-=&amp;
-\frac{\sum_{i=1}^I\sum_{a=1}^2g_{ij}^aP(z_{ij}^a=k|G,P^{(t)},F^{(t)})}{\sum_{i=1}^I\sum_{a=1}^2g_{ij}^aP(z_{ij}^a=k|G,P^{(t)},F^{(t)})+\sum_{i=1}^I\sum_{a=1}^2(1-g_{ij}^a)P(z_{ij}^a=k|G,P^{(t)},F^{(t)})}\\
-=&amp;\frac{\sum_{i=1}^I\sum_{a=1}^2g_{ij}^aP(z_{ij}^a=k|G,P^{(t)},F^{(t)})}{\sum_{i=1}^I\sum_{a=1}^2P(z_{ij}^a=k|G,P^{(t)},F^{(t)})},\quad
-j=1,\ldots,J,\quad k=1,\ldots,K.
-\end{split}\]</span></p>
-<p>  Finally, Using the expression for <span class="math inline">\(P(z_{ij}^a=k|G,P^{(t)},F^{(t)})\)</span>, we can
-get <span class="math display">\[\sum_{a=1}^2g_{ij}^aP(z_{ij}^a=k|G,P^{(t)},F^{(t)})=
-\left\{
-\begin{aligned}
-&amp;2a_{ijk}^{(t)},&amp;(g_{ij}^1,g_{ij}^2)=(1,1)\\
-&amp;a_{ijk}^{(t)},&amp;(g_{ij}^1,g_{ij}^2)=(1,0)\\
-&amp;a_{ijk}^{(t)},&amp;(g_{ij}^1,g_{ij}^2)=(0,1)\\
-&amp;0,&amp;(g_{ij}^1,g_{ij}^2)=(0,0)
-\end{aligned}
-\right.
-=\Big(\sum_{a=1}^2g_{ij}^a\Big)a_{ijk}^{(t)}=g_{ij}a_{ijk}^{(t)},\]</span>
-<span class="math display">\[\sum_{a=1}^2(1-g_{ij}^a)P(z_{ij}^a=k|G,P^{(t)},F^{(t)})=
-\left\{
-\begin{aligned}
-&amp;0,&amp;(g_{ij}^1,g_{ij}^2)=(1,1)\\
-&amp;b_{ijk}^{(t)},&amp;(g_{ij}^1,g_{ij}^2)=(1,0)\\
-&amp;b_{ijk}^{(t)},&amp;(g_{ij}^1,g_{ij}^2)=(0,1)\\
-&amp;2b_{ijk}^{(t)},&amp;(g_{ij}^1,g_{ij}^2)=(0,0)
-\end{aligned}
-\right.
-=\Big[\sum_{a=1}^2(1-g_{ij}^a)\Big]b_{ijk}^{(t)}=(2-g_{ij})b_{ijk}^{(t)}.\]</span>
-Then the parameter update formula can be written as <span class="math display">\[p_{ik}^{(t+1)}=\frac{\sum_{j=1}^Jg_{ij}a_{ijk}^{(t)}+\sum_{j=1}^J(2-g_{ij})b_{ijk}^{(t)}}{2J},\quad
-i=1,\ldots,I,\quad k=1,\ldots,K,\]</span> <span class="math display">\[f_{kj}^{(t+1)}\frac{\sum_{i=1}^Ig_{ij}a_{ijk}^{(t)}}{\sum_{i=1}^Ig_{ij}a_{ijk}^{(t)}+\sum_{i=1}^I(2-g_{ij})b_{ijk}^{(t)}},\quad
-j=1,\ldots,J,\quad k=1,\ldots,K.\]</span></p>
-<p>  In conclusion, at E-step, we compute the expectation <span class="math inline">\(a_{ijk}\)</span> and <span class="math inline">\(b_{ijk}\)</span>, and at M-step, we compute the
-maximization and update the parameters <span class="math inline">\(p_{ik}\)</span> and <span class="math inline">\(f_{kj}\)</span>, until the log-likelihood of
-incomplete data <span class="math inline">\(\mathcal{L}(G|P,F)\)</span>
-converges. This is the EM algorithm for PSD model.</p>
+<div id="fit-psd-model-by-vi-algorithm" class="section level1">
+<h1>Fit PSD Model by VI Algorithm</h1>
+<p>  Our model, the choice of variational family is the same as the VI
+algorithm. The difference is to update the global variable <span class="math inline">\(P\)</span>.</p>
 </div>
 <div id="acceleration" class="section level1">
 <h1>Acceleration</h1>
-<p>  We can speed up the EM algorithm in two ways. The first is the code
-level. We write the core parameter update part in C++. The second is the
-algorithm level, we can use SQUAREM to accelerate the algorithm.</p>
+<p>  </p>
 </div>
 <div id="algorithm-implementation" class="section level1">
 <h1>Algorithm Implementation</h1>
-<p>  We present the implementation of EM algorithm in R package
-AwesomePackage. You can fit the PSD model using the EM algorithm using
-the function <code>psd_fit_em</code>. At the same time, you can use
-<code>plot_loss</code> to see changes in log-likelihood and
-<code>plot_structure</code> to plot structure.</p>
-<p>  Here is an example.</p>
-<pre class="r"><code>library(AwesomePackage)
-G &lt;- matrix(c(0,0,1, 0,2,1, 1,0,1, 0,1,0, 1,0,0), 3, 5)
-result &lt;- psd_fit_em(G, 2, 1e-5, 50)
-result</code></pre>
-<pre><code>## $P
-##              [,1]         [,2]
-## [1,] 1.710250e-08 1.000000e+00
-## [2,] 1.000000e+00 1.609634e-11
-## [3,] 3.093225e-01 6.906775e-01
-## 
-## $F
-##              [,1]         [,2]         [,3]          [,4]
-## [1,] 1.391468e-28 1.0000000000 2.531373e-43  4.139567e-01
-## [2,] 2.764186e-01 0.0006673097 5.734104e-01 1.667805e-256
-##               [,5]
-## [1,] 1.149056e-223
-## [2,]  3.113360e-01
-## 
-## $Loss
-## [1] -0.7350963 -0.7209747 -0.7134341 -0.7081175 -0.7074601
-## 
-## $Iterations
-## [1] 50</code></pre>
-<pre class="r"><code>L &lt;- result$Loss
-plot_loss(list(L), &quot;em&quot;, 10)</code></pre>
-<p><img src="data:image/png;base64,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" width="672" /></p>
-<pre class="r"><code>P &lt;- result$P
-plot_structure(P)</code></pre>
-<p><img src="data:image/png;base64,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" width="672" /></p>
-<p>  See <a href="https://jonathonchow.github.io/AwesomePackage/">AwesomePackage</a>
-for details.</p>
+<p>  </p>
 </div>
 <div id="literature-cited" class="section level1 unnumbered">
 <h1 class="unnumbered">Literature Cited</h1>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-tang2005estimation" class="csl-entry">
-Tang, Hua, Jie Peng, Pei Wang, and Neil J Risch. 2005. <span>“Estimation
-of Individual Admixture: Analytical and Study Design
-Considerations.”</span> <em>Genetic Epidemiology: The Official
-Publication of the International Genetic Epidemiology Society</em> 28
-(4): 289–301.
+<div id="ref-amari1998natural" class="csl-entry">
+Amari, Shun-Ichi. 1998. <span>“Natural Gradient Works Efficiently in
+Learning.”</span> <em>Neural Computation</em> 10 (2): 251–76.
+</div>
+<div id="ref-blei2017variational" class="csl-entry">
+Blei, David M, Alp Kucukelbir, and Jon D McAuliffe. 2017.
+<span>“Variational Inference: A Review for Statisticians.”</span>
+<em>Journal of the American Statistical Association</em> 112 (518):
+859–77.
+</div>
+<div id="ref-gopalan2016scaling" class="csl-entry">
+Gopalan, Prem, Wei Hao, David M Blei, and John D Storey. 2016.
+<span>“Scaling Probabilistic Models of Genetic Variation to Millions of
+Humans.”</span> <em>Nature Genetics</em> 48 (12): 1587–90.
+</div>
+<div id="ref-hoffman2013stochastic" class="csl-entry">
+Hoffman, Matthew D, David M Blei, Chong Wang, and John Paisley. 2013.
+<span>“Stochastic Variational Inference.”</span> <em>Journal of Machine
+Learning Research</em> 14: 1303–47.
 </div>
 </div>
 </div>

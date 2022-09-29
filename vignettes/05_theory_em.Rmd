@@ -39,7 +39,7 @@ The parameter matrices $P=\{p_{ik}\}$ and $F=\{f_{kj}\}$ have dimensions $I\time
 
 &emsp;&emsp;Our goal is to solve the MLE problem for the observed variable $x$
 $$\theta_{MLE}=\mathop{argmax}\limits_{\theta}log P(x|\theta).$$
-However, when the probabilistic model contains both the observed variable $x$ and the latent variable $z$, MLE often cannot find the analytical solution directly. EM algorithm provides a way to solve MLE iteratively.
+However, when the probabilistic model contains both the observed variable $x$ and the latent variable $z$, MLE often cannot find the analytical solution directly. EM algorithm provides a way to solve MLE iteratively [@bishop2006pattern].
 
 &emsp;&emsp;The first thing we notice is that
 $$log P(x|\theta) = log P(x,z|\theta)-log P(z|x,\theta) = log \frac{P(x,z|\theta)}{Q(z)} - log \frac{P(x|z,\theta)}{Q(z)},$$
@@ -47,11 +47,11 @@ Where $Q(z)$ is the undetermined distribution.
 
 &emsp;&emsp;We take the expectation of both sides of this equation, then
 $$\mathbb{E}_{Q(z)} \Big[LHS\Big] = \int_{z}log P(x|\theta)Q(z)dz = log P(x|\theta)\int_{z}Q(z)dz = log P(x|\theta),$$
-$$\mathbb{E}_{Q(z)} \Big[RHS\Big] = \int_{z}log \frac{P(x,z|\theta)}{Q(z)}Q(z)dz - \int_{z}log \frac{P(x|z,\theta)}{Q(z)}Q(z)dz := \mathcal{L}(Q(z),\theta) - KL(Q(z)\|P(z|x,\theta)).$$
+$$\mathbb{E}_{Q(z)} \Big[RHS\Big] = \int_{z}log \frac{P(x,z|\theta)}{Q(z)}Q(z)dz - \int_{z}log \frac{P(x|z,\theta)}{Q(z)}Q(z)dz := \mathcal{L}(Q(z),\theta) + KL(Q(z)\|P(z|x,\theta)).$$
 Hence, we have
-$$log P(x|\theta)=\mathcal{L}(Q(z),\theta) - KL(Q(z)\|P(z|x,\theta)).$$
+$$log P(x|\theta)=\mathcal{L}(Q(z),\theta) + KL(Q(z)\|P(z|x,\theta)).$$
 
-&emsp;&emsp;We use the property of KL divergence $KL(Q\|P)\geq 0$, The equality holds if and only if $Q=P$. Thus, we have
+&emsp;&emsp;We use the property of KL divergence $KL(Q\|P)\geq 0$, the equality holds if and only if $Q=P$. Thus, we have
 $$log P(x|\theta)\geq \mathcal{L}(Q(z),\theta),$$
 Therefore, we also refer to $\mathcal{L}(Q(z),\theta)$ as the evidence lower bound (ELBO).
 
@@ -82,12 +82,12 @@ until the log-likelihood of incomplete data converges. This is the EM algorithm.
 $$\begin{split}
 &log P(G,Z|P,F)\\
 =&log P(G|Z,P,F) + log P(Z|P,F) \\
-=&\sum_{i=1}^I\sum_{j=1}^J\sum_{k=1}^K\sum_{a=1}^2\bigg\{1(z_{ij}^a=k)\Big[g_{ij}^alogf_{kj}+(2-g_{ij}^a)log(1-f_{kj})\Big]+1(z_{ij}^a=k)logp_{ik}\bigg\}.
+=&\sum_{i=1}^I\sum_{j=1}^J\sum_{k=1}^K\sum_{a=1}^2\bigg\{\textbf{1}(z_{ij}^a=k)\Big[g_{ij}^alogf_{kj}+(1-g_{ij}^a)log(1-f_{kj})\Big]+\textbf{1}(z_{ij}^a=k)logp_{ik}\bigg\}.
 \end{split}$$
 
 &emsp;&emsp;E-step. Using the linear property of expectations, the expectation after the $t$th iteration is
 $$\begin{split}
-&\mathbb{E}_{P(Z|G,P^{(t)},F^{(t)})}\Big[log P(G,Z|P,F)\Big]\\=&\sum_{i=1}^I\sum_{j=1}^J\sum_{k=1}^K\sum_{a=1}^2\bigg\{P(z_{ij}^a=k|G,P^{(t)},F^{(t)})\Big[g_{ij}^alogf_{kj}+(2-g_{ij}^a)log(1-f_{kj})+logp_{ik}\Big]\bigg\}.
+&\mathbb{E}_{P(Z|G,P^{(t)},F^{(t)})}\Big[log P(G,Z|P,F)\Big]\\=&\sum_{i=1}^I\sum_{j=1}^J\sum_{k=1}^K\sum_{a=1}^2\bigg\{P(z_{ij}^a=k|G,P^{(t)},F^{(t)})\Big[g_{ij}^alogf_{kj}+(1-g_{ij}^a)log(1-f_{kj})+logp_{ik}\Big]\bigg\}.
 \end{split}$$
 Using the Bayesian formula, then
 $$\begin{split}

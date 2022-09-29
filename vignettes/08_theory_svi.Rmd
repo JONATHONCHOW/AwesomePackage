@@ -1,0 +1,48 @@
+---
+title: "Models and Methods IV: Fit PSD Model by SVI Algorithm"
+author: "Jonathon Chow"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+    toc_float: no
+    highlight: textmate
+    theme: readable
+vignette: >
+  %\VignetteIndexEntry{Models and Methods IV: Fit PSD Model by SVI Algorithm}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: ref.bib
+---
+
+# Introduction
+
+&emsp;&emsp;We use the stochastic variational inference algorithm (SVI) to fit the PSD model [@gopalan2016scaling].
+
+# PSD Model
+
+&emsp;&emsp;Suppose we have $I$ diploid individuals genotyped at $J$ biallelic loci. Let $(g_{ij}^1,g_{ij}^2)$ represents the genotype at marker $j$ of person $i$, where $g_{ij}^a$ represent the observed number of copies of allele 1 at seat $a$. Thus, $(g_{ij}^1,g_{ij}^2)$ equals $(1,1)$, $(1,0)$, $(0,1)$, or $(0,0)$ accordingly, as $i$ has genotype 1/1, 1/2, 2/1, or 2/2 at marker $j$. Let $g_{ij}=g_{ij}^1+g_{ij}^2$. These individuals are drawn from an admixed population with contributions from $K$ postulated ancestral populations. Population $k$ contributes a fraction $p_{ik}$ of individual $i$’s genome. Note that $\sum_{k=1}^Kp_{ik}=1$, and $p_{ik}\geq 0$. Allele 1 at SNP $j$ has frequency $f_{kj}$ in population $k$. Note that $0\leq f_{kj}\leq 1$. Similar to the EM algorithm, we consider $(z_{ij}^1,z_{ij}^2)$, where $z_{ij}^a$ is an element of the set $\{1,\ldots,K\}$, denotes the population from which the genes of individual $i$ of marker $j$ at position $a$ really come. Let $z_{ijk}^a=\textbf{1}(z_{ij}^a=k)$, obviously, $z_{ijk}^a\in\{0,1\}$, and $\sum_{k=1}^Kz_{ijk}^a=1$.
+
+&emsp;&emsp;Different from EM and SQP algorithms, variational inference does not optimize the maximum likelihood $\mathcal{L}(G|P,F)$, but the posterior $P(Z,P,F|G)$, which also reflects the difference between the frequency school and the Bayesian school. To be specific, under the previous assumptions, the observed variable is $G$, the unobserved variables include latent variable $Z$ and parameters $P$, $F$. We take all unobserved variables together as variational objects, which are all involved in the estimation. At the same time, we take the model parameter $K$, which is not involved in the estimation, as the hyperparameter.
+
+# Stochastic Variational Inference Algorithm
+
+&emsp;&emsp;Modern applications of probability models often require analyzing massive data. However, most posterior inference algorithms do not easily scale. CAVI is no exception. The reason is that the coordinate ascent structure of the algorithm requires iterating through the entire data set at each iteration. As the data set size grows, each iteration becomes more computationally expensive [@blei2017variational].
+
+&emsp;&emsp;An alternative to coordinate ascent is gradient-based optimization, which climbs the ELBO by computing and following its gradient at each iteration. This perspective is the key to scaling up variational inference using stochastic variational inference (SVI) [@hoffman2013stochastic], a method that combines natural gradients [@amari1998natural] and stochastic optimization [@amari1998natural]. It repeatedly (a) subsamples a data point from the full data set; (b) uses the current global parameters to compute the optimal local parameters for the subsampled data point; and (c) adjusts the current global parameters in an appropriate way.
+
+&emsp;&emsp;
+
+# Fit PSD Model by VI Algorithm
+
+&emsp;&emsp;Our model, the choice of variational family is the same as the VI algorithm. The difference is to update the global variable $P$.
+
+# Acceleration
+
+&emsp;&emsp;
+
+# Algorithm Implementation
+
+&emsp;&emsp;
+
+# Literature Cited

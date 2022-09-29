@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">AwesomePackage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.0</span>
       </span>
     </div>
 
@@ -35,19 +35,40 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/application_hgdp.html">Applications III: HGDP Data Set</a>
+      <a href="../articles/01_quick_start.html">AwesomePackage: Quick Start</a>
     </li>
     <li>
-      <a href="../articles/application_simu.html">Applications I: Simulated Data Sets</a>
+      <a href="../articles/02_user_manual.html">AwesomePackage: User Manual 1.4.0</a>
     </li>
     <li>
-      <a href="../articles/application_tgp.html">Applications II: TGP Data Set</a>
+      <a href="../articles/03_report.html">AwesomePackage: A Valid R Package to Do Ancestry Inference</a>
     </li>
     <li>
-      <a href="../articles/theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
+      <a href="../articles/04_presentation.html">AwesomePackage: A Valid R Package to Do Ancestry Inference (slide)</a>
     </li>
     <li>
-      <a href="../articles/user_manual.html">AwesomePackage: User Manual 1.4.0</a>
+      <a href="../articles/05_theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
+    </li>
+    <li>
+      <a href="../articles/06_theory_sqp.html">Models and Methods II: Fit PSD Model by SQP Algorithm</a>
+    </li>
+    <li>
+      <a href="../articles/07_theory_vi.html">Models and Methods III: Fit PSD Model by VI Algorithm</a>
+    </li>
+    <li>
+      <a href="../articles/08_theory_svi.html">Models and Methods IV: Fit PSD Model by SVI Algorithm</a>
+    </li>
+    <li>
+      <a href="../articles/09_theory_model.html">Models and Methods V: Relationship between PSD Model and Other Models</a>
+    </li>
+    <li>
+      <a href="../articles/10_application_simu.html">Applications I: Simulated Data Sets</a>
+    </li>
+    <li>
+      <a href="../articles/11_application_tgp.html">Applications II: TGP Data Set</a>
+    </li>
+    <li>
+      <a href="../articles/12_application_hgdp.html">Applications III: HGDP Data Set</a>
     </li>
   </ul></li>
 <li>
@@ -104,7 +125,7 @@ be taken from {0,1,2}.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="psd_fit_em.html">psd_fit_em</a></span><span class="op">(</span><span class="va">G</span>, <span class="fl">2</span>, <span class="fl">1e-5</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">psd_loglikelihood</span><span class="op">(</span><span class="va">G</span>, <span class="va">result</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.7991931</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.7595049</span>
 </code></pre></div>
     </div>
   </div>

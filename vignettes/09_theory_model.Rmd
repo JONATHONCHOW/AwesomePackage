@@ -1,0 +1,22 @@
+---
+title: "Models and Methods V: Relationship between PSD Model and Other Models"
+author: "Jonathon Chow"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+    toc_float: no
+    highlight: textmate
+    theme: readable
+vignette: >
+  %\VignetteIndexEntry{Models and Methods V: Relationship between PSD Model and Other Models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: ref.bib
+---
+
+# Introduction
+
+&emsp;&emsp;We illustrate the close relationship between the PSD model, the Poisson NMF model, the multinomial topic model and the LDA model, which can optimize the algorithm [@carbonetto2021non].
+
+# Literature Cited

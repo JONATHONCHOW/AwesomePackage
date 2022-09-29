@@ -1,0 +1,121 @@
+---
+title: "Models and Methods III: Fit PSD Model by VI Algorithm"
+author: "Jonathon Chow"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+    toc_float: no
+    highlight: textmate
+    theme: readable
+vignette: >
+  %\VignetteIndexEntry{Models and Methods III: Fit PSD Model by VI Algorithm}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: ref.bib
+---
+
+# Introduction
+
+&emsp;&emsp;We use the variational inference algorithm (VI) to fit the PSD model [@raj2014faststructure].
+
+# PSD Model
+
+&emsp;&emsp;Suppose we have $I$ diploid individuals genotyped at $J$ biallelic loci. Let $(g_{ij}^1,g_{ij}^2)$ represents the genotype at marker $j$ of person $i$, where $g_{ij}^a$ represent the observed number of copies of allele 1 at seat $a$. Thus, $(g_{ij}^1,g_{ij}^2)$ equals $(1,1)$, $(1,0)$, $(0,1)$, or $(0,0)$ accordingly, as $i$ has genotype 1/1, 1/2, 2/1, or 2/2 at marker $j$. Let $g_{ij}=g_{ij}^1+g_{ij}^2$. These individuals are drawn from an admixed population with contributions from $K$ postulated ancestral populations. Population $k$ contributes a fraction $p_{ik}$ of individual $i$’s genome. Note that $\sum_{k=1}^Kp_{ik}=1$, and $p_{ik}\geq 0$. Allele 1 at SNP $j$ has frequency $f_{kj}$ in population $k$. Note that $0\leq f_{kj}\leq 1$. Similar to the EM algorithm, we consider $(z_{ij}^1,z_{ij}^2)$, where $z_{ij}^a$ is an element of the set $\{1,\ldots,K\}$, denotes the population from which the genes of individual $i$ of marker $j$ at position $a$ really come. Let $z_{ijk}^a=\textbf{1}(z_{ij}^a=k)$, obviously, $z_{ijk}^a\in\{0,1\}$, and $\sum_{k=1}^Kz_{ijk}^a=1$.
+
+&emsp;&emsp;Different from EM and SQP algorithms, variational inference does not optimize the maximum likelihood $\mathcal{L}(G|P,F)$, but the posterior $P(Z,P,F|G)$, which also reflects the difference between the frequency school and the Bayesian school. To be specific, under the previous assumptions, the observed variable is $G$, the unobserved variables include latent variable $Z$ and parameters $P$, $F$. We take all unobserved variables together as variational objects, which are all involved in the estimation. At the same time, we take the model parameter $K$, which is not involved in the estimation, as the hyperparameter.
+
+# Variational Inference Algorithm
+
+&emsp;&emsp;The goal of Bayesian analysis is to estimate the posterior. In variational inference, we use a family of densities over the latent variables $Q(z)$, parameterized by free \emph{variational parameters} to approximate the true posterior $P(z|x)$ [@blei2017variational]. In variational inference, we only examine latent variables without considering model parameters. We can transform it into an optimization problem, namely the minimization problem of KL divergence
+$$\hat{Q}(z)=\mathop{argmin}\limits_{Q(z)}KL(Q(z)\|P(z|x)).$$
+In addition, KL divergence generally cannot be directly solved. Note that
+$$log P(x)=ELBO(Q(z)) + KL(Q(z)\|P(z|x)),$$
+we can transform the problem into the maximization problem of ELBO
+$$\hat{Q}(z)=\mathop{argmax}\limits_{Q(z)}ELBO(Q(z)).$$
+
+&emsp;&emsp;we focus on the \emph{mean-field variational family}, where the latent variables are mutually independent and each governed by a distinct factor in the variational density. A generic member of the mean-field variational family is $Q(z)=\prod_{j=1}^{m}Q_j(z_j)$. Emphasize that $Q(z)$ here should be parameterized by free \emph{variational parameters} ^[For computational convenience, we usually choose parametric distributions that are conjugate to the distributions in the likelihood function.].
+
+&emsp;&emsp;Now we derive coordinate ascent variational inference (CAVI). We compute ELBO
+$$ELBO(Q(z))=\int_{z}Q(z)log P(x,z)dz-\int_{z}Q(z)log Q(z)dz.$$
+Note that the two terms of ELBO reflect the balance between likelihood and prior. Consider only $Q_j$ and fix the other $Q_i$, $i \neq j$, we have
+$$\begin{split}
+&\int_{z}Q(z)log P(x,z)dz \\
+=& \int_{z}\prod_{i=1}^mQ_i(z_i)logP(x,z)dz \\
+=& \int_{z_j}Q_j(z_j)\Big[\int_{z_{-j}}\prod\limits_{i\neq j}Q_i(z_i)logP(x,z)dz_{-j}\Big]dz_j \\
+=& \int_{z_j}Q_j(z_j)\mathbb{E}_{\prod\limits_{i\neq j}Q_j(z_j)}\Big[log P(x,z)\Big]dz_j \\
+:=& \int_{z_j}Q_j(z_j)log \hat{P}(x,z_j)dz_j,
+\end{split}$$
+where $z_{-j}$ means to traverse all elements except $j$. For the second term,
+$$\begin{split}
+& \int_{z}Q(z)log Q(z)dz\\
+=& \int_{z}\prod_{i=1}^mQ_i(z_i)\sum_{i=1}^mlogQ_i(z_i)dz \\
+=& \sum_{i=1}^m\int_{z_i}Q_i(z_i)logQ_i(z_i)\Big[\int_{z_{-i}}\prod_{k\neq i}Q_k(z_k)dz_{-i}\Big]dz_i \\
+=& \sum_{i=1}^m\int_{z_i}Q_i(z_i)logQ_i(z_i)dz_i \\
+=& \int_{z_j}Q_j(z_j)logQ_j(z_j)dz_j+Const.
+\end{split}$$
+Thus, ELBO can be denoted as
+$$ELBO(Q(z)) = \int_{z_j}Q_j(z_j)log\frac{\hat{P}(x,z_j)}{Q_j(z_j)}dz_j+Const = -KL(Q_j(z_j)\|\hat{P}(x,z_j))+Const \leq Const,$$
+the equality holds if and only if $\hat{Q}_j(z_j)=\hat{P}(x,z_j)$, this is the coordinate update formula of CAVI. We can use this formula (equivalent to ELBO taking the partial derivative of 0 with respect to $Q(z_j)$) to obtain iterations of the variational parameters, and the above derivation procedure guarantees that ELBO will eventually converge to (local) minima.
+
+&emsp;&emsp;In conclusion, we first select an appropriate parameterized variational family, and then we use the coordinate ascent formula to update the variational parameters iteratively until ELBO converges. This is the VI algorithm.
+
+# Fit PSD Model by VI Algorithm
+
+## The variational family
+
+&emsp;&emsp;The choice of the variational family is restricted only by the tractability of computing expectations with respect to the variational distributions; here, we choose parametric distributions that are conjugate to the distributions in the likelihood function. Note that the likelihood function is
+$$\begin{split}
+&P(G,Z,P,F|K)\\
+=&P(G|Z,P,F,K)P(Z|P,F,K)P(P,F|K)\\
+=&\prod_{i=1}^I\prod_{j=1}^J\prod_{k=1}^K\prod_{a=1}^2Binomial\Big(g_{ij}^a\Big|1,f_{kj}\Big)^{z_{ijk}^a}\cdot\prod_{i=1}^I\prod_{j=1}^J\prod_{a=1}^2Multinomial\Big(\big(z_{ij1}^a,\ldots,z_{ijK}^a\big)\Big|1,\big(p_{i1},\ldots,p_{iK}\big)\Big)\cdot P(P,F|K)\\
+=&\prod_{i=1}^I\prod_{j=1}^J\prod_{a=1}^2\bigg[Multinomial\Big(\big(z_{ij1}^a,\ldots,z_{ijK}^a\big)\Big|1,\big(f_{1j}^{g_{ij}^a}(1-f_{1j})^{1-{g_{ij}^a}}p_{i1},\ldots,f_{Kj}^{g_{ij}^a}(1-f_{Kj})^{1-{g_{ij}^a}}p_{iK}\big)\Big)\bigg]\cdot P(P,F|K).
+\end{split}$$
+$f_{kj}$ is a parameter of binomial distribution, so we naturally to choose the conjugate distribution, beta distribution, as the parameterized variational family of $f_{kj}$. $p_i=(p_{i1},\ldots,p_{iK})$ is a parameter of multinomial distribution, so we naturally to choose the conjugate distribution, Dirichlet distribution, as the parameterized variational family of $p_i$. $z_{ij}^a=(z_{ij1}^a,\ldots,z_{ijK}^a)$ obey multinomial distribution, so we naturally to choose multinomial distribution as the parameterized variational family of $z_{ij}^a$.
+
+&emsp;&emsp;Using \emph{mean field approximation} and independence, we choose the variational family as
+$$Q(Z,P,F)=\prod_{i=1}^I\prod_{j=1}^J\prod_{a=1}^2Q(z_{ij}^a)\cdot\prod_{i=1}^IQ(p_i)\cdot\prod_{j=1}^J\prod_{k=1}^KQ(f_{kj}),$$
+where each factor can then be written as
+$$Q(z_{ij}^a)\sim Multinomial(\tilde{z_{ij}^a}),$$
+$$Q(p_i)\sim Dirichlet(\tilde{p_i}),$$
+$$Q(f_{kj})\sim Beta(\tilde{f_{kj}^1},\tilde{f_{kj}^2}).$$
+$\tilde{z_{ij}^a}$, $\tilde{p_i}$, $\tilde{f_{kj}^1}$, $\tilde{f_{kj}^2}$ are the parameters of the variational
+distributions (variational parameters).
+
+## ELBO
+
+&emsp;&emsp;We repeat the idea of variational inference. The KL divergence quantifies the tightness of a lower bound to the log-marginal likelihood of the data. Specifically, for any variational distribution $Q(Z,P,F)$, we have
+$$logP(G)=ELBO(Q(Z,P,F)) + KL(Q(Z,P,F)\|P(Z,P,F|G)),$$
+where we omit the model parameter $K$ (which is not involved in the estimation). Thus, minimizing the KL divergence is equivalent to maximizing the log-marginal likelihood lower bound (ELBO) of the data
+$$\begin{split}
+&\hat{Q}(Z,P,F)\\
+=&\mathop{argmin}\limits_{Q(Z,P,F)}KL(Q(Z,P,F)\|P(Z,P,F|G))\\
+=&\mathop{argmin}\limits_{Q(Z,P,F)}\Big[logP(G)-ELBO(Q(Z,P,F))\Big]\\
+=&\mathop{argmax}\limits_{Q(Z,P,F)}ELBO(Q(Z,P,F)).
+\end{split}$$
+
+&emsp;&emsp;The ELBO of the observed genotypes can be written as
+$$\begin{split}
+&ELBO(Q(Z,P,F))\\
+=&
+\end{split}$$
+
+LDA
+
+## Priors
+
+different priors
+
+## Update parameters
+
+Lagrange
+
+# Acceleration
+
+&emsp;&emsp;
+
+# Algorithm Implementation
+
+&emsp;&emsp;
+
+# Literature Cited

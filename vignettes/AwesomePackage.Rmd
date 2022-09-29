@@ -124,7 +124,7 @@ psd_error(data_TGP, result_TGP_vi)
 
 ## Fit PSD model by SVI algorithm
 
-We fit the PSD model with SVI algorithm, and use the loss function as a stopping criterion. We completed the fitting in 13 min, little longer than the previous three algorithms. Although SVI algorithm is known for its fast speed, this is for the dataset with a large number of individuals (I). It can be predicted that for the complete TGP data, SVI algorithm still needs about the same time, but the time of other algorithms will be greatly increased. Perhaps the time of these algorithms is similar for data similar to TGP data size, but if the number of individuals (I) is large, the performance of SVI algorithm is much better, which is also the superiority of SVI algorithm.
+We fit the PSD model with SVI algorithm, and use the loss function as a stopping criterion. We completed the fitting in 13 min, little longer than the previous three algorithms. Although SVI algorithm is known for its fast speed, this is for the dataset with a large number of individuals. It can be predicted that for the complete TGP data, SVI algorithm still needs about the same time, but the time of other algorithms will be greatly increased. Perhaps the time of these algorithms is similar for data similar to TGP data size, but if the number of individuals is large, the performance of SVI algorithm is much better, which is also the superiority of SVI algorithm.
 
 ```{r eval=FALSE}
 result_TGP_svi <- psd_fit_svi(data_TGP, 3,
