@@ -18,7 +18,7 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">AwesomePackage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.6.0</span>
       </span>
     </div>
 
@@ -42,10 +42,10 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
       <a href="../articles/02_user_manual.html">AwesomePackage: User Manual 1.4.0</a>
     </li>
     <li>
-      <a href="../articles/03_report.html">AwesomePackage: A Valid R Package to Do Ancestry Inference</a>
+      <a href="../articles/03_report.html">AwesomePackage: A Valid R Package for Ancestry Inference</a>
     </li>
     <li>
-      <a href="../articles/04_presentation.html">AwesomePackage: A Valid R Package to Do Ancestry Inference (slide)</a>
+      <a href="../articles/04_presentation.html">AwesomePackage: A Valid R Package for Ancestry Inference (slide)</a>
     </li>
     <li>
       <a href="../articles/05_theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
@@ -70,6 +70,15 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
     </li>
     <li>
       <a href="../articles/12_application_hgdp.html">Applications III: HGDP Data Set</a>
+    </li>
+    <li>
+      <a href="../articles/13_note_fasttopics.html">Note I: Package fastTopics</a>
+    </li>
+    <li>
+      <a href="../articles/14_note_faststructure.html">Note II: Package fastSTRUCTURE</a>
+    </li>
+    <li>
+      <a href="../articles/15_note_terastructure.html">Notes III: Package TeraStucture</a>
     </li>
   </ul></li>
 <li>
@@ -146,18 +155,18 @@ be taken from {0,1,2}.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">psd_fit_em</span><span class="op">(</span><span class="va">G</span>, <span class="fl">2</span>, <span class="fl">1e-5</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $P</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.9613657 0.03863431</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0232295 0.97677050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.4207385 0.57926154</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]        [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.9902206 0.009779425</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0347747 0.965225299</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.4383650 0.561634998</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]         [,2]       [,3]         [,4]         [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.003937641 7.722810e-06 0.63082645 1.076316e-06 3.881248e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.284547307 9.962529e-01 0.02093934 3.358637e-01 7.246032e-09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]         [,2]       [,3]         [,4]         [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.0002602721 0.0001484994 0.60259354 1.343069e-08 3.721535e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.2948889670 0.9990398586 0.03308208 3.484956e-01 7.282937e-13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Loss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.7406629</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.7373298</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Iterations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>

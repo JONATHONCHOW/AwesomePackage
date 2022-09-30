@@ -1,3 +1,7 @@
+# AwesomePackage 1.6.0
+
+* Added some vignettes.
+
 # AwesomePackage 1.5.0
 
 * Added some vignettes.
