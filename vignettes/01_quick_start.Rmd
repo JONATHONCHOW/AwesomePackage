@@ -1,0 +1,7 @@
+---
+title: 'AwesomePackage: Quick Start'
+author: []
+---
+<!--- <iframe src="01_quick_start.pdf"/> -->
+Vignette: [PDF](01_quick_start.pdf){target="_blank"} (2.49M)
+<iframe src="01_quick_start.pdf" width="100%" height="1000"/>

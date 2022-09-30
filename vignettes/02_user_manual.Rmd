@@ -1,0 +1,7 @@
+---
+title: 'AwesomePackage: User Manual 1.4.0'
+author: []
+---
+<!--- <iframe src="02_user_manual.pdf"/> -->
+Vignette: [PDF](02_user_manual.pdf){target="_blank"} (120K)
+<iframe src="02_user_manual.pdf" width="100%" height="1000"/>

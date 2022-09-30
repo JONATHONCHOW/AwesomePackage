@@ -1,0 +1,7 @@
+---
+title: 'Notes I: Package fastTopics'
+author: []
+---
+<!--- <iframe src="13_note_fasttopics.pdf"/> -->
+Vignette: [PDF](13_note_fasttopics.pdf){target="_blank"} (200K)
+<iframe src="13_note_fasttopics.pdf" width="100%" height="1000"/>

@@ -1,4 +1,4 @@
 url: https://jonathonchow.github.io/AwesomePackage/
 template:
   bootstrap: 5
-
+  bootswatch: litera

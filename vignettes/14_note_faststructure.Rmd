@@ -1,0 +1,7 @@
+---
+title: 'Notes II: Package fastSTRUCTURE'
+author: []
+---
+<!--- <iframe src="14_note_faststructure.pdf"/> -->
+Vignette: [PDF](14_note_faststructure.pdf){target="_blank"} (80.5K)
+<iframe src="14_note_faststructure.pdf" width="100%" height="1000"/>

@@ -1,3 +1,7 @@
+# AwesomePackage 1.7.0
+
+* Changed the entire appearance of the website using a *Bootswatch* theme.
+
 # AwesomePackage 1.6.0
 
 * Added some vignettes.
