@@ -12,7 +12,7 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,6 +29,10 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/01_quick_start.html">AwesomePackage: Quick Start</a>
+    <a class="dropdown-item" href="../articles/02_user_manual.html">AwesomePackage: User Manual 1.4.0</a>
+    <a class="dropdown-item" href="../articles/03_report.html">AwesomePackage: A Valid R Package for Ancestry Inference</a>
+    <a class="dropdown-item" href="../articles/04_presentation.html">AwesomePackage: A Valid R Package for Ancestry Inference (slide)</a>
     <a class="dropdown-item" href="../articles/05_theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
     <a class="dropdown-item" href="../articles/06_theory_sqp.html">Models and Methods II: Fit PSD Model by SQP Algorithm</a>
     <a class="dropdown-item" href="../articles/07_theory_vi.html">Models and Methods III: Fit PSD Model by VI Algorithm</a>
@@ -37,6 +41,9 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
     <a class="dropdown-item" href="../articles/10_application_simu.html">Applications I: Simulated Data Sets</a>
     <a class="dropdown-item" href="../articles/11_application_tgp.html">Applications II: TGP Data Set</a>
     <a class="dropdown-item" href="../articles/12_application_hgdp.html">Applications III: HGDP Data Set</a>
+    <a class="dropdown-item" href="../articles/13_note_fasttopics.html">Notes I: Package fastTopics</a>
+    <a class="dropdown-item" href="../articles/14_note_faststructure.html">Notes II: Package fastSTRUCTURE</a>
+    <a class="dropdown-item" href="../articles/15_note_terastructure.html">Notes III: Package TeraStucture</a>
   </div>
 </li>
 <li class="nav-item">
@@ -115,18 +122,18 @@ be taken from {0,1,2}.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">psd_fit_em</span><span class="op">(</span><span class="va">G</span>, <span class="fl">2</span>, <span class="fl">1e-5</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $P</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.08320449 0.91679551</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.96093479 0.03906521</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.43000303 0.56999697</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]        [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.9927542 0.007245812</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0695170 0.930482997</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.4227817 0.577218338</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]        [,2]        [,3]         [,4]        [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.1237558 0.999223856 0.003459212 0.3701763503 0.000140405</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.2069622 0.002490437 0.633728140 0.0000366452 0.349885072</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]         [,2]      [,3]        [,4]         [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.0003940229 0.0007969965 0.5838861 5.13280e-06 3.684081e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.3028914505 0.9971943343 0.0568724 3.51824e-01 1.215773e-12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Loss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.7433298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.7475207</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Iterations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>
