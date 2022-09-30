@@ -12,7 +12,7 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,10 +29,14 @@ function as a stopping criterion."><!-- mathjax --><script src="https://cdnjs.cl
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/application_hgdp.html">Applications III: HGDP Data Set</a>
-    <a class="dropdown-item" href="../articles/application_simu.html">Applications I: Simulated Data Sets</a>
-    <a class="dropdown-item" href="../articles/application_tgp.html">Applications II: TGP Data Set</a>
-    <a class="dropdown-item" href="../articles/theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
+    <a class="dropdown-item" href="../articles/05_theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
+    <a class="dropdown-item" href="../articles/06_theory_sqp.html">Models and Methods II: Fit PSD Model by SQP Algorithm</a>
+    <a class="dropdown-item" href="../articles/07_theory_vi.html">Models and Methods III: Fit PSD Model by VI Algorithm</a>
+    <a class="dropdown-item" href="../articles/08_theory_svi.html">Models and Methods IV: Fit PSD Model by SVI Algorithm</a>
+    <a class="dropdown-item" href="../articles/09_theory_model.html">Models and Methods V: Relationship between PSD Model and Other Models</a>
+    <a class="dropdown-item" href="../articles/10_application_simu.html">Applications I: Simulated Data Sets</a>
+    <a class="dropdown-item" href="../articles/11_application_tgp.html">Applications II: TGP Data Set</a>
+    <a class="dropdown-item" href="../articles/12_application_hgdp.html">Applications III: HGDP Data Set</a>
   </div>
 </li>
 <li class="nav-item">
@@ -112,17 +116,17 @@ be taken from {0,1,2}.</p></dd>
 <span class="r-in"><span><span class="fu">psd_fit_vi</span><span class="op">(</span><span class="va">G</span>, <span class="fl">2</span>, <span class="fl">1e-5</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $P</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.3830017 0.6169983</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.5669206 0.4330794</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.4834063 0.5165937</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.4586217 0.5413783</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.5818044 0.4181956</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.4739529 0.5260471</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $F</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]      [,3]      [,4]      [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.3106561 0.5737447 0.3717961 0.3344943 0.2768568</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.2900105 0.4302743 0.4267810 0.2680655 0.3221483</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.2875414 0.5465801 0.3701791 0.3226168 0.2862997</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.3126971 0.4529278 0.4303659 0.2774442 0.3139545</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Loss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.786936</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.792552</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Iterations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>

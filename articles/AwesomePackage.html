@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,10 +44,14 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/application_hgdp.html">Applications III: HGDP Data Set</a>
-    <a class="dropdown-item" href="../articles/application_simu.html">Applications I: Simulated Data Sets</a>
-    <a class="dropdown-item" href="../articles/application_tgp.html">Applications II: TGP Data Set</a>
-    <a class="dropdown-item" href="../articles/theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
+    <a class="dropdown-item" href="../articles/05_theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
+    <a class="dropdown-item" href="../articles/06_theory_sqp.html">Models and Methods II: Fit PSD Model by SQP Algorithm</a>
+    <a class="dropdown-item" href="../articles/07_theory_vi.html">Models and Methods III: Fit PSD Model by VI Algorithm</a>
+    <a class="dropdown-item" href="../articles/08_theory_svi.html">Models and Methods IV: Fit PSD Model by SVI Algorithm</a>
+    <a class="dropdown-item" href="../articles/09_theory_model.html">Models and Methods V: Relationship between PSD Model and Other Models</a>
+    <a class="dropdown-item" href="../articles/10_application_simu.html">Applications I: Simulated Data Sets</a>
+    <a class="dropdown-item" href="../articles/11_application_tgp.html">Applications II: TGP Data Set</a>
+    <a class="dropdown-item" href="../articles/12_application_hgdp.html">Applications III: HGDP Data Set</a>
   </div>
 </li>
 <li class="nav-item">
@@ -80,7 +84,7 @@
       <img src="" class="logo" alt=""><h1>AwesomePackage: Quick Start</h1>
                         <h4 data-toc-skip class="author">Jonathon Chow</h4>
             
-            <h4 data-toc-skip class="date">2022-09-27</h4>
+            <h4 data-toc-skip class="date">2022-09-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/JONATHONCHOW/AwesomePackage/blob/HEAD/vignettes/AwesomePackage.Rmd" class="external-link"><code>vignettes/AwesomePackage.Rmd</code></a></small>
       <div class="d-none name"><code>AwesomePackage.Rmd</code></div>
@@ -183,7 +187,7 @@
 <div class="section level3">
 <h3 id="fit-psd-model-by-svi-algorithm">Fit PSD model by SVI algorithm<a class="anchor" aria-label="anchor" href="#fit-psd-model-by-svi-algorithm"></a>
 </h3>
-<p>We fit the PSD model with SVI algorithm, and use the loss function as a stopping criterion. We completed the fitting in 13 min, little longer than the previous three algorithms. Although SVI algorithm is known for its fast speed, this is for the dataset with a large number of individuals (I). It can be predicted that for the complete TGP data, SVI algorithm still needs about the same time, but the time of other algorithms will be greatly increased. Perhaps the time of these algorithms is similar for data similar to TGP data size, but if the number of individuals (I) is large, the performance of SVI algorithm is much better, which is also the superiority of SVI algorithm.</p>
+<p>We fit the PSD model with SVI algorithm, and use the loss function as a stopping criterion. We completed the fitting in 13 min, little longer than the previous three algorithms. Although SVI algorithm is known for its fast speed, this is for the dataset with a large number of individuals. It can be predicted that for the complete TGP data, SVI algorithm still needs about the same time, but the time of other algorithms will be greatly increased. Perhaps the time of these algorithms is similar for data similar to TGP data size, but if the number of individuals is large, the performance of SVI algorithm is much better, which is also the superiority of SVI algorithm.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result_TGP_svi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psd_fit_svi.html">psd_fit_svi</a></span><span class="op">(</span><span class="va">data_TGP</span>, <span class="fl">3</span>,</span>
 <span>                              <span class="fl">1e-5</span>, <span class="fl">5e+5</span>, <span class="fl">1e+4</span>, <span class="fl">3</span>,</span>

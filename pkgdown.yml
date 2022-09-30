@@ -2,12 +2,16 @@ pandoc: 2.14.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
+  05_theory_em: 05_theory_em.html
+  06_theory_sqp: 06_theory_sqp.html
+  07_theory_vi: 07_theory_vi.html
+  08_theory_svi: 08_theory_svi.html
+  09_theory_model: 09_theory_model.html
+  10_application_simu: 10_application_simu.html
+  11_application_tgp: 11_application_tgp.html
+  12_application_hgdp: 12_application_hgdp.html
   AwesomePackage: AwesomePackage.html
-  application_hgdp: application_hgdp.html
-  application_simu: application_simu.html
-  application_tgp: application_tgp.html
-  theory_em: theory_em.html
-last_built: 2022-09-27T15:40Z
+last_built: 2022-09-30T13:09Z
 urls:
   reference: https://jonathonchow.github.io/AwesomePackage/reference
   article: https://jonathonchow.github.io/AwesomePackage/articles
