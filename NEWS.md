@@ -1,3 +1,7 @@
+# AwesomePackage 1.9.0
+
+* Updated some vignettes.
+
 # AwesomePackage 1.8.0
 
 * Added a logo.

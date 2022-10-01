@@ -7,12 +7,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="AwesomePackage">
 <title>Models and Methods I: Fit PSD Model by EM Algorithm • AwesomePackage</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Models and Methods I: Fit PSD Model by EM Algorithm">
 <meta property="og:description" content="AwesomePackage">
+<meta property="og:image" content="https://jonathonchow.github.io/AwesomePackage/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -26,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,7 +95,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="" class="logo" alt=""><h1>Models and Methods I: Fit PSD Model by EM Algorithm</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Models and Methods I: Fit PSD Model by EM Algorithm</h1>
                         <h4 data-toc-skip class="author">Jonathon
 Chow</h4>
             
@@ -326,17 +333,17 @@ the function <code>psd_fit_em</code>. At the same time, you can use
 <span><span class="va">result</span></span></code></pre></div>
 <pre><code><span><span class="co">## $P</span></span>
 <span><span class="co">##              [,1]         [,2]</span></span>
-<span><span class="co">## [1,] 9.999993e-01 6.986980e-07</span></span>
-<span><span class="co">## [2,] 1.684233e-13 1.000000e+00</span></span>
-<span><span class="co">## [3,] 6.891844e-01 3.108156e-01</span></span>
+<span><span class="co">## [1,] 1.030647e-08 1.000000e+00</span></span>
+<span><span class="co">## [2,] 1.000000e+00 2.523625e-10</span></span>
+<span><span class="co">## [3,] 3.524420e-01 6.475580e-01</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $F</span></span>
-<span><span class="co">##              [,1]        [,2]         [,3]          [,4]          [,5]</span></span>
-<span><span class="co">## [1,] 2.765489e-01 1.81727e-13 5.737394e-01 3.380595e-319  3.116915e-01</span></span>
-<span><span class="co">## [2,] 5.266952e-07 1.00000e+00 3.390641e-21  4.135046e-01 6.416225e-168</span></span>
+<span><span class="co">##            [,1]         [,2]        [,3]          [,4]          [,5]</span></span>
+<span><span class="co">## [1,] 0.04190005 1.000000e+00 3.06935e-11  4.010599e-01 1.265067e-219</span></span>
+<span><span class="co">## [2,] 0.25653793 9.131296e-22 5.82596e-01 5.742097e-214  3.217604e-01</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $Loss</span></span>
-<span><span class="co">## [1] -0.7284151 -0.7095769 -0.7074956 -0.7074272 -0.7074248</span></span>
+<span><span class="co">## [1] -0.7582595 -0.7246756 -0.7233253 -0.7191139 -0.7098817</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $Iterations</span></span>
 <span><span class="co">## [1] 50</span></span></code></pre>
