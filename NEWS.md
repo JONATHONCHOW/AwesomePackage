@@ -1,3 +1,9 @@
+# AwesomePackage 1.8.0
+
+* Added a logo.
+
+* Updated some vignettes.
+
 # AwesomePackage 1.7.0
 
 * Changed the entire appearance of the website using a *Bootswatch* theme.
