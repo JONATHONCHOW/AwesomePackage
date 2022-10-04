@@ -400,7 +400,7 @@ plot_index_vs_K(list(error_TGP_em, error_TGP_sqp, error_TGP_vi),
                 c("em", "sqp", "vi"), index.id = "error")
 ```
 
-&emsp;&emsp;The error curves of EM, SQP and VI are almost identical with the log-likelihood curves of EM, SQP and VI.
+&emsp;&emsp;The error curves of EM, SQP and VI are almost identical with the log-likelihood curves of EM, SQP and VI. This is because the error function is computed based on the entire training set. The way to make it meaningful is to compute the error function on the validation set (which is not involved in training) and then evaluate the algorithm using either normal validation or cross validation.
 
 ```{r}
 plot_index_vs_K(list(ELBO_TGP_vi), 

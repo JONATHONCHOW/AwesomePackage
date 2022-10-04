@@ -3,5 +3,5 @@ title: 'Notes III: Package TeraStucture'
 author: []
 ---
 <!--- <iframe src="15_note_terastructure.pdf"/> -->
-Vignette: [PDF](15_note_terastructure.pdf){target="_blank"} (75.9K)
+Vignette: [PDF](15_note_terastructure.pdf){target="_blank"} (75.8K)
 <iframe src="15_note_terastructure.pdf" width="100%" height="1000"/>

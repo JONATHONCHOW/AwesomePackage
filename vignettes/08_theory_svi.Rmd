@@ -31,18 +31,21 @@ bibliography: ref.bib
 
 &emsp;&emsp;An alternative to coordinate ascent is gradient-based optimization, which climbs the ELBO by computing and following its gradient at each iteration. This perspective is the key to scaling up variational inference using stochastic variational inference (SVI) [@hoffman2013stochastic], a method that combines natural gradients [@amari1998natural] and stochastic optimization [@amari1998natural]. It repeatedly (a) subsamples a data point from the full data set; (b) uses the current global parameters to compute the optimal local parameters for the subsampled data point; and (c) adjusts the current global parameters in an appropriate way.
 
-&emsp;&emsp;
+\textbf{TODO}: proof of convergence of the algorithm
 
-# Fit PSD Model by VI Algorithm
+# Fit PSD Model by SVI Algorithm
 
-&emsp;&emsp;Our model, the choice of variational family is the same as the VI algorithm. The difference is to update the global variable $P$.
+&emsp;&emsp;Our model, the choice of variational family is the same as the VI algorithm. Our goal is to update the global variable $P$ iteratively.
+In each iteration, we first sample a SNP location $j$ and all observations $g_{ij}$ at that location. Then, in the sampled data, we update $F$ with fixed $P$ in the same way as VI until convergence. Next, we update the global variable
+$$\tilde{p}_{ik}^{(t+1)}=(1-\rho_t)\tilde{p}_{ik}^{(t)}+\rho_t\big[\alpha_k+J(\tilde{z}_{ijk}^1+\tilde{z}_{ijk}^2)\big],$$
+where step size $\rho_t=(\tau_0+t)^{-\kappa}$. We set $\tau_0$ to 1 and $\kappa$ to 0.5. We take a validation set that does not participate in the training, and then compute the log-likelihood function on the validation set until the change is small enough.
 
 # Acceleration
 
-&emsp;&emsp;
+\textbf{TODO}
 
 # Algorithm Implementation
 
-&emsp;&emsp;
+\textbf{TODO}: implementation details
 
 # Literature Cited

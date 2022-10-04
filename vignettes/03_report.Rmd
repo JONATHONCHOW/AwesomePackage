@@ -3,5 +3,5 @@ title: 'AwesomePackage: A Valid R Package for Ancestry Inference'
 author: []
 ---
 <!--- <iframe src="03_report.pdf"/> -->
-Vignette: [PDF](03_report.pdf){target="_blank"} (1.14M)
+Vignette: [PDF](03_report.pdf){target="_blank"} (1.76M)
 <iframe src="03_report.pdf" width="100%" height="1000"/>

@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,8 +51,8 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/01_quick_start.html">AwesomePackage: Quick Start</a>
-    <a class="dropdown-item" href="../articles/02_user_manual.html">AwesomePackage: User Manual 1.4.0</a>
+    <a class="dropdown-item" href="../articles/01_quick_start.html">AwesomePackage: Brief Introduction</a>
+    <a class="dropdown-item" href="../articles/02_user_manual.html">AwesomePackage: User Manual 2.0.0</a>
     <a class="dropdown-item" href="../articles/03_report.html">AwesomePackage: A Valid R Package for Ancestry Inference</a>
     <a class="dropdown-item" href="../articles/04_presentation.html">AwesomePackage: A Valid R Package for Ancestry Inference (slide)</a>
     <a class="dropdown-item" href="../articles/05_theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
@@ -99,7 +99,7 @@
                         <h4 data-toc-skip class="author">Jonathon
 Chow</h4>
             
-            <h4 data-toc-skip class="date">2022-10-01</h4>
+            <h4 data-toc-skip class="date">2022-10-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/JONATHONCHOW/AwesomePackage/blob/HEAD/vignettes/05_theory_em.Rmd" class="external-link"><code>vignettes/05_theory_em.Rmd</code></a></small>
       <div class="d-none name"><code>05_theory_em.Rmd</code></div>
@@ -138,10 +138,10 @@ marker <span class="math inline">\(j\)</span>.</p>
 This produces the binomial proportions <span class="math display">\[P(g_{ij}^a=1)=\sum_{k=1}^Kp_{ik}f_{kj},\quad
 P(g_{ij}^a=0)=\sum_{k=1}^Kp_{ik}(1-f_{kj}),\quad a=1,2.\]</span> Since
 individuals <span class="math inline">\(i\)</span>, SNPs <span class="math inline">\(j\)</span>, and seats <span class="math inline">\(a\)</span> are considered independent, the
-log-likelihood of the entire sample is <span class="math display">\[\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^j\sum_{a=1}^2\bigg\{g_{ij}^alog\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(1-g_{ij}^a)log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}\]</span>
+log-likelihood of the entire sample is <span class="math display">\[\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^J\sum_{a=1}^2\bigg\{g_{ij}^alog\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(1-g_{ij}^a)log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}\]</span>
 up to an additive constant that does not enter into the maximization
 problem. Let <span class="math inline">\(g_{ij}=g_{ij}^1+g_{ij}^2\)</span>. So the
-log-likelihood can also be expressed as <span class="math display">\[\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^j\bigg\{g_{ij}log\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(2-g_{ij})log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}.\]</span>
+log-likelihood can also be expressed as <span class="math display">\[\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^J\bigg\{g_{ij}log\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(2-g_{ij})log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}.\]</span>
 The parameter matrices <span class="math inline">\(P=\{p_{ik}\}\)</span>
 and <span class="math inline">\(F=\{f_{kj}\}\)</span> have dimensions
 <span class="math inline">\(I\times K\)</span> and <span class="math inline">\(K\times J\)</span>, for a total of <span class="math inline">\(K(I+J)\)</span> parameters.</p>
@@ -303,7 +303,7 @@ get <span class="math display">\[\sum_{a=1}^2g_{ij}^aP(z_{ij}^a=k|G,P^{(t)},F^{(
 \right.
 =\Big[\sum_{a=1}^2(1-g_{ij}^a)\Big]b_{ijk}^{(t)}=(2-g_{ij})b_{ijk}^{(t)}.\]</span>
 Then the parameter update formula can be written as <span class="math display">\[p_{ik}^{(t+1)}=\frac{\sum_{j=1}^Jg_{ij}a_{ijk}^{(t)}+\sum_{j=1}^J(2-g_{ij})b_{ijk}^{(t)}}{2J},\quad
-i=1,\ldots,I,\quad k=1,\ldots,K,\]</span> <span class="math display">\[f_{kj}^{(t+1)}\frac{\sum_{i=1}^Ig_{ij}a_{ijk}^{(t)}}{\sum_{i=1}^Ig_{ij}a_{ijk}^{(t)}+\sum_{i=1}^I(2-g_{ij})b_{ijk}^{(t)}},\quad
+i=1,\ldots,I,\quad k=1,\ldots,K,\]</span> <span class="math display">\[f_{kj}^{(t+1)}=\frac{\sum_{i=1}^Ig_{ij}a_{ijk}^{(t)}}{\sum_{i=1}^Ig_{ij}a_{ijk}^{(t)}+\sum_{i=1}^I(2-g_{ij})b_{ijk}^{(t)}},\quad
 j=1,\ldots,J,\quad k=1,\ldots,K.\]</span></p>
 <p>  In conclusion, at E-step, we compute the expectation <span class="math inline">\(a_{ijk}\)</span> and <span class="math inline">\(b_{ijk}\)</span>, and at M-step, we compute the
 maximization and update the parameters <span class="math inline">\(p_{ik}\)</span> and <span class="math inline">\(f_{kj}\)</span>, until the log-likelihood of
@@ -333,17 +333,17 @@ the function <code>psd_fit_em</code>. At the same time, you can use
 <span><span class="va">result</span></span></code></pre></div>
 <pre><code><span><span class="co">## $P</span></span>
 <span><span class="co">##              [,1]         [,2]</span></span>
-<span><span class="co">## [1,] 1.030647e-08 1.000000e+00</span></span>
-<span><span class="co">## [2,] 1.000000e+00 2.523625e-10</span></span>
-<span><span class="co">## [3,] 3.524420e-01 6.475580e-01</span></span>
+<span><span class="co">## [1,] 9.999984e-01 1.585739e-06</span></span>
+<span><span class="co">## [2,] 1.972075e-15 1.000000e+00</span></span>
+<span><span class="co">## [3,] 6.891856e-01 3.108144e-01</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $F</span></span>
-<span><span class="co">##            [,1]         [,2]        [,3]          [,4]          [,5]</span></span>
-<span><span class="co">## [1,] 0.04190005 1.000000e+00 3.06935e-11  4.010599e-01 1.265067e-219</span></span>
-<span><span class="co">## [2,] 0.25653793 9.131296e-22 5.82596e-01 5.742097e-214  3.217604e-01</span></span>
+<span><span class="co">##              [,1]        [,2]         [,3]      [,4]          [,5]</span></span>
+<span><span class="co">## [1,] 2.765492e-01 5.82298e-09 5.737395e-01 0.0000000  3.116913e-01</span></span>
+<span><span class="co">## [2,] 8.703332e-10 1.00000e+00 4.192058e-27 0.4135047 5.987549e-152</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $Loss</span></span>
-<span><span class="co">## [1] -0.7582595 -0.7246756 -0.7233253 -0.7191139 -0.7098817</span></span>
+<span><span class="co">## [1] -0.7147989 -0.7079605 -0.7074654 -0.7074278 -0.7074249</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $Iterations</span></span>
 <span><span class="co">## [1] 50</span></span></code></pre>

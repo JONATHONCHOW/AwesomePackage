@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,8 +51,8 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/01_quick_start.html">AwesomePackage: Quick Start</a>
-    <a class="dropdown-item" href="../articles/02_user_manual.html">AwesomePackage: User Manual 1.4.0</a>
+    <a class="dropdown-item" href="../articles/01_quick_start.html">AwesomePackage: Brief Introduction</a>
+    <a class="dropdown-item" href="../articles/02_user_manual.html">AwesomePackage: User Manual 2.0.0</a>
     <a class="dropdown-item" href="../articles/03_report.html">AwesomePackage: A Valid R Package for Ancestry Inference</a>
     <a class="dropdown-item" href="../articles/04_presentation.html">AwesomePackage: A Valid R Package for Ancestry Inference (slide)</a>
     <a class="dropdown-item" href="../articles/05_theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
@@ -99,7 +99,7 @@
                         <h4 data-toc-skip class="author">Jonathon
 Chow</h4>
             
-            <h4 data-toc-skip class="date">2022-10-01</h4>
+            <h4 data-toc-skip class="date">2022-10-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/JONATHONCHOW/AwesomePackage/blob/HEAD/vignettes/07_theory_vi.Rmd" class="external-link"><code>vignettes/07_theory_vi.Rmd</code></a></small>
       <div class="d-none name"><code>07_theory_vi.Rmd</code></div>
@@ -230,8 +230,8 @@ obey multinomial distribution, so we naturally to choose multinomial
 distribution as the parameterized variational family of <span class="math inline">\(z_{ij}^a\)</span>.</p>
 <p>  Using and independence, we choose the variational family as <span class="math display">\[Q(Z,P,F)=\prod_{i=1}^I\prod_{j=1}^J\prod_{a=1}^2Q(z_{ij}^a)\cdot\prod_{i=1}^IQ(p_i)\cdot\prod_{j=1}^J\prod_{k=1}^KQ(f_{kj}),\]</span>
 where each factor can then be written as <span class="math display">\[Q(z_{ij}^a)\sim
-Multinomial(\tilde{z_{ij}^a}),\]</span> <span class="math display">\[Q(p_i)\sim Dirichlet(\tilde{p_i}),\]</span> <span class="math display">\[Q(f_{kj})\sim
-Beta(\tilde{f_{kj}^1},\tilde{f_{kj}^2}).\]</span> <span class="math inline">\(\tilde{z_{ij}^a}\)</span>, <span class="math inline">\(\tilde{p_i}\)</span>, <span class="math inline">\(\tilde{f_{kj}^1}\)</span>, <span class="math inline">\(\tilde{f_{kj}^2}\)</span> are the parameters of
+Multinomial(\tilde{z}_{ij}^a),\]</span> <span class="math display">\[Q(p_i)\sim Dirichlet(\tilde{p}_i),\]</span> <span class="math display">\[Q(f_{kj})\sim
+Beta(\tilde{f}_{kj}^1,\tilde{f}_{kj}^2).\]</span> <span class="math inline">\(\tilde{z}_{ij}^a\)</span>, <span class="math inline">\(\tilde{p}_i\)</span>, <span class="math inline">\(\tilde{f}_{kj}^1\)</span>, <span class="math inline">\(\tilde{f}_{kj}^2\)</span> are the parameters of
 the variational distributions (variational parameters).</p>
 </div>
 <div class="section level3">
@@ -250,32 +250,92 @@ maximizing the log-marginal likelihood lower bound (ELBO) of the data
 =&amp;\mathop{argmin}\limits_{Q(Z,P,F)}\Big[logP(G)-ELBO(Q(Z,P,F))\Big]\\
 =&amp;\mathop{argmax}\limits_{Q(Z,P,F)}ELBO(Q(Z,P,F)).
 \end{split}\]</span></p>
-<p>  The ELBO of the observed genotypes can be written as <span class="math display">\[\begin{split}
+<p>  Using Bayes’ formula, the ELBO of the observed genotypes can be
+written as <span class="math display">\[\begin{split}
 &amp;ELBO(Q(Z,P,F))\\
-=&amp;
+=&amp;\ldots
 \end{split}\]</span></p>
-<p>LDA</p>
+<p>  We then calculate the variational parameterized ELBO <span class="math display">\[
+\begin{split}
+ELBO=&amp;\sum_{i=1}^I\sum_{j=1}^J\bigg\{\sum_{k=1}^K\Big(\mathbb{E}[z_{ijk}^1]+\mathbb{E}[z_{ijk}^2]\Big)\Big(\textbf{1}(g_{ij}=0)\mathbb{E}[log(1-f_{kj})]+\textbf{1}(g_{ij}=2)\mathbb{E}[logf_{kj}]+\mathbb{E}[logp_{ik}]\Big)\\
+&amp;+\textbf{1}(g_{ij}=1)\sum_{k=1}^K\Big(\mathbb{E}[z_{ijk}^1]\mathbb{E}[logf_{kj}]+\mathbb{E}[z_{ijk}^2]\mathbb{E}[log(1-f_{kj})]\Big)-\mathbb{E}[logz_{ij}^1]-\mathbb{E}[logz_{ij}^2]\bigg\}\\
+&amp;+\sum_{j=1}^J\sum_{k=1}^Klog\frac{B(\tilde{f}_{kj}^1,\tilde{f}_{kj}^2)}{B(\beta^1,\beta^2)}+(\beta^1-\tilde{f}_{kj}^1)\mathbb{E}[logf_{kj}]+(\beta^2-\tilde{f}_{kj}^2)\mathbb{E}[log(1-f_{kj})]\\
+&amp;+\sum_{i=1}^I\bigg\{\sum_{k=1}^K(\alpha_k-\tilde{p}_{ik})\mathbb{E}[logp_{ik}]+log\Gamma(\alpha_k)-log\Gamma(\tilde{p}_{ik})\bigg\}+log\Gamma(\sum_{k=1}^K\tilde{p}_{ik})-log\Gamma(\sum_{k=1}^K\alpha_k),
+\end{split}
+\]</span> where <span class="math inline">\(\alpha_k\)</span>, <span class="math inline">\(\beta^1\)</span> and <span class="math inline">\(\beta^2\)</span> are the parameters of the prior
+distribution.</p>
 </div>
 <div class="section level3">
 <h3 id="priors">Priors<a class="anchor" aria-label="anchor" href="#priors"></a>
 </h3>
-<p>different priors</p>
+<p>  We choose the simple priors as <span class="math inline">\(P(p_i)=Dirichlet(\frac{1}{K}\textbf{1}_K)\)</span>,
+<span class="math inline">\(P(f_{kj})=Beta(1,1)\)</span>.</p>
+<p>: different priors</p>
 </div>
 <div class="section level3">
 <h3 id="update-parameters">Update parameters<a class="anchor" aria-label="anchor" href="#update-parameters"></a>
 </h3>
-<p>Lagrange</p>
+<p>We take the partial derivative of ELBO and obtain the parameter
+update formula <span class="math display">\[\tilde{z}_{ijk}^1\propto
+exp\Big\{\textbf{1}(g_{ij}=0)\psi(\tilde{f}_{kj}^2)+\textbf{1}(g_{ij}=1)\psi(\tilde{f}_{kj}^1)+\textbf{1}(g_{ij}=2)\psi(\tilde{f}_{kj}^1)-\psi(\tilde{f}_{kj}^1+\tilde{f}_{kj}^2)+\psi(\tilde{p}_{ik})-\psi(\sum_{k=1}^K\tilde{p}_{ik})\Big\},\]</span>
+<span class="math display">\[\tilde{z}_{ijk}^2\propto
+exp\Big\{\textbf{1}(g_{ij}=0)\psi(\tilde{f}_{kj}^2)+\textbf{1}(g_{ij}=1)\psi(\tilde{f}_{kj}^2)+\textbf{1}(g_{ij}=2)\psi(\tilde{f}_{kj}^1)-\psi(\tilde{f}_{kj}^1+\tilde{f}_{kj}^2)+\psi(\tilde{p}_{ik})-\psi(\sum_{k=1}^K\tilde{p}_{ik})\Big\},\]</span>
+<span class="math display">\[\tilde{p}_{ik}=\alpha_k+\sum_{j=1}^J(\tilde{z}_{ijk}^1+\tilde{z}_{ijk}^2),\]</span>
+<span class="math display">\[\tilde{f}_{kj}^1=\beta^1+\sum_{i=1}^I\Big[\textbf{1}(g_{ij}=1)\tilde{z}_{ijk}^1+\textbf{1}(g_{ij}=2)(\tilde{z}_{ijk}^1+\tilde{z}_{ijk}^2)\Big],\]</span>
+<span class="math display">\[\tilde{f}_{kj}^2=\beta^2+\sum_{i=1}^I\Big[\textbf{1}(g_{ij}=1)\tilde{z}_{ijk}^2+\textbf{1}(g_{ij}=0)(\tilde{z}_{ijk}^1+\tilde{z}_{ijk}^2)\Big].\]</span>
+The convergence criterion is that the change in ELBO is small enough.
+Using the Dirichlet distribution and the beta distribution expectations,
+we have <span class="math inline">\(\mathbb{E}[p_{ik}]=\frac{\tilde{p}_{ik}}{\sum_{k=1}^K\tilde{p}_{ik}}\)</span>,
+<span class="math inline">\(\mathbb{E}[f_{kj}]=\frac{\tilde{f}_{kj}^1}{\sum_{k=1}^K\tilde{f}_{kj}^1+\tilde{f}_{kj}^2}\)</span>.</p>
+<p>: Lagrange, properties of special distribution functions, lemma for
+computing mathematical expectations, LDA</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="acceleration">Acceleration<a class="anchor" aria-label="anchor" href="#acceleration"></a>
 </h2>
-<p>  </p>
+<p></p>
 </div>
 <div class="section level2">
 <h2 id="algorithm-implementation">Algorithm Implementation<a class="anchor" aria-label="anchor" href="#algorithm-implementation"></a>
 </h2>
-<p>  </p>
+<p>  We present the implementation of VI algorithm in R package
+AwesomePackage. You can fit the PSD model using the VI algorithm using
+the function <code>psd_fit_vi</code>. At the same time, you can use
+<code>plot_loss</code> to see changes in log-likelihood and
+<code>plot_structure</code> to plot structure.</p>
+<p>  Here is an example.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/JONATHONCHOW/AwesomePackage" class="external-link">AwesomePackage</a></span><span class="op">)</span></span>
+<span><span class="va">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>, <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>, <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psd_fit_vi.html">psd_fit_vi</a></span><span class="op">(</span><span class="va">G</span>, <span class="fl">2</span>, <span class="fl">1e-5</span>, <span class="fl">50</span><span class="op">)</span></span>
+<span><span class="va">result</span></span></code></pre></div>
+<pre><code><span><span class="co">## $P</span></span>
+<span><span class="co">##            [,1]       [,2]</span></span>
+<span><span class="co">## [1,] 0.06953159 0.93046841</span></span>
+<span><span class="co">## [2,] 0.93550917 0.06449083</span></span>
+<span><span class="co">## [3,] 0.32370543 0.67629457</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $F</span></span>
+<span><span class="co">##           [,1]      [,2]      [,3]      [,4]      [,5]</span></span>
+<span><span class="co">## [1,] 0.2725076 0.7660242 0.2494581 0.4499380 0.2133494</span></span>
+<span><span class="co">## [2,] 0.3234154 0.2617459 0.5287321 0.1809813 0.3786267</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $Loss</span></span>
+<span><span class="co">## [1] -1.789321 -1.666572 -1.656413 -1.655340 -1.654613</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $Iterations</span></span>
+<span><span class="co">## [1] 50</span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">L</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">$</span><span class="va">Loss</span></span>
+<span><span class="fu"><a href="../reference/plot_loss.html">plot_loss</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">L</span><span class="op">)</span>, <span class="st">"vi"</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<p><img src="07_theory_vi_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">P</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">$</span><span class="va">P</span></span>
+<span><span class="fu"><a href="../reference/plot_structure.html">plot_structure</a></span><span class="op">(</span><span class="va">P</span><span class="op">)</span></span></code></pre></div>
+<p><img src="07_theory_vi_files/figure-html/unnamed-chunk-1-2.png" width="700"></p>
+<p>  See <a href="https://jonathonchow.github.io/AwesomePackage/">AwesomePackage</a>
+for details.</p>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="literature-cited">Literature Cited<a class="anchor" aria-label="anchor" href="#literature-cited"></a>

@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,8 +51,8 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/01_quick_start.html">AwesomePackage: Quick Start</a>
-    <a class="dropdown-item" href="../articles/02_user_manual.html">AwesomePackage: User Manual 1.4.0</a>
+    <a class="dropdown-item" href="../articles/01_quick_start.html">AwesomePackage: Brief Introduction</a>
+    <a class="dropdown-item" href="../articles/02_user_manual.html">AwesomePackage: User Manual 2.0.0</a>
     <a class="dropdown-item" href="../articles/03_report.html">AwesomePackage: A Valid R Package for Ancestry Inference</a>
     <a class="dropdown-item" href="../articles/04_presentation.html">AwesomePackage: A Valid R Package for Ancestry Inference (slide)</a>
     <a class="dropdown-item" href="../articles/05_theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
@@ -99,7 +99,7 @@
                         <h4 data-toc-skip class="author">Jonathon
 Chow</h4>
             
-            <h4 data-toc-skip class="date">2022-10-01</h4>
+            <h4 data-toc-skip class="date">2022-10-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/JONATHONCHOW/AwesomePackage/blob/HEAD/vignettes/06_theory_sqp.Rmd" class="external-link"><code>vignettes/06_theory_sqp.Rmd</code></a></small>
       <div class="d-none name"><code>06_theory_sqp.Rmd</code></div>
@@ -139,10 +139,10 @@ marker <span class="math inline">\(j\)</span>.</p>
 This produces the binomial proportions <span class="math display">\[P(g_{ij}^a=1)=\sum_{k=1}^Kp_{ik}f_{kj},\quad
 P(g_{ij}^a=0)=\sum_{k=1}^Kp_{ik}(1-f_{kj}),\quad a=1,2.\]</span> Since
 individuals <span class="math inline">\(i\)</span>, SNPs <span class="math inline">\(j\)</span>, and seats <span class="math inline">\(a\)</span> are considered independent, the
-log-likelihood of the entire sample is <span class="math display">\[\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^j\sum_{a=1}^2\bigg\{g_{ij}^alog\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(1-g_{ij}^a)log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}\]</span>
+log-likelihood of the entire sample is <span class="math display">\[\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^J\sum_{a=1}^2\bigg\{g_{ij}^alog\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(1-g_{ij}^a)log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}\]</span>
 up to an additive constant that does not enter into the maximization
 problem. Let <span class="math inline">\(g_{ij}=g_{ij}^1+g_{ij}^2\)</span>. So the
-log-likelihood can also be expressed as <span class="math display">\[\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^j\bigg\{g_{ij}log\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(2-g_{ij})log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}.\]</span>
+log-likelihood can also be expressed as <span class="math display">\[\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^J\bigg\{g_{ij}log\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(2-g_{ij})log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}.\]</span>
 The parameter matrices <span class="math inline">\(P=\{p_{ik}\}\)</span>
 and <span class="math inline">\(F=\{f_{kj}\}\)</span> have dimensions
 <span class="math inline">\(I\times K\)</span> and <span class="math inline">\(K\times J\)</span>, for a total of <span class="math inline">\(K(I+J)\)</span> parameters.</p>
@@ -287,7 +287,7 @@ time, for this specific problem, compared with the general linear
 constrained quadratic programming problem, there is a certain
 convenience in algorithm implementation.</p>
 <p>  Now, we derive the active set method.</p>
-<p>  First,</p>
+<p></p>
 </div>
 </div>
 <div class="section level2">
@@ -547,17 +547,17 @@ the function <code>psd_fit_sqp</code>. At the same time, you can use
 <span><span class="va">result</span></span></code></pre></div>
 <pre><code><span><span class="co">## $P</span></span>
 <span><span class="co">##             [,1]        [,2]</span></span>
-<span><span class="co">## [1,] 0.000000001 0.999999999</span></span>
-<span><span class="co">## [2,] 0.999999999 0.000000001</span></span>
-<span><span class="co">## [3,] 0.310786653 0.689213347</span></span>
+<span><span class="co">## [1,] 0.999999999 0.000000001</span></span>
+<span><span class="co">## [2,] 0.000000001 0.999999999</span></span>
+<span><span class="co">## [3,] 0.689179272 0.310820728</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $F</span></span>
 <span><span class="co">##             [,1]  [,2]        [,3]        [,4]        [,5]</span></span>
-<span><span class="co">## [1,] 0.000000001 1e+00 0.000000001 0.413513211 0.000000001</span></span>
-<span><span class="co">## [2,] 0.276529576 1e-09 0.573732940 0.000000001 0.311684629</span></span>
+<span><span class="co">## [1,] 0.276578102 1e-09 0.573747398 0.000000001 0.311700456</span></span>
+<span><span class="co">## [2,] 0.000000001 1e+00 0.000000001 0.413493316 0.000000001</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $Loss</span></span>
-<span><span class="co">## [1] -0.7679381 -0.7074246 -0.7074246</span></span>
+<span><span class="co">## [1] -0.7211319 -0.7074246 -0.7074246</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $Iterations</span></span>
 <span><span class="co">## [1] 30</span></span></code></pre>

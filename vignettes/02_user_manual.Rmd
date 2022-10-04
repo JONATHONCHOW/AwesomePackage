@@ -1,5 +1,5 @@
 ---
-title: 'AwesomePackage: User Manual 1.4.0'
+title: 'AwesomePackage: User Manual 2.0.0'
 author: []
 ---
 <!--- <iframe src="02_user_manual.pdf"/> -->

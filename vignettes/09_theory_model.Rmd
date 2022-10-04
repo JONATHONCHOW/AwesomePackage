@@ -17,6 +17,10 @@ bibliography: ref.bib
 
 # Introduction
 
-&emsp;&emsp;We illustrate the close relationship between the PSD model, the Poisson NMF model, the multinomial topic model and the LDA model, which can optimize the algorithm [@carbonetto2021non].
+&emsp;&emsp;We illustrate the close relationship between the PSD model, the Poisson NMF model, the multinomial topic model and the LDA model, which can optimize the algorithm.
+
+# Details
+
+&emsp;&emsp;The PSD model is closely related to the multinomial topic model. More precisely, The PSD model (log-likelihood) is similar to the probabilistic latent semantic analysis (PLSA) model [@hofmann2001unsupervised], and the PSD model (Bayesian posterior) is similar to the latent dirichlet allocation (LDA) model [@blei2003latent]. They are very similar in the representation of the model, the derivation of the algorithm and so on. Even using the algorithm of the multinomial topic model to fit the diploid genotype data can get good results. But this is practical, not strictly mathematically equivalent. In fact, the multinomial topic model have been shown to be equivalent to the Poisson NMF model [@carbonetto2021non] and are widely used to analyze the population structure of single-cell genes such as RNA.
 
 # Literature Cited

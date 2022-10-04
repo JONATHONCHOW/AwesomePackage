@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,8 +51,8 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/01_quick_start.html">AwesomePackage: Quick Start</a>
-    <a class="dropdown-item" href="../articles/02_user_manual.html">AwesomePackage: User Manual 1.4.0</a>
+    <a class="dropdown-item" href="../articles/01_quick_start.html">AwesomePackage: Brief Introduction</a>
+    <a class="dropdown-item" href="../articles/02_user_manual.html">AwesomePackage: User Manual 2.0.0</a>
     <a class="dropdown-item" href="../articles/03_report.html">AwesomePackage: A Valid R Package for Ancestry Inference</a>
     <a class="dropdown-item" href="../articles/04_presentation.html">AwesomePackage: A Valid R Package for Ancestry Inference (slide)</a>
     <a class="dropdown-item" href="../articles/05_theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
@@ -99,7 +99,7 @@
                         <h4 data-toc-skip class="author">Jonathon
 Chow</h4>
             
-            <h4 data-toc-skip class="date">2022-10-01</h4>
+            <h4 data-toc-skip class="date">2022-10-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/JONATHONCHOW/AwesomePackage/blob/HEAD/vignettes/09_theory_model.Rmd" class="external-link"><code>vignettes/09_theory_model.Rmd</code></a></small>
       <div class="d-none name"><code>09_theory_model.Rmd</code></div>
@@ -112,18 +112,44 @@ Chow</h4>
 </h2>
 <p>  We illustrate the close relationship between the PSD model, the
 Poisson NMF model, the multinomial topic model and the LDA model, which
-can optimize the algorithm <span class="citation">(Carbonetto et al.
-2021)</span>.</p>
+can optimize the algorithm.</p>
+</div>
+<div class="section level2">
+<h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a>
+</h2>
+<p>  The PSD model is closely related to the multinomial topic model.
+More precisely, The PSD model (log-likelihood) is similar to the
+probabilistic latent semantic analysis (PLSA) model <span class="citation">(Hofmann 2001)</span>, and the PSD model (Bayesian
+posterior) is similar to the latent dirichlet allocation (LDA) model
+<span class="citation">(Blei, Ng, and Jordan 2003)</span>. They are very
+similar in the representation of the model, the derivation of the
+algorithm and so on. Even using the algorithm of the multinomial topic
+model to fit the diploid genotype data can get good results. But this is
+practical, not strictly mathematically equivalent. In fact, the
+multinomial topic model have been shown to be equivalent to the Poisson
+NMF model <span class="citation">(Carbonetto et al. 2021)</span> and are
+widely used to analyze the population structure of single-cell genes
+such as RNA.</p>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="literature-cited">Literature Cited<a class="anchor" aria-label="anchor" href="#literature-cited"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-blei2003latent" class="csl-entry">
+Blei, David M, Andrew Y Ng, and Michael I Jordan. 2003. <span>“Latent
+Dirichlet Allocation.”</span> <em>Journal of Machine Learning
+Research</em> 3 (Jan): 993–1022.
+</div>
 <div id="ref-carbonetto2021non" class="csl-entry">
 Carbonetto, Peter, Abhishek Sarkar, Zihao Wang, and Matthew Stephens.
 2021. <span>“Non-Negative Matrix Factorization Algorithms Greatly
 Improve Topic Model Fits.”</span> <em>arXiv Preprint
 arXiv:2105.13440</em>.
+</div>
+<div id="ref-hofmann2001unsupervised" class="csl-entry">
+Hofmann, Thomas. 2001. <span>“Unsupervised Learning by Probabilistic
+Latent Semantic Analysis.”</span> <em>Machine Learning</em> 42 (1):
+177–96.
 </div>
 </div>
 </div>

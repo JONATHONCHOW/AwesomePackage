@@ -76,11 +76,10 @@ $f_{kj}$ is a parameter of binomial distribution, so we naturally to choose the 
 &emsp;&emsp;Using \emph{mean field approximation} and independence, we choose the variational family as
 $$Q(Z,P,F)=\prod_{i=1}^I\prod_{j=1}^J\prod_{a=1}^2Q(z_{ij}^a)\cdot\prod_{i=1}^IQ(p_i)\cdot\prod_{j=1}^J\prod_{k=1}^KQ(f_{kj}),$$
 where each factor can then be written as
-$$Q(z_{ij}^a)\sim Multinomial(\tilde{z_{ij}^a}),$$
-$$Q(p_i)\sim Dirichlet(\tilde{p_i}),$$
-$$Q(f_{kj})\sim Beta(\tilde{f_{kj}^1},\tilde{f_{kj}^2}).$$
-$\tilde{z_{ij}^a}$, $\tilde{p_i}$, $\tilde{f_{kj}^1}$, $\tilde{f_{kj}^2}$ are the parameters of the variational
-distributions (variational parameters).
+$$Q(z_{ij}^a)\sim Multinomial(\tilde{z}_{ij}^a),$$
+$$Q(p_i)\sim Dirichlet(\tilde{p}_i),$$
+$$Q(f_{kj})\sim Beta(\tilde{f}_{kj}^1,\tilde{f}_{kj}^2).$$
+$\tilde{z}_{ij}^a$, $\tilde{p}_i$, $\tilde{f}_{kj}^1$, $\tilde{f}_{kj}^2$ are the parameters of the variational distributions (variational parameters).
 
 ## ELBO
 
@@ -94,28 +93,62 @@ $$\begin{split}
 =&\mathop{argmax}\limits_{Q(Z,P,F)}ELBO(Q(Z,P,F)).
 \end{split}$$
 
-&emsp;&emsp;The ELBO of the observed genotypes can be written as
+&emsp;&emsp;Using Bayes' formula, the ELBO of the observed genotypes can be written as
 $$\begin{split}
 &ELBO(Q(Z,P,F))\\
-=&
+=&\ldots
 \end{split}$$
 
-LDA
+&emsp;&emsp;We then calculate the variational parameterized ELBO
+$$
+\begin{split}
+ELBO=&\sum_{i=1}^I\sum_{j=1}^J\bigg\{\sum_{k=1}^K\Big(\mathbb{E}[z_{ijk}^1]+\mathbb{E}[z_{ijk}^2]\Big)\Big(\textbf{1}(g_{ij}=0)\mathbb{E}[log(1-f_{kj})]+\textbf{1}(g_{ij}=2)\mathbb{E}[logf_{kj}]+\mathbb{E}[logp_{ik}]\Big)\\
+&+\textbf{1}(g_{ij}=1)\sum_{k=1}^K\Big(\mathbb{E}[z_{ijk}^1]\mathbb{E}[logf_{kj}]+\mathbb{E}[z_{ijk}^2]\mathbb{E}[log(1-f_{kj})]\Big)-\mathbb{E}[logz_{ij}^1]-\mathbb{E}[logz_{ij}^2]\bigg\}\\
+&+\sum_{j=1}^J\sum_{k=1}^Klog\frac{B(\tilde{f}_{kj}^1,\tilde{f}_{kj}^2)}{B(\beta^1,\beta^2)}+(\beta^1-\tilde{f}_{kj}^1)\mathbb{E}[logf_{kj}]+(\beta^2-\tilde{f}_{kj}^2)\mathbb{E}[log(1-f_{kj})]\\
+&+\sum_{i=1}^I\bigg\{\sum_{k=1}^K(\alpha_k-\tilde{p}_{ik})\mathbb{E}[logp_{ik}]+log\Gamma(\alpha_k)-log\Gamma(\tilde{p}_{ik})\bigg\}+log\Gamma(\sum_{k=1}^K\tilde{p}_{ik})-log\Gamma(\sum_{k=1}^K\alpha_k),
+\end{split}
+$$
+where $\alpha_k$, $\beta^1$ and $\beta^2$ are the parameters of the prior distribution.
 
 ## Priors
 
-different priors
+&emsp;&emsp;We choose the simple priors as $P(p_i)=Dirichlet(\frac{1}{K}\textbf{1}_K)$, $P(f_{kj})=Beta(1,1)$.
+
+\textbf{TODO}: different priors
 
 ## Update parameters
 
-Lagrange
+We take the partial derivative of ELBO and obtain the parameter update formula
+$$\tilde{z}_{ijk}^1\propto exp\Big\{\textbf{1}(g_{ij}=0)\psi(\tilde{f}_{kj}^2)+\textbf{1}(g_{ij}=1)\psi(\tilde{f}_{kj}^1)+\textbf{1}(g_{ij}=2)\psi(\tilde{f}_{kj}^1)-\psi(\tilde{f}_{kj}^1+\tilde{f}_{kj}^2)+\psi(\tilde{p}_{ik})-\psi(\sum_{k=1}^K\tilde{p}_{ik})\Big\},$$
+$$\tilde{z}_{ijk}^2\propto exp\Big\{\textbf{1}(g_{ij}=0)\psi(\tilde{f}_{kj}^2)+\textbf{1}(g_{ij}=1)\psi(\tilde{f}_{kj}^2)+\textbf{1}(g_{ij}=2)\psi(\tilde{f}_{kj}^1)-\psi(\tilde{f}_{kj}^1+\tilde{f}_{kj}^2)+\psi(\tilde{p}_{ik})-\psi(\sum_{k=1}^K\tilde{p}_{ik})\Big\},$$
+$$\tilde{p}_{ik}=\alpha_k+\sum_{j=1}^J(\tilde{z}_{ijk}^1+\tilde{z}_{ijk}^2),$$
+$$\tilde{f}_{kj}^1=\beta^1+\sum_{i=1}^I\Big[\textbf{1}(g_{ij}=1)\tilde{z}_{ijk}^1+\textbf{1}(g_{ij}=2)(\tilde{z}_{ijk}^1+\tilde{z}_{ijk}^2)\Big],$$
+$$\tilde{f}_{kj}^2=\beta^2+\sum_{i=1}^I\Big[\textbf{1}(g_{ij}=1)\tilde{z}_{ijk}^2+\textbf{1}(g_{ij}=0)(\tilde{z}_{ijk}^1+\tilde{z}_{ijk}^2)\Big].$$
+The convergence criterion is that the change in ELBO is small enough. Using the Dirichlet distribution and the beta distribution expectations, we have $\mathbb{E}[p_{ik}]=\frac{\tilde{p}_{ik}}{\sum_{k=1}^K\tilde{p}_{ik}}$, $\mathbb{E}[f_{kj}]=\frac{\tilde{f}_{kj}^1}{\sum_{k=1}^K\tilde{f}_{kj}^1+\tilde{f}_{kj}^2}$.
+
+\textbf{TODO}: Lagrange, properties of special distribution functions, lemma for computing mathematical expectations, LDA
 
 # Acceleration
 
-&emsp;&emsp;
+\textbf{TODO}
 
 # Algorithm Implementation
 
-&emsp;&emsp;
+&emsp;&emsp;We present the implementation of VI algorithm in R package AwesomePackage. You can fit the PSD model using the VI algorithm using the function `psd_fit_vi`. At the same time, you can use `plot_loss` to see changes in log-likelihood and `plot_structure` to plot structure.
+
+&emsp;&emsp;Here is an example.
+
+```{r}
+library(AwesomePackage)
+G <- matrix(c(0,0,1, 0,2,1, 1,0,1, 0,1,0, 1,0,0), 3, 5)
+result <- psd_fit_vi(G, 2, 1e-5, 50)
+result
+L <- result$Loss
+plot_loss(list(L), "vi", 10)
+P <- result$P
+plot_structure(P)
+```
+
+&emsp;&emsp;See [AwesomePackage](https://jonathonchow.github.io/AwesomePackage/) for details.
 
 # Literature Cited

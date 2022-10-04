@@ -1,3 +1,7 @@
+# AwesomePackage 2.0.0
+
+* Completed a major release with comprehensive updates to the package.
+
 # AwesomePackage 1.9.0
 
 * Updated some vignettes.

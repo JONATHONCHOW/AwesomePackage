@@ -28,9 +28,9 @@ bibliography: ref.bib
 &emsp;&emsp;Note that individuals are formed by the random union of gametes. This produces the binomial proportions
 $$P(g_{ij}^a=1)=\sum_{k=1}^Kp_{ik}f_{kj},\quad P(g_{ij}^a=0)=\sum_{k=1}^Kp_{ik}(1-f_{kj}),\quad a=1,2.$$
 Since individuals $i$, SNPs $j$, and seats $a$ are considered independent, the log-likelihood of the entire sample is
-$$\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^j\sum_{a=1}^2\bigg\{g_{ij}^alog\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(1-g_{ij}^a)log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}$$
+$$\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^J\sum_{a=1}^2\bigg\{g_{ij}^alog\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(1-g_{ij}^a)log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}$$
 up to an additive constant that does not enter into the maximization problem. Let $g_{ij}=g_{ij}^1+g_{ij}^2$. So the log-likelihood can also be expressed as
-$$\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^j\bigg\{g_{ij}log\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(2-g_{ij})log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}.$$
+$$\mathcal{L}(G|P,F)=\sum_{i=1}^I\sum_{j=1}^J\bigg\{g_{ij}log\Big[\sum_{k=1}^Kp_{ik}f_{kj}\Big]+(2-g_{ij})log\Big[\sum_{k=1}^Kp_{ik}(1-f_{kj})\Big]\bigg\}.$$
 The parameter matrices $P=\{p_{ik}\}$ and $F=\{f_{kj}\}$ have dimensions $I\times K$ and $K\times J$, for a total of $K(I+J)$ parameters.
 
 &emsp;&emsp;Note that the log-likelihood is invariant under permutations of the labels of the ancestral populations. Thus, the log-likelihood has at least $K!$ equivalent global maxima. In practice, this is a minor nuisance and does not affect the convergence of well-behaved algorithms. The constraints $0\leq f_{kj}\leq 1$, $p_{ik}\geq 0$, and $\sum_{k=1}^Kp_{ik}=1$ are more significant hindrances to contriving a good optimization algorithm.
@@ -167,7 +167,7 @@ $$\sum_{a=1}^2(1-g_{ij}^a)P(z_{ij}^a=k|G,P^{(t)},F^{(t)})=
 =\Big[\sum_{a=1}^2(1-g_{ij}^a)\Big]b_{ijk}^{(t)}=(2-g_{ij})b_{ijk}^{(t)}.$$
 Then the parameter update formula can be written as
 $$p_{ik}^{(t+1)}=\frac{\sum_{j=1}^Jg_{ij}a_{ijk}^{(t)}+\sum_{j=1}^J(2-g_{ij})b_{ijk}^{(t)}}{2J},\quad i=1,\ldots,I,\quad k=1,\ldots,K,$$
-$$f_{kj}^{(t+1)}\frac{\sum_{i=1}^Ig_{ij}a_{ijk}^{(t)}}{\sum_{i=1}^Ig_{ij}a_{ijk}^{(t)}+\sum_{i=1}^I(2-g_{ij})b_{ijk}^{(t)}},\quad j=1,\ldots,J,\quad k=1,\ldots,K.$$
+$$f_{kj}^{(t+1)}=\frac{\sum_{i=1}^Ig_{ij}a_{ijk}^{(t)}}{\sum_{i=1}^Ig_{ij}a_{ijk}^{(t)}+\sum_{i=1}^I(2-g_{ij})b_{ijk}^{(t)}},\quad j=1,\ldots,J,\quad k=1,\ldots,K.$$
 
 &emsp;&emsp;In conclusion, at E-step, we compute the expectation
 $a_{ijk}$ and $b_{ijk}$, and at M-step, we compute the maximization and update the parameters
