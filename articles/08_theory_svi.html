@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,8 +51,8 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/01_quick_start.html">AwesomePackage: Quick Start</a>
-    <a class="dropdown-item" href="../articles/02_user_manual.html">AwesomePackage: User Manual 1.4.0</a>
+    <a class="dropdown-item" href="../articles/01_quick_start.html">AwesomePackage: Brief Introduction</a>
+    <a class="dropdown-item" href="../articles/02_user_manual.html">AwesomePackage: User Manual 2.0.0</a>
     <a class="dropdown-item" href="../articles/03_report.html">AwesomePackage: A Valid R Package for Ancestry Inference</a>
     <a class="dropdown-item" href="../articles/04_presentation.html">AwesomePackage: A Valid R Package for Ancestry Inference (slide)</a>
     <a class="dropdown-item" href="../articles/05_theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
@@ -98,7 +98,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Models and Methods IV: Fit PSD Model by SVI Algorithm</h1>
                         <h4 data-toc-skip class="author">Jonathon Chow</h4>
             
-            <h4 data-toc-skip class="date">2022-10-01</h4>
+            <h4 data-toc-skip class="date">2022-10-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/JONATHONCHOW/AwesomePackage/blob/HEAD/vignettes/08_theory_svi.Rmd" class="external-link"><code>vignettes/08_theory_svi.Rmd</code></a></small>
       <div class="d-none name"><code>08_theory_svi.Rmd</code></div>
@@ -122,22 +122,22 @@
 </h2>
 <p>  Modern applications of probability models often require analyzing massive data. However, most posterior inference algorithms do not easily scale. CAVI is no exception. The reason is that the coordinate ascent structure of the algorithm requires iterating through the entire data set at each iteration. As the data set size grows, each iteration becomes more computationally expensive <span class="citation">(Blei, Kucukelbir, and McAuliffe 2017)</span>.</p>
 <p>  An alternative to coordinate ascent is gradient-based optimization, which climbs the ELBO by computing and following its gradient at each iteration. This perspective is the key to scaling up variational inference using stochastic variational inference (SVI) <span class="citation">(Hoffman et al. 2013)</span>, a method that combines natural gradients <span class="citation">(Amari 1998)</span> and stochastic optimization <span class="citation">(Amari 1998)</span>. It repeatedly (a) subsamples a data point from the full data set; (b) uses the current global parameters to compute the optimal local parameters for the subsampled data point; and (c) adjusts the current global parameters in an appropriate way.</p>
-<p>  </p>
+<p>: proof of convergence of the algorithm</p>
 </div>
 <div class="section level2">
-<h2 id="fit-psd-model-by-vi-algorithm">Fit PSD Model by VI Algorithm<a class="anchor" aria-label="anchor" href="#fit-psd-model-by-vi-algorithm"></a>
+<h2 id="fit-psd-model-by-svi-algorithm">Fit PSD Model by SVI Algorithm<a class="anchor" aria-label="anchor" href="#fit-psd-model-by-svi-algorithm"></a>
 </h2>
-<p>  Our model, the choice of variational family is the same as the VI algorithm. The difference is to update the global variable <span class="math inline">\(P\)</span>.</p>
+<p>  Our model, the choice of variational family is the same as the VI algorithm. Our goal is to update the global variable <span class="math inline">\(P\)</span> iteratively. In each iteration, we first sample a SNP location <span class="math inline">\(j\)</span> and all observations <span class="math inline">\(g_{ij}\)</span> at that location. Then, in the sampled data, we update <span class="math inline">\(F\)</span> with fixed <span class="math inline">\(P\)</span> in the same way as VI until convergence. Next, we update the global variable <span class="math display">\[\tilde{p}_{ik}^{(t+1)}=(1-\rho_t)\tilde{p}_{ik}^{(t)}+\rho_t\big[\alpha_k+J(\tilde{z}_{ijk}^1+\tilde{z}_{ijk}^2)\big],\]</span> where step size <span class="math inline">\(\rho_t=(\tau_0+t)^{-\kappa}\)</span>. We set <span class="math inline">\(\tau_0\)</span> to 1 and <span class="math inline">\(\kappa\)</span> to 0.5. We take a validation set that does not participate in the training, and then compute the log-likelihood function on the validation set until the change is small enough.</p>
 </div>
 <div class="section level2">
 <h2 id="acceleration">Acceleration<a class="anchor" aria-label="anchor" href="#acceleration"></a>
 </h2>
-<p>  </p>
+<p></p>
 </div>
 <div class="section level2">
 <h2 id="algorithm-implementation">Algorithm Implementation<a class="anchor" aria-label="anchor" href="#algorithm-implementation"></a>
 </h2>
-<p>  </p>
+<p>: implementation details</p>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="literature-cited">Literature Cited<a class="anchor" aria-label="anchor" href="#literature-cited"></a>

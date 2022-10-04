@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">AwesomePackage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,8 +51,8 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/01_quick_start.html">AwesomePackage: Quick Start</a>
-    <a class="dropdown-item" href="../articles/02_user_manual.html">AwesomePackage: User Manual 1.4.0</a>
+    <a class="dropdown-item" href="../articles/01_quick_start.html">AwesomePackage: Brief Introduction</a>
+    <a class="dropdown-item" href="../articles/02_user_manual.html">AwesomePackage: User Manual 2.0.0</a>
     <a class="dropdown-item" href="../articles/03_report.html">AwesomePackage: A Valid R Package for Ancestry Inference</a>
     <a class="dropdown-item" href="../articles/04_presentation.html">AwesomePackage: A Valid R Package for Ancestry Inference (slide)</a>
     <a class="dropdown-item" href="../articles/05_theory_em.html">Models and Methods I: Fit PSD Model by EM Algorithm</a>
@@ -98,7 +98,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Applications II: TGP Data Set</h1>
                         <h4 data-toc-skip class="author">Jonathon Chow</h4>
             
-            <h4 data-toc-skip class="date">2022-10-01</h4>
+            <h4 data-toc-skip class="date">2022-10-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/JONATHONCHOW/AwesomePackage/blob/HEAD/vignettes/11_application_tgp.Rmd" class="external-link"><code>vignettes/11_application_tgp.Rmd</code></a></small>
       <div class="d-none name"><code>11_application_tgp.Rmd</code></div>
@@ -457,7 +457,7 @@
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_index_vs_K.html">plot_index_vs_K</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">error_TGP_em</span>, <span class="va">error_TGP_sqp</span>, <span class="va">error_TGP_vi</span><span class="op">)</span>, </span>
 <span>                <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"em"</span>, <span class="st">"sqp"</span>, <span class="st">"vi"</span><span class="op">)</span>, index.id <span class="op">=</span> <span class="st">"error"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="11_application_tgp_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
-<p>  The error curves of EM, SQP and VI are almost identical with the log-likelihood curves of EM, SQP and VI.</p>
+<p>  The error curves of EM, SQP and VI are almost identical with the log-likelihood curves of EM, SQP and VI. This is because the error function is computed based on the entire training set. The way to make it meaningful is to compute the error function on the validation set (which is not involved in training) and then evaluate the algorithm using either normal validation or cross validation.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_index_vs_K.html">plot_index_vs_K</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">ELBO_TGP_vi</span><span class="op">)</span>, </span>
 <span>                <span class="st">"vi"</span>, index.id <span class="op">=</span> <span class="st">"elbo"</span><span class="op">)</span></span></code></pre></div>
